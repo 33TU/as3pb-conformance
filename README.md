@@ -48,21 +48,27 @@ just update-submodules   # as3pb to latest main; protobuf stays at its pin
 
 ## Scope and status
 
-Only the proto3 binary wire format is graded; JSON, text format, and
-proto2 requests are answered with `skipped`. Known as3pb gaps are
-tracked in `expected_failures.txt`:
+The binary wire format is graded for proto3 and for editions files
+using proto3 semantics (`test_messages_proto3_editions.proto`,
+edition 2023). JSON, text format, proto2, and the full edition-2023
+feature set (extensions, delimited encoding, closed enums) are
+answered with `skipped`. Known as3pb gaps are tracked in
+`expected_failures.txt`:
 
-- invalid UTF-8 in proto3 string fields is accepted
+- invalid UTF-8 in string fields is accepted (a deliberate tradeoff:
+  validation costs a per-byte scan on the string hot path, and as3pb
+  is a client library parsing trusted server payloads)
 
 ## Results
 
-**as3pb passes the proto3 binary wire-format conformance tests** —
-702 tests, 0 unexpected failures against protobuf v35.1. The only
-exceptions are the 5 expected failures from the UTF-8 gap listed
-above; the skips are the JSON, proto2, editions, and text-format tests
-outside the suite's graded scope here.
+**as3pb passes the proto3 and editions-proto3 binary wire-format
+conformance tests** — 1404 tests, 0 unexpected failures against
+protobuf v35.1. The only exceptions are the 10 expected failures from
+the UTF-8 stance listed above (5 per message type); the skips are the
+JSON, proto2, full-editions, and text-format tests outside the
+suite's graded scope here.
 
 ```
-CONFORMANCE SUITE PASSED: 702 successes, 2101 skipped, 5 expected failures, 0 unexpected failures.
-CONFORMANCE SUITE PASSED: 0 successes, 445 skipped, 0 expected failures, 0 unexpected failures.
+CONFORMANCE SUITE PASSED: 1404 successes, 4217 skipped, 10 expected failures, 0 unexpected failures.
+CONFORMANCE SUITE PASSED: 0 successes, 909 skipped, 0 expected failures, 0 unexpected failures.
 ```

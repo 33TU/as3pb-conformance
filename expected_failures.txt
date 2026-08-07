@@ -1,7 +1,13 @@
-# Known feature gaps in as3pb. Remove entries here as the features land.
+# Known as3pb deviations, one section per stance.
 
-# Invalid UTF-8 in proto3 string fields is accepted; readUTFBytes does not
-# validate and proto3 requires rejecting such payloads.
+# Invalid UTF-8 in string fields is accepted. Deliberate: validation would
+# cost a per-byte scan on the string hot path, and as3pb is a client
+# library parsing trusted server payloads.
+Recommended.Editions_Proto3.ProtobufInput.RejectInvalidUtf8.String.MapKey
+Recommended.Editions_Proto3.ProtobufInput.RejectInvalidUtf8.String.MapValue
+Recommended.Editions_Proto3.ProtobufInput.RejectInvalidUtf8.String.Oneof
+Recommended.Editions_Proto3.ProtobufInput.RejectInvalidUtf8.String.Repeated
+Recommended.Editions_Proto3.ProtobufInput.RejectInvalidUtf8.String.Singular
 Recommended.Proto3.ProtobufInput.RejectInvalidUtf8.String.MapKey
 Recommended.Proto3.ProtobufInput.RejectInvalidUtf8.String.MapValue
 Recommended.Proto3.ProtobufInput.RejectInvalidUtf8.String.Oneof

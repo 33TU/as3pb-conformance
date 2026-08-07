@@ -9,7 +9,7 @@ GEN_DIR := "testee/generated"
 PROTOBUF_DIR := "protobuf"
 ADL := env("ADL", "adl")
 AMXMLC := env("AMXMLC", "amxmlc")
-PROTOC := env("PROTOC", "protoc")
+PROTOC := env("PROTOC", TOOLS_DIR / "protobuf-build" / "protoc")
 RUNNER := env("RUNNER", TOOLS_DIR / "conformance_test_runner")
 AS3_DEBUG := env("AS3_DEBUG", "true")
 AS3_INLINE := env("AS3_INLINE", "true")
@@ -22,6 +22,7 @@ default:
 test: build-shim build-testee
     ADL={{ ADL }} {{ RUNNER }} \
         --enforce_recommended \
+        --maximum_edition 2023 \
         --failure_list expected_failures.txt \
         {{ BIN_DIR }}/testee-shim
 
@@ -53,8 +54,10 @@ gen: build-generators
         --as3_out={{ GEN_DIR }} \
         -I {{ PROTOBUF_DIR }}/conformance \
         -I {{ PROTOBUF_DIR }}/src \
+        -I {{ PROTOBUF_DIR }}/editions/golden \
         {{ PROTOBUF_DIR }}/conformance/conformance.proto \
-        {{ PROTOBUF_DIR }}/src/google/protobuf/test_messages_proto3.proto
+        {{ PROTOBUF_DIR }}/src/google/protobuf/test_messages_proto3.proto \
+        {{ PROTOBUF_DIR }}/editions/golden/test_messages_proto3_editions.proto
 
 build-testee:
     mkdir -p testee/bin
