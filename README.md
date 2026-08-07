@@ -40,9 +40,10 @@ protos fed to codegen and the runner build come from that checkout.
 ## Usage
 
 ```sh
-just build-runner   # one-time: build conformance_test_runner from the protobuf submodule
-just gen            # regenerate AS3 from the conformance protos (after as3pb codegen changes)
-just test           # build the shim and testee, run the suite
+just build-runner        # one-time: build conformance_test_runner from the protobuf submodule
+just gen                 # regenerate AS3 from the conformance protos (after as3pb codegen changes)
+just test                # build the shim and testee, run the suite
+just update-submodules   # as3pb to latest main; protobuf stays at its pin
 ```
 
 ## Scope and status

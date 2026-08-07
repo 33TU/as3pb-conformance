@@ -25,6 +25,13 @@ test: build-shim build-testee
         --failure_list expected_failures.txt \
         {{ BIN_DIR }}/testee-shim
 
+# Update submodules: as3pb follows origin/main, protobuf stays at the
+# recorded pin (it fixes the conformance suite version)
+update-submodules:
+    git submodule sync
+    git submodule update --init {{ PROTOBUF_DIR }}
+    git submodule update --init --remote as3pb
+
 build-shim:
     mkdir -p {{ BIN_DIR }}
     go build -o {{ BIN_DIR }}/testee-shim ./cmd/testee-shim
