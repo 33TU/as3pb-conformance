@@ -54,3 +54,13 @@ tracked in `expected_failures.txt`:
 
 - unknown fields are dropped instead of preserved and re-emitted
 - invalid UTF-8 in proto3 string fields is accepted
+
+## Results
+
+Against protobuf v35.1 (the runner prints one line per suite; the
+second is the text-format suite, which the testee skips entirely):
+
+```
+CONFORMANCE SUITE PASSED: 700 successes, 2101 skipped, 7 expected failures, 0 unexpected failures.
+CONFORMANCE SUITE PASSED: 0 successes, 445 skipped, 0 expected failures, 0 unexpected failures.
+```
