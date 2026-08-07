@@ -5,15 +5,15 @@ GEN_DIR := "testee/generated"
 # The protobuf version is pinned by the protobuf submodule: both the
 # protos fed to codegen and the conformance runner build come from that
 # single checkout.
-PROTOBUF_DIR := "protobuf"
 
+PROTOBUF_DIR := "protobuf"
 ADL := env("ADL", "adl")
 AMXMLC := env("AMXMLC", "amxmlc")
 PROTOC := env("PROTOC", "protoc")
 RUNNER := env("RUNNER", TOOLS_DIR / "conformance_test_runner")
-
 AS3_DEBUG := env("AS3_DEBUG", "true")
 AS3_INLINE := env("AS3_INLINE", "true")
+AS3_OPTIMIZE := env("AS3_OPTIMIZE", "true")
 
 default:
     @just --list
@@ -26,6 +26,7 @@ test: build-shim build-testee
         {{ BIN_DIR }}/testee-shim
 
 # Update submodules: as3pb follows origin/main, protobuf stays at the
+
 # recorded pin (it fixes the conformance suite version)
 update-submodules:
     git submodule sync
@@ -64,6 +65,7 @@ build-testee:
         -output testee/bin/as3pb-conformance.swf \
         -compiler.strict=true \
         -compiler.inline={{ AS3_INLINE }} \
+        -optimize={{ AS3_OPTIMIZE }} \
         -debug={{ AS3_DEBUG }} \
         testee/src/Main.as
 
