@@ -1,0 +1,22 @@
+<application xmlns="http://ns.adobe.com/air/application/51.3">
+    <id>as3pb-conformance</id>
+    <versionNumber>1.0</versionNumber>
+    <filename>as3pb-conformance</filename>
+    <description />
+    <name>as3pb-conformance</name>
+    <copyright />
+    <initialWindow>
+        <content>bin/as3pb-conformance.swf</content>
+        <systemChrome>standard</systemChrome>
+        <transparent>false</transparent>
+        <visible>true</visible>
+        <fullScreen>false</fullScreen>
+        <aspectRatio>portrait</aspectRatio>
+        <renderMode>auto</renderMode>
+        <allowNetworking>all</allowNetworking>
+    </initialWindow>
+    <icon />
+    <customUpdateUI>false</customUpdateUI>
+    <allowBrowserInvocation>false</allowBrowserInvocation>
+    <supportedProfiles>extendedDesktop</supportedProfiles>
+</application>

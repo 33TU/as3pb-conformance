@@ -1,0 +1,3 @@
+[submodule "as3pb"]
+	path = as3pb
+	url = https://github.com/33TU/as3pb
