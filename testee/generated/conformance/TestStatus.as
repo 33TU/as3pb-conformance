@@ -29,6 +29,12 @@ package conformance
         public var matchedName:String = "";
 
         /**
+         * Raw wire bytes of fields unknown to this schema, preserved from
+         * deserialization and re-emitted on serialization. Null when none.
+         */
+        public var unknownFields:ByteArray;
+
+        /**
          * Resets the message fields to their default values.
          * @param msg The message to reset.
          */
@@ -38,6 +44,8 @@ package conformance
             msg.name = "";
             msg.failureMessage = "";
             msg.matchedName = "";
+            if (msg.unknownFields != null)
+                msg.unknownFields.length = 0;
         }
 
         /**
@@ -54,6 +62,8 @@ package conformance
             dst.name = src.name;
             dst.failureMessage = src.failureMessage;
             dst.matchedName = src.matchedName;
+
+            dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;
         }
@@ -104,7 +114,9 @@ package conformance
                         if ((tag >>> 3) == 0)
                             throw new Error("Invalid protobuf field number");
 
-                        Deserialize.skipField(src, tag & 7);
+                        if (dst.unknownFields == null)
+                            dst.unknownFields = Buffers.newByteArray();
+                        Deserialize.captureUnknownField(src, tag, dst.unknownFields);
                         break;
                     }
                 }
@@ -147,6 +159,9 @@ package conformance
                 dst.writeByte(26);
                 Serialize.writeString(dst, localMatchedName, reuseBuffer);
             }
+
+            if (src.unknownFields != null && src.unknownFields.length !== 0)
+                dst.writeBytes(src.unknownFields);
         }
 
         {

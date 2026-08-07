@@ -7,12 +7,19 @@ package protobuf_test_messages.proto3
     import flash.utils.ByteArray;
     import as3pb.proto.Deserialize;
     import as3pb.proto.Serialize;
+    import as3pb.proto.Buffers;
     import as3pb.wkt.AnyRegistry;
 
     public final class NullHypothesisProto3
     {
         public static const TYPE_URL:String = "type.googleapis.com/protobuf_test_messages.proto3.NullHypothesisProto3";
 
+
+        /**
+         * Raw wire bytes of fields unknown to this schema, preserved from
+         * deserialization and re-emitted on serialization. Null when none.
+         */
+        public var unknownFields:ByteArray;
         /**
          * Resets the message fields to their default values.
          * @param msg The message to reset.
@@ -20,6 +27,8 @@ package protobuf_test_messages.proto3
         [Inline]
         public static function reset(msg:NullHypothesisProto3):void
         {
+            if (msg.unknownFields != null)
+                msg.unknownFields.length = 0;
         }
 
         /**
@@ -33,6 +42,8 @@ package protobuf_test_messages.proto3
                 return null;
 
             const dst:NullHypothesisProto3 = new NullHypothesisProto3();
+
+            dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;
         }
@@ -68,7 +79,9 @@ package protobuf_test_messages.proto3
                         if ((tag >>> 3) == 0)
                             throw new Error("Invalid protobuf field number");
 
-                        Deserialize.skipField(src, tag & 7);
+                        if (dst.unknownFields == null)
+                            dst.unknownFields = Buffers.newByteArray();
+                        Deserialize.captureUnknownField(src, tag, dst.unknownFields);
                         break;
                     }
                 }
@@ -90,6 +103,9 @@ package protobuf_test_messages.proto3
             if (!src)
                 return;
 
+
+            if (src.unknownFields != null && src.unknownFields.length !== 0)
+                dst.writeBytes(src.unknownFields);
         }
 
         {

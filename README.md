@@ -52,18 +52,17 @@ Only the proto3 binary wire format is graded; JSON, text format, and
 proto2 requests are answered with `skipped`. Known as3pb gaps are
 tracked in `expected_failures.txt`:
 
-- unknown fields are dropped instead of preserved and re-emitted
 - invalid UTF-8 in proto3 string fields is accepted
 
 ## Results
 
 **as3pb passes the proto3 binary wire-format conformance tests** —
-700 tests, 0 unexpected failures against protobuf v35.1. The only
-exceptions are the 7 expected failures from the feature gaps listed
+702 tests, 0 unexpected failures against protobuf v35.1. The only
+exceptions are the 5 expected failures from the UTF-8 gap listed
 above; the skips are the JSON, proto2, editions, and text-format tests
 outside the suite's graded scope here.
 
 ```
-CONFORMANCE SUITE PASSED: 700 successes, 2101 skipped, 7 expected failures, 0 unexpected failures.
+CONFORMANCE SUITE PASSED: 702 successes, 2101 skipped, 5 expected failures, 0 unexpected failures.
 CONFORMANCE SUITE PASSED: 0 successes, 445 skipped, 0 expected failures, 0 unexpected failures.
 ```

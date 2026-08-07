@@ -230,6 +230,12 @@ package protobuf_test_messages.proto3
         public var oneofFieldCase:uint;
 
         /**
+         * Raw wire bytes of fields unknown to this schema, preserved from
+         * deserialization and re-emitted on serialization. Null when none.
+         */
+        public var unknownFields:ByteArray;
+
+        /**
          * Resets the message fields to their default values.
          * @param msg The message to reset.
          */
@@ -396,6 +402,8 @@ package protobuf_test_messages.proto3
             msg.fieldName17__ = 0;
             msg.fieldName18__ = 0;
             msg.oneofFieldCase = 0;
+            if (msg.unknownFields != null)
+                msg.unknownFields.length = 0;
         }
 
         /**
@@ -765,6 +773,8 @@ package protobuf_test_messages.proto3
                     break;
                 }
             }
+
+            dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;
         }
@@ -1937,7 +1947,9 @@ package protobuf_test_messages.proto3
                         if ((tag >>> 3) == 0)
                             throw new Error("Invalid protobuf field number");
 
-                        Deserialize.skipField(src, tag & 7);
+                        if (dst.unknownFields == null)
+                            dst.unknownFields = Buffers.newByteArray();
+                        Deserialize.captureUnknownField(src, tag, dst.unknownFields);
                         break;
                     }
                 }
@@ -3259,6 +3271,9 @@ package protobuf_test_messages.proto3
                         break;
                     }
                 }
+
+                if (src.unknownFields != null && src.unknownFields.length !== 0)
+                    dst.writeBytes(src.unknownFields);
             }
             finally
             {

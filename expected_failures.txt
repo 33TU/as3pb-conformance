@@ -1,10 +1,5 @@
 # Known feature gaps in as3pb. Remove entries here as the features land.
 
-# Unknown fields are dropped during deserialization instead of being
-# preserved and re-emitted on serialization.
-Required.Proto3.ProtobufInput.UnknownOrdering.ProtobufOutput
-Required.Proto3.ProtobufInput.UnknownVarint.ProtobufOutput
-
 # Invalid UTF-8 in proto3 string fields is accepted; readUTFBytes does not
 # validate and proto3 requires rejecting such payloads.
 Recommended.Proto3.ProtobufInput.RejectInvalidUtf8.String.MapKey
