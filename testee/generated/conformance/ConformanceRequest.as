@@ -167,7 +167,7 @@ package conformance
 
             while (src.position < end)
             {
-                const tag:uint = Deserialize.readVarint32(src);
+                const tag:uint = Deserialize.readTag(src);
                 switch (tag)
                 {
                     case 10:
@@ -217,7 +217,7 @@ package conformance
                     }
                     case 72:
                     {
-                        dst.printUnknownFields = Deserialize.readVarint32(src) !== 0;
+                        dst.printUnknownFields = Deserialize.readBool(src);
                         break;
                     }
                     default:

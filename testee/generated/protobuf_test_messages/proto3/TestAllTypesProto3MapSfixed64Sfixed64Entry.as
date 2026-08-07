@@ -70,7 +70,7 @@ package protobuf_test_messages.proto3
 
             while (src.position < end)
             {
-                const tag:uint = Deserialize.readVarint32(src);
+                const tag:uint = Deserialize.readTag(src);
                 switch (tag)
                 {
                     case 9:

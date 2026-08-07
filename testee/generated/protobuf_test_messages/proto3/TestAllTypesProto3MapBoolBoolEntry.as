@@ -67,17 +67,17 @@ package protobuf_test_messages.proto3
 
             while (src.position < end)
             {
-                const tag:uint = Deserialize.readVarint32(src);
+                const tag:uint = Deserialize.readTag(src);
                 switch (tag)
                 {
                     case 8:
                     {
-                        dst.key = Deserialize.readVarint32(src) !== 0;
+                        dst.key = Deserialize.readBool(src);
                         break;
                     }
                     case 16:
                     {
-                        dst.value = Deserialize.readVarint32(src) !== 0;
+                        dst.value = Deserialize.readBool(src);
                         break;
                     }
                     default:

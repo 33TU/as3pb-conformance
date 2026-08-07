@@ -794,7 +794,7 @@ package protobuf_test_messages.proto3
 
             while (src.position < end)
             {
-                const tag:uint = Deserialize.readVarint32(src);
+                const tag:uint = Deserialize.readTag(src);
                 switch (tag)
                 {
                     case 8:
@@ -859,7 +859,7 @@ package protobuf_test_messages.proto3
                     }
                     case 104:
                     {
-                        dst.optionalBool = Deserialize.readVarint32(src) !== 0;
+                        dst.optionalBool = Deserialize.readBool(src);
                         break;
                     }
                     case 114:
@@ -1040,7 +1040,7 @@ package protobuf_test_messages.proto3
                     }
                     case 344:
                     {
-                        dst.repeatedBool.push(Deserialize.readVarint32(src) !== 0);
+                        dst.repeatedBool.push(Deserialize.readBool(src));
                         break;
                     }
                     case 346:
@@ -1231,7 +1231,7 @@ package protobuf_test_messages.proto3
                     }
                     case 696:
                     {
-                        dst.packedBool.push(Deserialize.readVarint32(src) !== 0);
+                        dst.packedBool.push(Deserialize.readBool(src));
                         break;
                     }
                     case 698:
@@ -1374,7 +1374,7 @@ package protobuf_test_messages.proto3
                     }
                     case 808:
                     {
-                        dst.unpackedBool.push(Deserialize.readVarint32(src) !== 0);
+                        dst.unpackedBool.push(Deserialize.readBool(src));
                         break;
                     }
                     case 810:
@@ -1571,7 +1571,7 @@ package protobuf_test_messages.proto3
                     }
                     case 920:
                     {
-                        dst.oneofBool = Deserialize.readVarint32(src) !== 0;
+                        dst.oneofBool = Deserialize.readBool(src);
                         dst.oneofFieldCase = FIELD_ONEOF_BOOL;
                         break;
                     }
@@ -2458,7 +2458,7 @@ package protobuf_test_messages.proto3
                     for (vecIndex = 0; vecIndex < vecLength; vecIndex++)
                     {
                         dst.writeShort(1488);
-                        Serialize.writeVarint64s(dst, localUnpackedInt64[vecIndex].low, localUnpackedInt64[vecIndex].high);
+                        Serialize.writeVarint64s(dst, localUnpackedInt64.low[vecIndex], localUnpackedInt64.high[vecIndex]);
                     }
                 }
                 if ((vecLength = localUnpackedUint32.length) !== 0)
@@ -2474,7 +2474,7 @@ package protobuf_test_messages.proto3
                     for (vecIndex = 0; vecIndex < vecLength; vecIndex++)
                     {
                         dst.writeShort(1504);
-                        Serialize.writeVarint64(dst, localUnpackedUint64[vecIndex].low, localUnpackedUint64[vecIndex].high);
+                        Serialize.writeVarint64(dst, localUnpackedUint64.low[vecIndex], localUnpackedUint64.high[vecIndex]);
                     }
                 }
                 if ((vecLength = localUnpackedSint32.length) !== 0)
@@ -2490,7 +2490,7 @@ package protobuf_test_messages.proto3
                     for (vecIndex = 0; vecIndex < vecLength; vecIndex++)
                     {
                         dst.writeShort(1520);
-                        Serialize.writeSint64(dst, localUnpackedSint64[vecIndex].low, localUnpackedSint64[vecIndex].high);
+                        Serialize.writeSint64(dst, localUnpackedSint64.low[vecIndex], localUnpackedSint64.high[vecIndex]);
                     }
                 }
                 if ((vecLength = localUnpackedFixed32.length) !== 0)
@@ -2506,8 +2506,8 @@ package protobuf_test_messages.proto3
                     for (vecIndex = 0; vecIndex < vecLength; vecIndex++)
                     {
                         dst.writeShort(1665);
-                        dst.writeUnsignedInt(localUnpackedFixed64[vecIndex].low);
-                        dst.writeUnsignedInt(localUnpackedFixed64[vecIndex].high);
+                        dst.writeUnsignedInt(localUnpackedFixed64.low[vecIndex]);
+                        dst.writeUnsignedInt(localUnpackedFixed64.high[vecIndex]);
                     }
                 }
                 if ((vecLength = localUnpackedSfixed32.length) !== 0)
@@ -2523,8 +2523,8 @@ package protobuf_test_messages.proto3
                     for (vecIndex = 0; vecIndex < vecLength; vecIndex++)
                     {
                         dst.writeShort(1681);
-                        dst.writeUnsignedInt(localUnpackedSfixed64[vecIndex].low);
-                        dst.writeInt(localUnpackedSfixed64[vecIndex].high);
+                        dst.writeUnsignedInt(localUnpackedSfixed64.low[vecIndex]);
+                        dst.writeInt(localUnpackedSfixed64.high[vecIndex]);
                     }
                 }
                 if ((vecLength = localUnpackedFloat.length) !== 0)

@@ -9,7 +9,7 @@
         <content>bin/as3pb-conformance.swf</content>
         <systemChrome>standard</systemChrome>
         <transparent>false</transparent>
-        <visible>true</visible>
+        <visible>false</visible>
         <fullScreen>false</fullScreen>
         <aspectRatio>portrait</aspectRatio>
         <renderMode>auto</renderMode>

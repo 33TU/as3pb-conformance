@@ -23,6 +23,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"syscall"
 	"time"
@@ -45,10 +46,48 @@ func defaultADL() string {
 	if adl := os.Getenv("ADL"); adl != "" {
 		return adl
 	}
-	if sdk := os.Getenv("AIR_SDK"); sdk != "" {
-		return filepath.Join(sdk, "bin", "adl")
-	}
 	return "adl"
+}
+
+var appIDPattern = regexp.MustCompile(`<id>[^<]*</id>`)
+
+// uniqueDescriptor writes a copy of appXML whose <id> carries a per-run
+// suffix. AIR allows a single instance per application id and forwards new
+// invocations to it, and the conformance runner launches a fresh testee per
+// suite — without a unique id each launch would race the previous
+// instance's teardown.
+func uniqueDescriptor(appXML string) (string, error) {
+	data, err := os.ReadFile(appXML)
+	if err != nil {
+		return "", err
+	}
+	if !appIDPattern.Match(data) {
+		return "", fmt.Errorf("no <id> element in %s", appXML)
+	}
+
+	suffix := fmt.Sprintf(".p%d.t%d", os.Getpid(), time.Now().UnixNano()%1_000_000_000)
+	data = appIDPattern.ReplaceAllFunc(data, func(id []byte) []byte {
+		inner := id[len("<id>") : len(id)-len("</id>")]
+		return fmt.Appendf(nil, "<id>%s%s</id>", inner, suffix)
+	})
+
+	// The descriptor copy must live next to the original: adl may run in a
+	// sandbox (e.g. wine via bwrap) that cannot see the system temp dir,
+	// and a relative project path is what the wrapper already handles.
+	tmp, err := os.CreateTemp(filepath.Dir(appXML), ".descriptor-*.xml")
+	if err != nil {
+		return "", err
+	}
+	if _, err := tmp.Write(data); err != nil {
+		tmp.Close()
+		os.Remove(tmp.Name())
+		return "", err
+	}
+	if err := tmp.Close(); err != nil {
+		os.Remove(tmp.Name())
+		return "", err
+	}
+	return tmp.Name(), nil
 }
 
 func run(adlBin, appXML, rootDir string, acceptTimeout time.Duration) error {
@@ -59,7 +98,13 @@ func run(adlBin, appXML, rootDir string, acceptTimeout time.Duration) error {
 	defer ln.Close()
 	port := ln.Addr().(*net.TCPAddr).Port
 
-	cmd := exec.Command(adlBin, appXML, rootDir, "--", strconv.Itoa(port))
+	uniqueXML, err := uniqueDescriptor(appXML)
+	if err != nil {
+		return err
+	}
+	defer os.Remove(uniqueXML)
+
+	cmd := exec.Command(adlBin, uniqueXML, rootDir, "--", strconv.Itoa(port))
 	// Stdout must carry nothing but conformance responses, so adl's own
 	// output (including trace() from the app) is diverted to stderr.
 	cmd.Stdout = os.Stderr
@@ -69,10 +114,17 @@ func run(adlBin, appXML, rootDir string, acceptTimeout time.Duration) error {
 	if err := cmd.Start(); err != nil {
 		return fmt.Errorf("starting adl: %w", err)
 	}
-	defer syscall.Kill(-cmd.Process.Pid, syscall.SIGKILL)
 
 	adlExited := make(chan error, 1)
-	go func() { adlExited <- cmd.Wait() }()
+	go func() { adlExited <- cmd.Wait(); close(adlExited) }()
+
+	// Kill the tree and wait until adl is reaped before returning, so the
+	// runner never forks the next testee while this one is still dying.
+	// (Receiving from the closed channel is instant if adl already exited.)
+	defer func() {
+		syscall.Kill(-cmd.Process.Pid, syscall.SIGKILL)
+		<-adlExited
+	}()
 
 	conns := make(chan net.Conn, 1)
 	go func() {

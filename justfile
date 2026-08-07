@@ -7,9 +7,8 @@ GEN_DIR := "testee/generated"
 # single checkout.
 PROTOBUF_DIR := "protobuf"
 
-SDK_DIR := env("SDK_DIR", "sdk")
-ADL := env("ADL", SDK_DIR / "bin" / "adl")
-AMXMLC := env("AMXMLC", SDK_DIR / "bin" / "amxmlc")
+ADL := env("ADL", "adl")
+AMXMLC := env("AMXMLC", "amxmlc")
 PROTOC := env("PROTOC", "protoc")
 RUNNER := env("RUNNER", TOOLS_DIR / "conformance_test_runner")
 
@@ -67,9 +66,5 @@ build-runner:
         -DCMAKE_BUILD_TYPE=Release \
         -Dprotobuf_BUILD_CONFORMANCE=ON \
         -Dprotobuf_BUILD_TESTS=OFF
-    cmake --build {{ TOOLS_DIR }}/protobuf-build --target conformance_test_runner -j
+    cmake --build {{ TOOLS_DIR }}/protobuf-build --target conformance_test_runner -j 8
     cp {{ TOOLS_DIR }}/protobuf-build/conformance_test_runner {{ TOOLS_DIR }}/
-
-# Download the AIR SDK for this OS into SDK_DIR
-download-air-sdk:
-    go run github.com/33TU/as3pb/cmd/air-sdk-downloader -dir {{ SDK_DIR }}

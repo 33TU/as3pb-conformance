@@ -35,6 +35,9 @@ go.work.sum
 /bin/
 testee/bin/
 
+# Per-run app descriptor copies made by testee-shim
+testee/.descriptor-*.xml
+
 # Conformance tooling
 /sdk/
 /tools/
