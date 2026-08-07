@@ -402,8 +402,7 @@ package protobuf_test_messages.proto3
             msg.fieldName17__ = 0;
             msg.fieldName18__ = 0;
             msg.oneofFieldCase = 0;
-            if (msg.unknownFields != null)
-                msg.unknownFields.length = 0;
+            msg.unknownFields = null;
         }
 
         /**
@@ -3272,7 +3271,7 @@ package protobuf_test_messages.proto3
                     }
                 }
 
-                if (src.unknownFields != null && src.unknownFields.length !== 0)
+                if (src.unknownFields)
                     dst.writeBytes(src.unknownFields);
             }
             finally

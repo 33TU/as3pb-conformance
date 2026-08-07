@@ -35,8 +35,7 @@ package protobuf_test_messages.proto3
             msg.key.high = 0;
             msg.value.low = 0;
             msg.value.high = 0;
-            if (msg.unknownFields != null)
-                msg.unknownFields.length = 0;
+            msg.unknownFields = null;
         }
 
         /**
@@ -137,7 +136,7 @@ package protobuf_test_messages.proto3
                 Serialize.writeVarint64s(dst, localValue.low, localValue.high);
             }
 
-            if (src.unknownFields != null && src.unknownFields.length !== 0)
+            if (src.unknownFields)
                 dst.writeBytes(src.unknownFields);
         }
 

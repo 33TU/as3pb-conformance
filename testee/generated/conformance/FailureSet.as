@@ -35,8 +35,7 @@ package conformance
         public static function reset(msg:FailureSet):void
         {
             msg.test.length = 0;
-            if (msg.unknownFields != null)
-                msg.unknownFields.length = 0;
+            msg.unknownFields = null;
         }
 
         /**
@@ -146,7 +145,7 @@ package conformance
                     }
                 }
 
-                if (src.unknownFields != null && src.unknownFields.length !== 0)
+                if (src.unknownFields)
                     dst.writeBytes(src.unknownFields);
             }
             finally

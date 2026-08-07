@@ -27,8 +27,7 @@ package protobuf_test_messages.proto3
         [Inline]
         public static function reset(msg:EnumOnlyProto3):void
         {
-            if (msg.unknownFields != null)
-                msg.unknownFields.length = 0;
+            msg.unknownFields = null;
         }
 
         /**
@@ -104,7 +103,7 @@ package protobuf_test_messages.proto3
                 return;
 
 
-            if (src.unknownFields != null && src.unknownFields.length !== 0)
+            if (src.unknownFields)
                 dst.writeBytes(src.unknownFields);
         }
 

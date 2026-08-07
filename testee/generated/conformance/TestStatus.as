@@ -44,8 +44,7 @@ package conformance
             msg.name = "";
             msg.failureMessage = "";
             msg.matchedName = "";
-            if (msg.unknownFields != null)
-                msg.unknownFields.length = 0;
+            msg.unknownFields = null;
         }
 
         /**
@@ -160,7 +159,7 @@ package conformance
                 Serialize.writeString(dst, localMatchedName, reuseBuffer);
             }
 
-            if (src.unknownFields != null && src.unknownFields.length !== 0)
+            if (src.unknownFields)
                 dst.writeBytes(src.unknownFields);
         }
 

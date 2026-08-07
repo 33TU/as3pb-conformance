@@ -36,8 +36,7 @@ package conformance
         public static function reset(msg:JspbEncodingConfig):void
         {
             msg.useJspbArrayAnyFormat = false;
-            if (msg.unknownFields != null)
-                msg.unknownFields.length = 0;
+            msg.unknownFields = null;
         }
 
         /**
@@ -126,7 +125,7 @@ package conformance
                 dst.writeByte(localUseJspbArrayAnyFormat ? 1 : 0);
             }
 
-            if (src.unknownFields != null && src.unknownFields.length !== 0)
+            if (src.unknownFields)
                 dst.writeBytes(src.unknownFields);
         }
 

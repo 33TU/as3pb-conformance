@@ -100,8 +100,7 @@ package conformance
             msg.jspbEncodingOptions = null;
             msg.printUnknownFields = false;
             msg.payloadCase = 0;
-            if (msg.unknownFields != null)
-                msg.unknownFields.length = 0;
+            msg.unknownFields = null;
         }
 
         /**
@@ -359,7 +358,7 @@ package conformance
                     }
                 }
 
-                if (src.unknownFields != null && src.unknownFields.length !== 0)
+                if (src.unknownFields)
                     dst.writeBytes(src.unknownFields);
             }
             finally

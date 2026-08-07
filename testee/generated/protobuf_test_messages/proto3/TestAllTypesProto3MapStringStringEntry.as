@@ -32,8 +32,7 @@ package protobuf_test_messages.proto3
         {
             msg.key = "";
             msg.value = "";
-            if (msg.unknownFields != null)
-                msg.unknownFields.length = 0;
+            msg.unknownFields = null;
         }
 
         /**
@@ -136,7 +135,7 @@ package protobuf_test_messages.proto3
                 Serialize.writeString(dst, localValue, reuseBuffer);
             }
 
-            if (src.unknownFields != null && src.unknownFields.length !== 0)
+            if (src.unknownFields)
                 dst.writeBytes(src.unknownFields);
         }
 
