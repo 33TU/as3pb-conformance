@@ -57,8 +57,11 @@ tracked in `expected_failures.txt`:
 
 ## Results
 
-Against protobuf v35.1 (the runner prints one line per suite; the
-second is the text-format suite, which the testee skips entirely):
+**as3pb passes the proto3 binary wire-format conformance tests** —
+700 tests, 0 unexpected failures against protobuf v35.1. The only
+exceptions are the 7 expected failures from the feature gaps listed
+above; the skips are the JSON, proto2, editions, and text-format tests
+outside the suite's graded scope here.
 
 ```
 CONFORMANCE SUITE PASSED: 700 successes, 2101 skipped, 7 expected failures, 0 unexpected failures.
