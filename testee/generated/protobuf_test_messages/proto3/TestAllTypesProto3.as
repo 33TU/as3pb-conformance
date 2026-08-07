@@ -772,7 +772,6 @@ package protobuf_test_messages.proto3
                     break;
                 }
             }
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

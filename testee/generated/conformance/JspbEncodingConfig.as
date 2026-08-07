@@ -51,7 +51,6 @@ package conformance
 
             const dst:JspbEncodingConfig = new JspbEncodingConfig();
             dst.useJspbArrayAnyFormat = src.useJspbArrayAnyFormat;
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

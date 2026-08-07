@@ -61,7 +61,6 @@ package conformance
             dst.name = src.name;
             dst.failureMessage = src.failureMessage;
             dst.matchedName = src.matchedName;
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

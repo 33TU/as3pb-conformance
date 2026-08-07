@@ -41,7 +41,6 @@ package protobuf_test_messages.proto3
                 return null;
 
             const dst:NullHypothesisProto3 = new NullHypothesisProto3();
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

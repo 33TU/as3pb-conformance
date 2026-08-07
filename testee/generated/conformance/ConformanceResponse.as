@@ -181,7 +181,6 @@ package conformance
                     break;
                 }
             }
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

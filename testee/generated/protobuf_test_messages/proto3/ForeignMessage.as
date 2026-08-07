@@ -45,7 +45,6 @@ package protobuf_test_messages.proto3
 
             const dst:ForeignMessage = new ForeignMessage();
             dst.c = src.c;
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

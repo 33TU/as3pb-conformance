@@ -48,7 +48,6 @@ package protobuf_test_messages.proto3
             const dst:TestAllTypesProto3MapStringNestedMessageEntry = new TestAllTypesProto3MapStringNestedMessageEntry();
             dst.key = src.key;
             dst.value = TestAllTypesProto3NestedMessage.clone(src.value);
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

@@ -48,7 +48,6 @@ package protobuf_test_messages.proto3
             const dst:TestAllTypesProto3MapStringForeignMessageEntry = new TestAllTypesProto3MapStringForeignMessageEntry();
             dst.key = src.key;
             dst.value = ForeignMessage.clone(src.value);
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

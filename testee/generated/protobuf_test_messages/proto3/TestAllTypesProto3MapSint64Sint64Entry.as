@@ -51,7 +51,6 @@ package protobuf_test_messages.proto3
             const dst:TestAllTypesProto3MapSint64Sint64Entry = new TestAllTypesProto3MapSint64Sint64Entry();
             dst.key.copyFrom(src.key);
             dst.value.copyFrom(src.value);
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

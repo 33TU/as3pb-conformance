@@ -48,7 +48,6 @@ package protobuf_test_messages.proto3
             const dst:TestAllTypesProto3NestedMessage = new TestAllTypesProto3NestedMessage();
             dst.a = src.a;
             dst.corecursive = TestAllTypesProto3.clone(src.corecursive);
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

@@ -48,7 +48,6 @@ package protobuf_test_messages.proto3
             const dst:TestAllTypesProto3MapInt32DoubleEntry = new TestAllTypesProto3MapInt32DoubleEntry();
             dst.key = src.key;
             dst.value = src.value;
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;

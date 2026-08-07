@@ -48,7 +48,6 @@ package protobuf_test_messages.proto3
             const dst:TestAllTypesProto3MapStringBytesEntry = new TestAllTypesProto3MapStringBytesEntry();
             dst.key = src.key;
             dst.value = Buffers.cloneByteArray(src.value);
-
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;
