@@ -13,6 +13,7 @@ PROTOC := env("PROTOC", "protoc")
 RUNNER := env("RUNNER", TOOLS_DIR / "conformance_test_runner")
 
 AS3_DEBUG := env("AS3_DEBUG", "true")
+AS3_INLINE := env("AS3_INLINE", "true")
 
 default:
     @just --list
@@ -55,6 +56,7 @@ build-testee:
         -source-path as3pb/runtime/src \
         -output testee/bin/as3pb-conformance.swf \
         -compiler.strict=true \
+        -compiler.inline={{ AS3_INLINE }} \
         -debug={{ AS3_DEBUG }} \
         testee/src/Main.as
 
