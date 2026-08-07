@@ -34,3 +34,7 @@ go.work.sum
 # Build output
 /bin/
 testee/bin/
+
+# Conformance tooling
+/sdk/
+/tools/

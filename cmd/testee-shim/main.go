@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	adlBin := flag.String("adl", defaultADL(), "path to the adl binary (defaults to $AIR_SDK/bin/adl, then adl on PATH)")
+	adlBin := flag.String("adl", defaultADL(), "path to the adl binary (defaults to $ADL, then $AIR_SDK/bin/adl, then adl on PATH)")
 	appXML := flag.String("app", "testee/as3pb-conformance.xml", "AIR application descriptor")
 	rootDir := flag.String("root", "testee", "AIR application root directory")
 	acceptTimeout := flag.Duration("accept-timeout", 30*time.Second, "how long to wait for the AIR app to connect")
@@ -42,6 +42,9 @@ func main() {
 }
 
 func defaultADL() string {
+	if adl := os.Getenv("ADL"); adl != "" {
+		return adl
+	}
 	if sdk := os.Getenv("AIR_SDK"); sdk != "" {
 		return filepath.Join(sdk, "bin", "adl")
 	}
