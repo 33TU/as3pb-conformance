@@ -10,7 +10,6 @@ package protobuf_test_messages.proto3
         public static const ALIAS_BAR:uint = 1;
         public static const ALIAS_BAZ:uint = 2;
         public static const MOO:uint = 2;
-        public static const MOO:uint = 2;
         public static const B_AZ:uint = 2;
     }
 }

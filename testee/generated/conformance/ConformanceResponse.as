@@ -273,6 +273,7 @@ package conformance
 
                         if (dst.unknownFields == null)
                             dst.unknownFields = Buffers.newByteArray();
+
                         Deserialize.captureUnknownField(src, tag, dst.unknownFields);
                         break;
                     }
