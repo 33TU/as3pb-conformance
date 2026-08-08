@@ -51,9 +51,12 @@ just update-submodules   # as3pb to latest main; protobuf stays at its pin
 The binary wire format is graded for proto3 and for editions files
 using proto3 semantics (`test_messages_proto3_editions.proto`), with
 the runner at `--maximum_edition 2024` — the suite defines no tests
-above edition 2023, so 2024 adds no wire surface. JSON, text format,
-proto2, and the full edition-2023 feature set (extensions, delimited
-encoding, closed enums) are answered with `skipped`. Known as3pb gaps are tracked in
+above edition 2023, so 2024 adds no wire surface. Beyond the proto3
+feature set, as3pb also accepts editions explicit presence and
+declared defaults (surfaced as generated `DEFAULT_*` constants; both
+are wire-neutral, so no conformance tests exercise them). JSON, text
+format, proto2, and the remaining edition-2023 features (extensions,
+delimited encoding, closed enums) are answered with `skipped`. Known as3pb gaps are tracked in
 `expected_failures.txt`:
 
 - invalid UTF-8 in string fields is accepted (a deliberate tradeoff:
