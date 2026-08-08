@@ -14,12 +14,12 @@ package protobuf_test_messages.editions.proto3
     {
         public static const TYPE_URL:String = "type.googleapis.com/protobuf_test_messages.editions.proto3.EnumOnlyProto3";
 
-
         /**
          * Raw wire bytes of fields unknown to this schema, preserved from
          * deserialization and re-emitted on serialization. Null when none.
          */
         public var unknownFields:ByteArray;
+
         /**
          * Resets the message fields to their default values.
          * @param msg The message to reset.
@@ -101,7 +101,6 @@ package protobuf_test_messages.editions.proto3
         {
             if (!src)
                 return;
-
 
             if (src.unknownFields)
                 dst.writeBytes(src.unknownFields);
