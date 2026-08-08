@@ -61,7 +61,7 @@ package conformance
         /**
          * Specify details for how to encode jspb.
          */
-        public var jspbEncodingOptions:JspbEncodingConfig = null;
+        public var jspbEncodingOptions:conformance.JspbEncodingConfig = null;
 
         /**
          * This can be used in json and text format. If true, testee should print
@@ -88,7 +88,7 @@ package conformance
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:ConformanceRequest):void
+        public static function reset(msg:conformance.ConformanceRequest):void
         {
             msg.protobufPayload.length = 0;
             msg.jsonPayload = "";
@@ -108,16 +108,16 @@ package conformance
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:ConformanceRequest):ConformanceRequest
+        public static function clone(src:conformance.ConformanceRequest):conformance.ConformanceRequest
         {
             if (!src)
                 return null;
 
-            const dst:ConformanceRequest = new ConformanceRequest();
+            const dst:conformance.ConformanceRequest = new conformance.ConformanceRequest();
             dst.requestedOutputFormat = src.requestedOutputFormat;
             dst.messageType = src.messageType;
             dst.testCategory = src.testCategory;
-            dst.jspbEncodingOptions = JspbEncodingConfig.clone(src.jspbEncodingOptions);
+            dst.jspbEncodingOptions = conformance.JspbEncodingConfig.clone(src.jspbEncodingOptions);
             dst.printUnknownFields = src.printUnknownFields;
 
             dst.payloadCase = src.payloadCase;
@@ -157,12 +157,12 @@ package conformance
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:ConformanceRequest = null, limit:uint = 0, reset:Boolean = true):ConformanceRequest
+        public static function deserializeBytes(src:ByteArray, dst:conformance.ConformanceRequest = null, limit:uint = 0, reset:Boolean = true):conformance.ConformanceRequest
         {
             if (!dst)
-                dst = new ConformanceRequest();
+                dst = new conformance.ConformanceRequest();
             else if (reset)
-                ConformanceRequest.reset(dst);
+                conformance.ConformanceRequest.reset(dst);
 
             var messageLength:uint = 0;
 
@@ -220,7 +220,7 @@ package conformance
                     case 50:
                     {
                         messageLength = Deserialize.readVarint32(src);
-                        dst.jspbEncodingOptions = JspbEncodingConfig.deserializeBytes(src, dst.jspbEncodingOptions, src.position + messageLength, false);
+                        dst.jspbEncodingOptions = conformance.JspbEncodingConfig.deserializeBytes(src, dst.jspbEncodingOptions, src.position + messageLength, false);
                         break;
                     }
                     case 72:
@@ -252,7 +252,7 @@ package conformance
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:ConformanceRequest, dst:ByteArray):void
+        public static function serializeBytes(src:conformance.ConformanceRequest, dst:ByteArray):void
         {
             if (!src)
                 return;
@@ -267,7 +267,7 @@ package conformance
             const localRequestedOutputFormat:int = src.requestedOutputFormat;
             const localMessageType:String = src.messageType;
             const localTestCategory:int = src.testCategory;
-            const localJspbEncodingOptions:JspbEncodingConfig = src.jspbEncodingOptions;
+            const localJspbEncodingOptions:conformance.JspbEncodingConfig = src.jspbEncodingOptions;
             const localPrintUnknownFields:Boolean = src.printUnknownFields;
 
             try
@@ -291,7 +291,7 @@ package conformance
                 {
                     dst.writeByte(50);
                     messageReuseBuffer.length = 0;
-                    JspbEncodingConfig.serializeBytes(localJspbEncodingOptions, messageReuseBuffer);
+                    conformance.JspbEncodingConfig.serializeBytes(localJspbEncodingOptions, messageReuseBuffer);
                     Serialize.writeVarint32(dst, messageReuseBuffer.length);
                     dst.writeBytes(messageReuseBuffer);
                 }

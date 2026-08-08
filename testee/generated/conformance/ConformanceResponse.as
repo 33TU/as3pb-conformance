@@ -104,7 +104,7 @@ package conformance
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:ConformanceResponse):void
+        public static function reset(msg:conformance.ConformanceResponse):void
         {
             msg.parseError = "";
             msg.serializeError = "";
@@ -124,12 +124,12 @@ package conformance
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:ConformanceResponse):ConformanceResponse
+        public static function clone(src:conformance.ConformanceResponse):conformance.ConformanceResponse
         {
             if (!src)
                 return null;
 
-            const dst:ConformanceResponse = new ConformanceResponse();
+            const dst:conformance.ConformanceResponse = new conformance.ConformanceResponse();
 
             dst.resultCase = src.resultCase;
             switch (src.resultCase)
@@ -193,12 +193,12 @@ package conformance
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:ConformanceResponse = null, limit:uint = 0, reset:Boolean = true):ConformanceResponse
+        public static function deserializeBytes(src:ByteArray, dst:conformance.ConformanceResponse = null, limit:uint = 0, reset:Boolean = true):conformance.ConformanceResponse
         {
             if (!dst)
-                dst = new ConformanceResponse();
+                dst = new conformance.ConformanceResponse();
             else if (reset)
-                ConformanceResponse.reset(dst);
+                conformance.ConformanceResponse.reset(dst);
 
             const end:uint = limit
                 ? limit
@@ -290,7 +290,7 @@ package conformance
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:ConformanceResponse, dst:ByteArray):void
+        public static function serializeBytes(src:conformance.ConformanceResponse, dst:ByteArray):void
         {
             if (!src)
                 return;

@@ -15,7 +15,7 @@ package protobuf_test_messages.editions.proto3
         public static const TYPE_URL:String = "type.googleapis.com/protobuf_test_messages.editions.proto3.TestAllTypesProto3.MapStringNestedMessageEntry";
 
         public var key:String = "";
-        public var value:TestAllTypesProto3NestedMessage = null;
+        public var value:protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage = null;
 
         /**
          * Raw wire bytes of fields unknown to this schema, preserved from
@@ -28,7 +28,7 @@ package protobuf_test_messages.editions.proto3
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:TestAllTypesProto3MapStringNestedMessageEntry):void
+        public static function reset(msg:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry):void
         {
             msg.key = "";
             msg.value = null;
@@ -40,14 +40,14 @@ package protobuf_test_messages.editions.proto3
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:TestAllTypesProto3MapStringNestedMessageEntry):TestAllTypesProto3MapStringNestedMessageEntry
+        public static function clone(src:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry):protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry
         {
             if (!src)
                 return null;
 
-            const dst:TestAllTypesProto3MapStringNestedMessageEntry = new TestAllTypesProto3MapStringNestedMessageEntry();
+            const dst:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry();
             dst.key = src.key;
-            dst.value = TestAllTypesProto3NestedMessage.clone(src.value);
+            dst.value = protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.clone(src.value);
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;
@@ -60,12 +60,12 @@ package protobuf_test_messages.editions.proto3
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:TestAllTypesProto3MapStringNestedMessageEntry = null, limit:uint = 0, reset:Boolean = true):TestAllTypesProto3MapStringNestedMessageEntry
+        public static function deserializeBytes(src:ByteArray, dst:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry
         {
             if (!dst)
-                dst = new TestAllTypesProto3MapStringNestedMessageEntry();
+                dst = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry();
             else if (reset)
-                TestAllTypesProto3MapStringNestedMessageEntry.reset(dst);
+                protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry.reset(dst);
 
             var messageLength:uint = 0;
 
@@ -89,7 +89,7 @@ package protobuf_test_messages.editions.proto3
                     case 18:
                     {
                         messageLength = Deserialize.readVarint32(src);
-                        dst.value = TestAllTypesProto3NestedMessage.deserializeBytes(src, dst.value, src.position + messageLength, false);
+                        dst.value = protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.deserializeBytes(src, dst.value, src.position + messageLength, false);
                         break;
                     }
                     default:
@@ -116,7 +116,7 @@ package protobuf_test_messages.editions.proto3
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:TestAllTypesProto3MapStringNestedMessageEntry, dst:ByteArray):void
+        public static function serializeBytes(src:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry, dst:ByteArray):void
         {
             if (!src)
                 return;
@@ -125,7 +125,7 @@ package protobuf_test_messages.editions.proto3
             const messageReuseBuffer:ByteArray = Buffers.acquireMessageBuffer();
 
             const localKey:String = src.key;
-            const localValue:TestAllTypesProto3NestedMessage = src.value;
+            const localValue:protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage = src.value;
 
             try
             {
@@ -138,7 +138,7 @@ package protobuf_test_messages.editions.proto3
                 {
                     dst.writeByte(18);
                     messageReuseBuffer.length = 0;
-                    TestAllTypesProto3NestedMessage.serializeBytes(localValue, messageReuseBuffer);
+                    protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.serializeBytes(localValue, messageReuseBuffer);
                     Serialize.writeVarint32(dst, messageReuseBuffer.length);
                     dst.writeBytes(messageReuseBuffer);
                 }

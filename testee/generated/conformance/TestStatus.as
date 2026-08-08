@@ -39,7 +39,7 @@ package conformance
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:TestStatus):void
+        public static function reset(msg:conformance.TestStatus):void
         {
             msg.name = "";
             msg.failureMessage = "";
@@ -52,12 +52,12 @@ package conformance
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:TestStatus):TestStatus
+        public static function clone(src:conformance.TestStatus):conformance.TestStatus
         {
             if (!src)
                 return null;
 
-            const dst:TestStatus = new TestStatus();
+            const dst:conformance.TestStatus = new conformance.TestStatus();
             dst.name = src.name;
             dst.failureMessage = src.failureMessage;
             dst.matchedName = src.matchedName;
@@ -73,12 +73,12 @@ package conformance
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:TestStatus = null, limit:uint = 0, reset:Boolean = true):TestStatus
+        public static function deserializeBytes(src:ByteArray, dst:conformance.TestStatus = null, limit:uint = 0, reset:Boolean = true):conformance.TestStatus
         {
             if (!dst)
-                dst = new TestStatus();
+                dst = new conformance.TestStatus();
             else if (reset)
-                TestStatus.reset(dst);
+                conformance.TestStatus.reset(dst);
 
             const end:uint = limit
                 ? limit
@@ -131,7 +131,7 @@ package conformance
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:TestStatus, dst:ByteArray):void
+        public static function serializeBytes(src:conformance.TestStatus, dst:ByteArray):void
         {
             if (!src)
                 return;

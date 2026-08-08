@@ -33,7 +33,7 @@ package conformance
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:JspbEncodingConfig):void
+        public static function reset(msg:conformance.JspbEncodingConfig):void
         {
             msg.useJspbArrayAnyFormat = false;
             msg.unknownFields = null;
@@ -44,12 +44,12 @@ package conformance
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:JspbEncodingConfig):JspbEncodingConfig
+        public static function clone(src:conformance.JspbEncodingConfig):conformance.JspbEncodingConfig
         {
             if (!src)
                 return null;
 
-            const dst:JspbEncodingConfig = new JspbEncodingConfig();
+            const dst:conformance.JspbEncodingConfig = new conformance.JspbEncodingConfig();
             dst.useJspbArrayAnyFormat = src.useJspbArrayAnyFormat;
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
@@ -63,12 +63,12 @@ package conformance
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:JspbEncodingConfig = null, limit:uint = 0, reset:Boolean = true):JspbEncodingConfig
+        public static function deserializeBytes(src:ByteArray, dst:conformance.JspbEncodingConfig = null, limit:uint = 0, reset:Boolean = true):conformance.JspbEncodingConfig
         {
             if (!dst)
-                dst = new JspbEncodingConfig();
+                dst = new conformance.JspbEncodingConfig();
             else if (reset)
-                JspbEncodingConfig.reset(dst);
+                conformance.JspbEncodingConfig.reset(dst);
 
             const end:uint = limit
                 ? limit
@@ -111,7 +111,7 @@ package conformance
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:JspbEncodingConfig, dst:ByteArray):void
+        public static function serializeBytes(src:conformance.JspbEncodingConfig, dst:ByteArray):void
         {
             if (!src)
                 return;

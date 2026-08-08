@@ -27,7 +27,7 @@ package protobuf_test_messages.proto3
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:ForeignMessage):void
+        public static function reset(msg:protobuf_test_messages.proto3.ForeignMessage):void
         {
             msg.c = 0;
             msg.unknownFields = null;
@@ -38,12 +38,12 @@ package protobuf_test_messages.proto3
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:ForeignMessage):ForeignMessage
+        public static function clone(src:protobuf_test_messages.proto3.ForeignMessage):protobuf_test_messages.proto3.ForeignMessage
         {
             if (!src)
                 return null;
 
-            const dst:ForeignMessage = new ForeignMessage();
+            const dst:protobuf_test_messages.proto3.ForeignMessage = new protobuf_test_messages.proto3.ForeignMessage();
             dst.c = src.c;
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
@@ -57,12 +57,12 @@ package protobuf_test_messages.proto3
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:ForeignMessage = null, limit:uint = 0, reset:Boolean = true):ForeignMessage
+        public static function deserializeBytes(src:ByteArray, dst:protobuf_test_messages.proto3.ForeignMessage = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.proto3.ForeignMessage
         {
             if (!dst)
-                dst = new ForeignMessage();
+                dst = new protobuf_test_messages.proto3.ForeignMessage();
             else if (reset)
-                ForeignMessage.reset(dst);
+                protobuf_test_messages.proto3.ForeignMessage.reset(dst);
 
             const end:uint = limit
                 ? limit
@@ -105,7 +105,7 @@ package protobuf_test_messages.proto3
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:ForeignMessage, dst:ByteArray):void
+        public static function serializeBytes(src:protobuf_test_messages.proto3.ForeignMessage, dst:ByteArray):void
         {
             if (!src)
                 return;

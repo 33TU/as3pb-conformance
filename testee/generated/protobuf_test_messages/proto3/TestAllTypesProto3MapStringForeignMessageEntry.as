@@ -15,7 +15,7 @@ package protobuf_test_messages.proto3
         public static const TYPE_URL:String = "type.googleapis.com/protobuf_test_messages.proto3.TestAllTypesProto3.MapStringForeignMessageEntry";
 
         public var key:String = "";
-        public var value:ForeignMessage = null;
+        public var value:protobuf_test_messages.proto3.ForeignMessage = null;
 
         /**
          * Raw wire bytes of fields unknown to this schema, preserved from
@@ -28,7 +28,7 @@ package protobuf_test_messages.proto3
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:TestAllTypesProto3MapStringForeignMessageEntry):void
+        public static function reset(msg:protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry):void
         {
             msg.key = "";
             msg.value = null;
@@ -40,14 +40,14 @@ package protobuf_test_messages.proto3
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:TestAllTypesProto3MapStringForeignMessageEntry):TestAllTypesProto3MapStringForeignMessageEntry
+        public static function clone(src:protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry):protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry
         {
             if (!src)
                 return null;
 
-            const dst:TestAllTypesProto3MapStringForeignMessageEntry = new TestAllTypesProto3MapStringForeignMessageEntry();
+            const dst:protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry();
             dst.key = src.key;
-            dst.value = ForeignMessage.clone(src.value);
+            dst.value = protobuf_test_messages.proto3.ForeignMessage.clone(src.value);
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;
@@ -60,12 +60,12 @@ package protobuf_test_messages.proto3
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:TestAllTypesProto3MapStringForeignMessageEntry = null, limit:uint = 0, reset:Boolean = true):TestAllTypesProto3MapStringForeignMessageEntry
+        public static function deserializeBytes(src:ByteArray, dst:protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry
         {
             if (!dst)
-                dst = new TestAllTypesProto3MapStringForeignMessageEntry();
+                dst = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry();
             else if (reset)
-                TestAllTypesProto3MapStringForeignMessageEntry.reset(dst);
+                protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry.reset(dst);
 
             var messageLength:uint = 0;
 
@@ -89,7 +89,7 @@ package protobuf_test_messages.proto3
                     case 18:
                     {
                         messageLength = Deserialize.readVarint32(src);
-                        dst.value = ForeignMessage.deserializeBytes(src, dst.value, src.position + messageLength, false);
+                        dst.value = protobuf_test_messages.proto3.ForeignMessage.deserializeBytes(src, dst.value, src.position + messageLength, false);
                         break;
                     }
                     default:
@@ -116,7 +116,7 @@ package protobuf_test_messages.proto3
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:TestAllTypesProto3MapStringForeignMessageEntry, dst:ByteArray):void
+        public static function serializeBytes(src:protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry, dst:ByteArray):void
         {
             if (!src)
                 return;
@@ -125,7 +125,7 @@ package protobuf_test_messages.proto3
             const messageReuseBuffer:ByteArray = Buffers.acquireMessageBuffer();
 
             const localKey:String = src.key;
-            const localValue:ForeignMessage = src.value;
+            const localValue:protobuf_test_messages.proto3.ForeignMessage = src.value;
 
             try
             {
@@ -138,7 +138,7 @@ package protobuf_test_messages.proto3
                 {
                     dst.writeByte(18);
                     messageReuseBuffer.length = 0;
-                    ForeignMessage.serializeBytes(localValue, messageReuseBuffer);
+                    protobuf_test_messages.proto3.ForeignMessage.serializeBytes(localValue, messageReuseBuffer);
                     Serialize.writeVarint32(dst, messageReuseBuffer.length);
                     dst.writeBytes(messageReuseBuffer);
                 }

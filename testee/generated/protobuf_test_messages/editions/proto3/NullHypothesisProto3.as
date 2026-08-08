@@ -25,7 +25,7 @@ package protobuf_test_messages.editions.proto3
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:NullHypothesisProto3):void
+        public static function reset(msg:protobuf_test_messages.editions.proto3.NullHypothesisProto3):void
         {
             msg.unknownFields = null;
         }
@@ -35,12 +35,12 @@ package protobuf_test_messages.editions.proto3
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:NullHypothesisProto3):NullHypothesisProto3
+        public static function clone(src:protobuf_test_messages.editions.proto3.NullHypothesisProto3):protobuf_test_messages.editions.proto3.NullHypothesisProto3
         {
             if (!src)
                 return null;
 
-            const dst:NullHypothesisProto3 = new NullHypothesisProto3();
+            const dst:protobuf_test_messages.editions.proto3.NullHypothesisProto3 = new protobuf_test_messages.editions.proto3.NullHypothesisProto3();
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;
@@ -53,12 +53,12 @@ package protobuf_test_messages.editions.proto3
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:NullHypothesisProto3 = null, limit:uint = 0, reset:Boolean = true):NullHypothesisProto3
+        public static function deserializeBytes(src:ByteArray, dst:protobuf_test_messages.editions.proto3.NullHypothesisProto3 = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.editions.proto3.NullHypothesisProto3
         {
             if (!dst)
-                dst = new NullHypothesisProto3();
+                dst = new protobuf_test_messages.editions.proto3.NullHypothesisProto3();
             else if (reset)
-                NullHypothesisProto3.reset(dst);
+                protobuf_test_messages.editions.proto3.NullHypothesisProto3.reset(dst);
 
             const end:uint = limit
                 ? limit
@@ -96,7 +96,7 @@ package protobuf_test_messages.editions.proto3
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:NullHypothesisProto3, dst:ByteArray):void
+        public static function serializeBytes(src:protobuf_test_messages.editions.proto3.NullHypothesisProto3, dst:ByteArray):void
         {
             if (!src)
                 return;

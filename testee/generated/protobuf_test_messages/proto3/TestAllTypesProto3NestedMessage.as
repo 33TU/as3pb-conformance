@@ -15,7 +15,7 @@ package protobuf_test_messages.proto3
         public static const TYPE_URL:String = "type.googleapis.com/protobuf_test_messages.proto3.TestAllTypesProto3.NestedMessage";
 
         public var a:int = 0;
-        public var corecursive:TestAllTypesProto3 = null;
+        public var corecursive:protobuf_test_messages.proto3.TestAllTypesProto3 = null;
 
         /**
          * Raw wire bytes of fields unknown to this schema, preserved from
@@ -28,7 +28,7 @@ package protobuf_test_messages.proto3
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:TestAllTypesProto3NestedMessage):void
+        public static function reset(msg:protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage):void
         {
             msg.a = 0;
             msg.corecursive = null;
@@ -40,14 +40,14 @@ package protobuf_test_messages.proto3
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:TestAllTypesProto3NestedMessage):TestAllTypesProto3NestedMessage
+        public static function clone(src:protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage):protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage
         {
             if (!src)
                 return null;
 
-            const dst:TestAllTypesProto3NestedMessage = new TestAllTypesProto3NestedMessage();
+            const dst:protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage = new protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage();
             dst.a = src.a;
-            dst.corecursive = TestAllTypesProto3.clone(src.corecursive);
+            dst.corecursive = protobuf_test_messages.proto3.TestAllTypesProto3.clone(src.corecursive);
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;
@@ -60,12 +60,12 @@ package protobuf_test_messages.proto3
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:TestAllTypesProto3NestedMessage = null, limit:uint = 0, reset:Boolean = true):TestAllTypesProto3NestedMessage
+        public static function deserializeBytes(src:ByteArray, dst:protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage
         {
             if (!dst)
-                dst = new TestAllTypesProto3NestedMessage();
+                dst = new protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage();
             else if (reset)
-                TestAllTypesProto3NestedMessage.reset(dst);
+                protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage.reset(dst);
 
             var messageLength:uint = 0;
 
@@ -89,7 +89,7 @@ package protobuf_test_messages.proto3
                     case 18:
                     {
                         messageLength = Deserialize.readVarint32(src);
-                        dst.corecursive = TestAllTypesProto3.deserializeBytes(src, dst.corecursive, src.position + messageLength, false);
+                        dst.corecursive = protobuf_test_messages.proto3.TestAllTypesProto3.deserializeBytes(src, dst.corecursive, src.position + messageLength, false);
                         break;
                     }
                     default:
@@ -116,7 +116,7 @@ package protobuf_test_messages.proto3
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:TestAllTypesProto3NestedMessage, dst:ByteArray):void
+        public static function serializeBytes(src:protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage, dst:ByteArray):void
         {
             if (!src)
                 return;
@@ -124,7 +124,7 @@ package protobuf_test_messages.proto3
             const messageReuseBuffer:ByteArray = Buffers.acquireMessageBuffer();
 
             const localA:int = src.a;
-            const localCorecursive:TestAllTypesProto3 = src.corecursive;
+            const localCorecursive:protobuf_test_messages.proto3.TestAllTypesProto3 = src.corecursive;
 
             try
             {
@@ -137,7 +137,7 @@ package protobuf_test_messages.proto3
                 {
                     dst.writeByte(18);
                     messageReuseBuffer.length = 0;
-                    TestAllTypesProto3.serializeBytes(localCorecursive, messageReuseBuffer);
+                    protobuf_test_messages.proto3.TestAllTypesProto3.serializeBytes(localCorecursive, messageReuseBuffer);
                     Serialize.writeVarint32(dst, messageReuseBuffer.length);
                     dst.writeBytes(messageReuseBuffer);
                 }

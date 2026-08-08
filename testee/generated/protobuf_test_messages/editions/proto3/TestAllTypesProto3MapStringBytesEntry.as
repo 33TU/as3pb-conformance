@@ -28,7 +28,7 @@ package protobuf_test_messages.editions.proto3
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:TestAllTypesProto3MapStringBytesEntry):void
+        public static function reset(msg:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry):void
         {
             msg.key = "";
             msg.value.length = 0;
@@ -40,12 +40,12 @@ package protobuf_test_messages.editions.proto3
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:TestAllTypesProto3MapStringBytesEntry):TestAllTypesProto3MapStringBytesEntry
+        public static function clone(src:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry):protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry
         {
             if (!src)
                 return null;
 
-            const dst:TestAllTypesProto3MapStringBytesEntry = new TestAllTypesProto3MapStringBytesEntry();
+            const dst:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry();
             dst.key = src.key;
             dst.value = Buffers.cloneByteArray(src.value);
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
@@ -60,12 +60,12 @@ package protobuf_test_messages.editions.proto3
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:TestAllTypesProto3MapStringBytesEntry = null, limit:uint = 0, reset:Boolean = true):TestAllTypesProto3MapStringBytesEntry
+        public static function deserializeBytes(src:ByteArray, dst:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry
         {
             if (!dst)
-                dst = new TestAllTypesProto3MapStringBytesEntry();
+                dst = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry();
             else if (reset)
-                TestAllTypesProto3MapStringBytesEntry.reset(dst);
+                protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry.reset(dst);
 
             const end:uint = limit
                 ? limit
@@ -113,7 +113,7 @@ package protobuf_test_messages.editions.proto3
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:TestAllTypesProto3MapStringBytesEntry, dst:ByteArray):void
+        public static function serializeBytes(src:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry, dst:ByteArray):void
         {
             if (!src)
                 return;

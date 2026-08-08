@@ -19,7 +19,7 @@ package conformance
     {
         public static const TYPE_URL:String = "type.googleapis.com/conformance.FailureSet";
 
-        public var test:Vector.<TestStatus> = new Vector.<TestStatus>();
+        public var test:Vector.<conformance.TestStatus> = new Vector.<conformance.TestStatus>();
 
         /**
          * Raw wire bytes of fields unknown to this schema, preserved from
@@ -32,7 +32,7 @@ package conformance
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:FailureSet):void
+        public static function reset(msg:conformance.FailureSet):void
         {
             msg.test.length = 0;
             msg.unknownFields = null;
@@ -43,17 +43,17 @@ package conformance
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:FailureSet):FailureSet
+        public static function clone(src:conformance.FailureSet):conformance.FailureSet
         {
             if (!src)
                 return null;
 
-            const dst:FailureSet = new FailureSet();
-            const cloneSource0:Vector.<TestStatus> = src.test;
-            const cloneTarget0:Vector.<TestStatus> = dst.test;
+            const dst:conformance.FailureSet = new conformance.FailureSet();
+            const cloneSource0:Vector.<conformance.TestStatus> = src.test;
+            const cloneTarget0:Vector.<conformance.TestStatus> = dst.test;
             cloneTarget0.length = cloneSource0.length;
             for (var cloneIndex0:uint = 0; cloneIndex0 < cloneSource0.length; cloneIndex0++)
-                cloneTarget0[cloneIndex0] = TestStatus.clone(cloneSource0[cloneIndex0]);
+                cloneTarget0[cloneIndex0] = conformance.TestStatus.clone(cloneSource0[cloneIndex0]);
             dst.unknownFields = Buffers.cloneByteArray(src.unknownFields);
 
             return dst;
@@ -66,12 +66,12 @@ package conformance
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:FailureSet = null, limit:uint = 0, reset:Boolean = true):FailureSet
+        public static function deserializeBytes(src:ByteArray, dst:conformance.FailureSet = null, limit:uint = 0, reset:Boolean = true):conformance.FailureSet
         {
             if (!dst)
-                dst = new FailureSet();
+                dst = new conformance.FailureSet();
             else if (reset)
-                FailureSet.reset(dst);
+                conformance.FailureSet.reset(dst);
 
             var messageLength:uint = 0;
 
@@ -89,9 +89,9 @@ package conformance
                 {
                     case 18:
                     {
-                        const msgTest:TestStatus = new TestStatus();
+                        const msgTest:conformance.TestStatus = new conformance.TestStatus();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestStatus.deserializeBytes(src, msgTest, src.position + messageLength);
+                            conformance.TestStatus.deserializeBytes(src, msgTest, src.position + messageLength);
                         dst.test.push(msgTest);
                         break;
                     }
@@ -119,7 +119,7 @@ package conformance
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:FailureSet, dst:ByteArray):void
+        public static function serializeBytes(src:conformance.FailureSet, dst:ByteArray):void
         {
             if (!src)
                 return;
@@ -128,7 +128,7 @@ package conformance
             var vecLength:uint = 0;
             const messageReuseBuffer:ByteArray = Buffers.acquireMessageBuffer();
 
-            const localTest:Vector.<TestStatus> = src.test;
+            const localTest:Vector.<conformance.TestStatus> = src.test;
 
             try
             {
@@ -138,7 +138,7 @@ package conformance
                     {
                         dst.writeByte(18);
                         messageReuseBuffer.length = 0;
-                        TestStatus.serializeBytes(localTest[vecIndex], messageReuseBuffer);
+                        conformance.TestStatus.serializeBytes(localTest[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }

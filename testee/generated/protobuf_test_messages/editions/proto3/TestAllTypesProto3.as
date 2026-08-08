@@ -13,6 +13,22 @@ package protobuf_test_messages.editions.proto3
     import as3pb.types.Int64Vector;
     import as3pb.types.UInt64Vector;
     import google.protobuf.Any;
+    import google.protobuf.BoolValue;
+    import google.protobuf.BytesValue;
+    import google.protobuf.DoubleValue;
+    import google.protobuf.Duration;
+    import google.protobuf.Empty;
+    import google.protobuf.FieldMask;
+    import google.protobuf.FloatValue;
+    import google.protobuf.Int32Value;
+    import google.protobuf.Int64Value;
+    import google.protobuf.ListValue;
+    import google.protobuf.StringValue;
+    import google.protobuf.Struct;
+    import google.protobuf.Timestamp;
+    import google.protobuf.UInt32Value;
+    import google.protobuf.UInt64Value;
+    import google.protobuf.Value;
     import as3pb.wkt.AnyRegistry;
 
     /**
@@ -60,14 +76,14 @@ package protobuf_test_messages.editions.proto3
         public var optionalBool:Boolean = false;
         public var optionalString:String = "";
         public var optionalBytes:ByteArray = Buffers.newByteArray();
-        public var optionalNestedMessage:TestAllTypesProto3NestedMessage = null;
-        public var optionalForeignMessage:ForeignMessage = null;
+        public var optionalNestedMessage:protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage = null;
+        public var optionalForeignMessage:protobuf_test_messages.editions.proto3.ForeignMessage = null;
         public var optionalNestedEnum:int = 0;
         public var optionalForeignEnum:int = 0;
         public var optionalAliasedEnum:int = 0;
         public var optionalStringPiece:String = "";
         public var optionalCord:String = "";
-        public var recursiveMessage:TestAllTypesProto3 = null;
+        public var recursiveMessage:protobuf_test_messages.editions.proto3.TestAllTypesProto3 = null;
 
         /**
          * Repeated
@@ -87,8 +103,8 @@ package protobuf_test_messages.editions.proto3
         public var repeatedBool:Vector.<Boolean> = new Vector.<Boolean>();
         public var repeatedString:Vector.<String> = new Vector.<String>();
         public var repeatedBytes:Vector.<ByteArray> = new Vector.<ByteArray>();
-        public var repeatedNestedMessage:Vector.<TestAllTypesProto3NestedMessage> = new Vector.<TestAllTypesProto3NestedMessage>();
-        public var repeatedForeignMessage:Vector.<ForeignMessage> = new Vector.<ForeignMessage>();
+        public var repeatedNestedMessage:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage>();
+        public var repeatedForeignMessage:Vector.<protobuf_test_messages.editions.proto3.ForeignMessage> = new Vector.<protobuf_test_messages.editions.proto3.ForeignMessage>();
         public var repeatedNestedEnum:Vector.<int> = new Vector.<int>();
         public var repeatedForeignEnum:Vector.<int> = new Vector.<int>();
         public var repeatedStringPiece:Vector.<String> = new Vector.<String>();
@@ -133,27 +149,27 @@ package protobuf_test_messages.editions.proto3
         /**
          * Map
          */
-        public var mapInt32Int32:Vector.<TestAllTypesProto3MapInt32Int32Entry> = new Vector.<TestAllTypesProto3MapInt32Int32Entry>();
-        public var mapInt64Int64:Vector.<TestAllTypesProto3MapInt64Int64Entry> = new Vector.<TestAllTypesProto3MapInt64Int64Entry>();
-        public var mapUint32Uint32:Vector.<TestAllTypesProto3MapUint32Uint32Entry> = new Vector.<TestAllTypesProto3MapUint32Uint32Entry>();
-        public var mapUint64Uint64:Vector.<TestAllTypesProto3MapUint64Uint64Entry> = new Vector.<TestAllTypesProto3MapUint64Uint64Entry>();
-        public var mapSint32Sint32:Vector.<TestAllTypesProto3MapSint32Sint32Entry> = new Vector.<TestAllTypesProto3MapSint32Sint32Entry>();
-        public var mapSint64Sint64:Vector.<TestAllTypesProto3MapSint64Sint64Entry> = new Vector.<TestAllTypesProto3MapSint64Sint64Entry>();
-        public var mapFixed32Fixed32:Vector.<TestAllTypesProto3MapFixed32Fixed32Entry> = new Vector.<TestAllTypesProto3MapFixed32Fixed32Entry>();
-        public var mapFixed64Fixed64:Vector.<TestAllTypesProto3MapFixed64Fixed64Entry> = new Vector.<TestAllTypesProto3MapFixed64Fixed64Entry>();
-        public var mapSfixed32Sfixed32:Vector.<TestAllTypesProto3MapSfixed32Sfixed32Entry> = new Vector.<TestAllTypesProto3MapSfixed32Sfixed32Entry>();
-        public var mapSfixed64Sfixed64:Vector.<TestAllTypesProto3MapSfixed64Sfixed64Entry> = new Vector.<TestAllTypesProto3MapSfixed64Sfixed64Entry>();
-        public var mapInt32Float:Vector.<TestAllTypesProto3MapInt32FloatEntry> = new Vector.<TestAllTypesProto3MapInt32FloatEntry>();
-        public var mapInt32Double:Vector.<TestAllTypesProto3MapInt32DoubleEntry> = new Vector.<TestAllTypesProto3MapInt32DoubleEntry>();
-        public var mapBoolBool:Vector.<TestAllTypesProto3MapBoolBoolEntry> = new Vector.<TestAllTypesProto3MapBoolBoolEntry>();
-        public var mapStringString:Vector.<TestAllTypesProto3MapStringStringEntry> = new Vector.<TestAllTypesProto3MapStringStringEntry>();
-        public var mapStringBytes:Vector.<TestAllTypesProto3MapStringBytesEntry> = new Vector.<TestAllTypesProto3MapStringBytesEntry>();
-        public var mapStringNestedMessage:Vector.<TestAllTypesProto3MapStringNestedMessageEntry> = new Vector.<TestAllTypesProto3MapStringNestedMessageEntry>();
-        public var mapStringForeignMessage:Vector.<TestAllTypesProto3MapStringForeignMessageEntry> = new Vector.<TestAllTypesProto3MapStringForeignMessageEntry>();
-        public var mapStringNestedEnum:Vector.<TestAllTypesProto3MapStringNestedEnumEntry> = new Vector.<TestAllTypesProto3MapStringNestedEnumEntry>();
-        public var mapStringForeignEnum:Vector.<TestAllTypesProto3MapStringForeignEnumEntry> = new Vector.<TestAllTypesProto3MapStringForeignEnumEntry>();
+        public var mapInt32Int32:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32Int32Entry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32Int32Entry>();
+        public var mapInt64Int64:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt64Int64Entry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt64Int64Entry>();
+        public var mapUint32Uint32:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry>();
+        public var mapUint64Uint64:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint64Uint64Entry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint64Uint64Entry>();
+        public var mapSint32Sint32:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint32Sint32Entry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint32Sint32Entry>();
+        public var mapSint64Sint64:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint64Sint64Entry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint64Sint64Entry>();
+        public var mapFixed32Fixed32:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed32Fixed32Entry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed32Fixed32Entry>();
+        public var mapFixed64Fixed64:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed64Fixed64Entry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed64Fixed64Entry>();
+        public var mapSfixed32Sfixed32:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry>();
+        public var mapSfixed64Sfixed64:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry>();
+        public var mapInt32Float:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32FloatEntry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32FloatEntry>();
+        public var mapInt32Double:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32DoubleEntry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32DoubleEntry>();
+        public var mapBoolBool:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapBoolBoolEntry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapBoolBoolEntry>();
+        public var mapStringString:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringStringEntry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringStringEntry>();
+        public var mapStringBytes:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry>();
+        public var mapStringNestedMessage:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry>();
+        public var mapStringForeignMessage:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignMessageEntry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignMessageEntry>();
+        public var mapStringNestedEnum:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedEnumEntry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedEnumEntry>();
+        public var mapStringForeignEnum:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignEnumEntry> = new Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignEnumEntry>();
         public var oneofUint32:uint = 0;
-        public var oneofNestedMessage:TestAllTypesProto3NestedMessage = null;
+        public var oneofNestedMessage:protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage = null;
         public var oneofString:String = "";
         public var oneofBytes:ByteArray = Buffers.newByteArray();
         public var oneofBool:Boolean = false;
@@ -188,7 +204,7 @@ package protobuf_test_messages.editions.proto3
         public var optionalTimestamp:google.protobuf.Timestamp = null;
         public var optionalFieldMask:google.protobuf.FieldMask = null;
         public var optionalStruct:google.protobuf.Struct = null;
-        public var optionalAny:Any = null;
+        public var optionalAny:google.protobuf.Any = null;
         public var optionalValue:google.protobuf.Value = null;
         public var optionalNullValue:int = 0;
         public var optionalEmpty:google.protobuf.Empty = null;
@@ -196,7 +212,7 @@ package protobuf_test_messages.editions.proto3
         public var repeatedTimestamp:Vector.<google.protobuf.Timestamp> = new Vector.<google.protobuf.Timestamp>();
         public var repeatedFieldmask:Vector.<google.protobuf.FieldMask> = new Vector.<google.protobuf.FieldMask>();
         public var repeatedStruct:Vector.<google.protobuf.Struct> = new Vector.<google.protobuf.Struct>();
-        public var repeatedAny:Vector.<Any> = new Vector.<Any>();
+        public var repeatedAny:Vector.<google.protobuf.Any> = new Vector.<google.protobuf.Any>();
         public var repeatedValue:Vector.<google.protobuf.Value> = new Vector.<google.protobuf.Value>();
         public var repeatedListValue:Vector.<google.protobuf.ListValue> = new Vector.<google.protobuf.ListValue>();
         public var repeatedEmpty:Vector.<google.protobuf.Empty> = new Vector.<google.protobuf.Empty>();
@@ -240,7 +256,7 @@ package protobuf_test_messages.editions.proto3
          * @param msg The message to reset.
          */
         [Inline]
-        public static function reset(msg:TestAllTypesProto3):void
+        public static function reset(msg:protobuf_test_messages.editions.proto3.TestAllTypesProto3):void
         {
             msg.optionalInt32 = 0;
             msg.optionalInt64.low = 0;
@@ -410,12 +426,12 @@ package protobuf_test_messages.editions.proto3
          * @param src Message to clone.
          * @return A new deep copy, or null when src is null.
          */
-        public static function clone(src:TestAllTypesProto3):TestAllTypesProto3
+        public static function clone(src:protobuf_test_messages.editions.proto3.TestAllTypesProto3):protobuf_test_messages.editions.proto3.TestAllTypesProto3
         {
             if (!src)
                 return null;
 
-            const dst:TestAllTypesProto3 = new TestAllTypesProto3();
+            const dst:protobuf_test_messages.editions.proto3.TestAllTypesProto3 = new protobuf_test_messages.editions.proto3.TestAllTypesProto3();
             dst.optionalInt32 = src.optionalInt32;
             dst.optionalInt64.copyFrom(src.optionalInt64);
             dst.optionalUint32 = src.optionalUint32;
@@ -431,14 +447,14 @@ package protobuf_test_messages.editions.proto3
             dst.optionalBool = src.optionalBool;
             dst.optionalString = src.optionalString;
             dst.optionalBytes = Buffers.cloneByteArray(src.optionalBytes);
-            dst.optionalNestedMessage = TestAllTypesProto3NestedMessage.clone(src.optionalNestedMessage);
-            dst.optionalForeignMessage = ForeignMessage.clone(src.optionalForeignMessage);
+            dst.optionalNestedMessage = protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.clone(src.optionalNestedMessage);
+            dst.optionalForeignMessage = protobuf_test_messages.editions.proto3.ForeignMessage.clone(src.optionalForeignMessage);
             dst.optionalNestedEnum = src.optionalNestedEnum;
             dst.optionalForeignEnum = src.optionalForeignEnum;
             dst.optionalAliasedEnum = src.optionalAliasedEnum;
             dst.optionalStringPiece = src.optionalStringPiece;
             dst.optionalCord = src.optionalCord;
-            dst.recursiveMessage = TestAllTypesProto3.clone(src.recursiveMessage);
+            dst.recursiveMessage = protobuf_test_messages.editions.proto3.TestAllTypesProto3.clone(src.recursiveMessage);
             dst.repeatedInt32 = src.repeatedInt32.concat();
             dst.repeatedInt64.copyFrom(src.repeatedInt64);
             dst.repeatedUint32 = src.repeatedUint32.concat();
@@ -458,16 +474,16 @@ package protobuf_test_messages.editions.proto3
             cloneTarget37.length = cloneSource37.length;
             for (var cloneIndex37:uint = 0; cloneIndex37 < cloneSource37.length; cloneIndex37++)
                 cloneTarget37[cloneIndex37] = Buffers.cloneByteArray(cloneSource37[cloneIndex37]);
-            const cloneSource38:Vector.<TestAllTypesProto3NestedMessage> = src.repeatedNestedMessage;
-            const cloneTarget38:Vector.<TestAllTypesProto3NestedMessage> = dst.repeatedNestedMessage;
+            const cloneSource38:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage> = src.repeatedNestedMessage;
+            const cloneTarget38:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage> = dst.repeatedNestedMessage;
             cloneTarget38.length = cloneSource38.length;
             for (var cloneIndex38:uint = 0; cloneIndex38 < cloneSource38.length; cloneIndex38++)
-                cloneTarget38[cloneIndex38] = TestAllTypesProto3NestedMessage.clone(cloneSource38[cloneIndex38]);
-            const cloneSource39:Vector.<ForeignMessage> = src.repeatedForeignMessage;
-            const cloneTarget39:Vector.<ForeignMessage> = dst.repeatedForeignMessage;
+                cloneTarget38[cloneIndex38] = protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.clone(cloneSource38[cloneIndex38]);
+            const cloneSource39:Vector.<protobuf_test_messages.editions.proto3.ForeignMessage> = src.repeatedForeignMessage;
+            const cloneTarget39:Vector.<protobuf_test_messages.editions.proto3.ForeignMessage> = dst.repeatedForeignMessage;
             cloneTarget39.length = cloneSource39.length;
             for (var cloneIndex39:uint = 0; cloneIndex39 < cloneSource39.length; cloneIndex39++)
-                cloneTarget39[cloneIndex39] = ForeignMessage.clone(cloneSource39[cloneIndex39]);
+                cloneTarget39[cloneIndex39] = protobuf_test_messages.editions.proto3.ForeignMessage.clone(cloneSource39[cloneIndex39]);
             dst.repeatedNestedEnum = src.repeatedNestedEnum.concat();
             dst.repeatedForeignEnum = src.repeatedForeignEnum.concat();
             dst.repeatedStringPiece = src.repeatedStringPiece.concat();
@@ -500,101 +516,101 @@ package protobuf_test_messages.editions.proto3
             dst.unpackedDouble = src.unpackedDouble.concat();
             dst.unpackedBool = src.unpackedBool.concat();
             dst.unpackedNestedEnum = src.unpackedNestedEnum.concat();
-            const cloneSource72:Vector.<TestAllTypesProto3MapInt32Int32Entry> = src.mapInt32Int32;
-            const cloneTarget72:Vector.<TestAllTypesProto3MapInt32Int32Entry> = dst.mapInt32Int32;
+            const cloneSource72:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32Int32Entry> = src.mapInt32Int32;
+            const cloneTarget72:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32Int32Entry> = dst.mapInt32Int32;
             cloneTarget72.length = cloneSource72.length;
             for (var cloneIndex72:uint = 0; cloneIndex72 < cloneSource72.length; cloneIndex72++)
-                cloneTarget72[cloneIndex72] = TestAllTypesProto3MapInt32Int32Entry.clone(cloneSource72[cloneIndex72]);
-            const cloneSource73:Vector.<TestAllTypesProto3MapInt64Int64Entry> = src.mapInt64Int64;
-            const cloneTarget73:Vector.<TestAllTypesProto3MapInt64Int64Entry> = dst.mapInt64Int64;
+                cloneTarget72[cloneIndex72] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32Int32Entry.clone(cloneSource72[cloneIndex72]);
+            const cloneSource73:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt64Int64Entry> = src.mapInt64Int64;
+            const cloneTarget73:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt64Int64Entry> = dst.mapInt64Int64;
             cloneTarget73.length = cloneSource73.length;
             for (var cloneIndex73:uint = 0; cloneIndex73 < cloneSource73.length; cloneIndex73++)
-                cloneTarget73[cloneIndex73] = TestAllTypesProto3MapInt64Int64Entry.clone(cloneSource73[cloneIndex73]);
-            const cloneSource74:Vector.<TestAllTypesProto3MapUint32Uint32Entry> = src.mapUint32Uint32;
-            const cloneTarget74:Vector.<TestAllTypesProto3MapUint32Uint32Entry> = dst.mapUint32Uint32;
+                cloneTarget73[cloneIndex73] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt64Int64Entry.clone(cloneSource73[cloneIndex73]);
+            const cloneSource74:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry> = src.mapUint32Uint32;
+            const cloneTarget74:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry> = dst.mapUint32Uint32;
             cloneTarget74.length = cloneSource74.length;
             for (var cloneIndex74:uint = 0; cloneIndex74 < cloneSource74.length; cloneIndex74++)
-                cloneTarget74[cloneIndex74] = TestAllTypesProto3MapUint32Uint32Entry.clone(cloneSource74[cloneIndex74]);
-            const cloneSource75:Vector.<TestAllTypesProto3MapUint64Uint64Entry> = src.mapUint64Uint64;
-            const cloneTarget75:Vector.<TestAllTypesProto3MapUint64Uint64Entry> = dst.mapUint64Uint64;
+                cloneTarget74[cloneIndex74] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry.clone(cloneSource74[cloneIndex74]);
+            const cloneSource75:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint64Uint64Entry> = src.mapUint64Uint64;
+            const cloneTarget75:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint64Uint64Entry> = dst.mapUint64Uint64;
             cloneTarget75.length = cloneSource75.length;
             for (var cloneIndex75:uint = 0; cloneIndex75 < cloneSource75.length; cloneIndex75++)
-                cloneTarget75[cloneIndex75] = TestAllTypesProto3MapUint64Uint64Entry.clone(cloneSource75[cloneIndex75]);
-            const cloneSource76:Vector.<TestAllTypesProto3MapSint32Sint32Entry> = src.mapSint32Sint32;
-            const cloneTarget76:Vector.<TestAllTypesProto3MapSint32Sint32Entry> = dst.mapSint32Sint32;
+                cloneTarget75[cloneIndex75] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint64Uint64Entry.clone(cloneSource75[cloneIndex75]);
+            const cloneSource76:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint32Sint32Entry> = src.mapSint32Sint32;
+            const cloneTarget76:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint32Sint32Entry> = dst.mapSint32Sint32;
             cloneTarget76.length = cloneSource76.length;
             for (var cloneIndex76:uint = 0; cloneIndex76 < cloneSource76.length; cloneIndex76++)
-                cloneTarget76[cloneIndex76] = TestAllTypesProto3MapSint32Sint32Entry.clone(cloneSource76[cloneIndex76]);
-            const cloneSource77:Vector.<TestAllTypesProto3MapSint64Sint64Entry> = src.mapSint64Sint64;
-            const cloneTarget77:Vector.<TestAllTypesProto3MapSint64Sint64Entry> = dst.mapSint64Sint64;
+                cloneTarget76[cloneIndex76] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint32Sint32Entry.clone(cloneSource76[cloneIndex76]);
+            const cloneSource77:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint64Sint64Entry> = src.mapSint64Sint64;
+            const cloneTarget77:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint64Sint64Entry> = dst.mapSint64Sint64;
             cloneTarget77.length = cloneSource77.length;
             for (var cloneIndex77:uint = 0; cloneIndex77 < cloneSource77.length; cloneIndex77++)
-                cloneTarget77[cloneIndex77] = TestAllTypesProto3MapSint64Sint64Entry.clone(cloneSource77[cloneIndex77]);
-            const cloneSource78:Vector.<TestAllTypesProto3MapFixed32Fixed32Entry> = src.mapFixed32Fixed32;
-            const cloneTarget78:Vector.<TestAllTypesProto3MapFixed32Fixed32Entry> = dst.mapFixed32Fixed32;
+                cloneTarget77[cloneIndex77] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint64Sint64Entry.clone(cloneSource77[cloneIndex77]);
+            const cloneSource78:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed32Fixed32Entry> = src.mapFixed32Fixed32;
+            const cloneTarget78:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed32Fixed32Entry> = dst.mapFixed32Fixed32;
             cloneTarget78.length = cloneSource78.length;
             for (var cloneIndex78:uint = 0; cloneIndex78 < cloneSource78.length; cloneIndex78++)
-                cloneTarget78[cloneIndex78] = TestAllTypesProto3MapFixed32Fixed32Entry.clone(cloneSource78[cloneIndex78]);
-            const cloneSource79:Vector.<TestAllTypesProto3MapFixed64Fixed64Entry> = src.mapFixed64Fixed64;
-            const cloneTarget79:Vector.<TestAllTypesProto3MapFixed64Fixed64Entry> = dst.mapFixed64Fixed64;
+                cloneTarget78[cloneIndex78] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed32Fixed32Entry.clone(cloneSource78[cloneIndex78]);
+            const cloneSource79:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed64Fixed64Entry> = src.mapFixed64Fixed64;
+            const cloneTarget79:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed64Fixed64Entry> = dst.mapFixed64Fixed64;
             cloneTarget79.length = cloneSource79.length;
             for (var cloneIndex79:uint = 0; cloneIndex79 < cloneSource79.length; cloneIndex79++)
-                cloneTarget79[cloneIndex79] = TestAllTypesProto3MapFixed64Fixed64Entry.clone(cloneSource79[cloneIndex79]);
-            const cloneSource80:Vector.<TestAllTypesProto3MapSfixed32Sfixed32Entry> = src.mapSfixed32Sfixed32;
-            const cloneTarget80:Vector.<TestAllTypesProto3MapSfixed32Sfixed32Entry> = dst.mapSfixed32Sfixed32;
+                cloneTarget79[cloneIndex79] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed64Fixed64Entry.clone(cloneSource79[cloneIndex79]);
+            const cloneSource80:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry> = src.mapSfixed32Sfixed32;
+            const cloneTarget80:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry> = dst.mapSfixed32Sfixed32;
             cloneTarget80.length = cloneSource80.length;
             for (var cloneIndex80:uint = 0; cloneIndex80 < cloneSource80.length; cloneIndex80++)
-                cloneTarget80[cloneIndex80] = TestAllTypesProto3MapSfixed32Sfixed32Entry.clone(cloneSource80[cloneIndex80]);
-            const cloneSource81:Vector.<TestAllTypesProto3MapSfixed64Sfixed64Entry> = src.mapSfixed64Sfixed64;
-            const cloneTarget81:Vector.<TestAllTypesProto3MapSfixed64Sfixed64Entry> = dst.mapSfixed64Sfixed64;
+                cloneTarget80[cloneIndex80] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry.clone(cloneSource80[cloneIndex80]);
+            const cloneSource81:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry> = src.mapSfixed64Sfixed64;
+            const cloneTarget81:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry> = dst.mapSfixed64Sfixed64;
             cloneTarget81.length = cloneSource81.length;
             for (var cloneIndex81:uint = 0; cloneIndex81 < cloneSource81.length; cloneIndex81++)
-                cloneTarget81[cloneIndex81] = TestAllTypesProto3MapSfixed64Sfixed64Entry.clone(cloneSource81[cloneIndex81]);
-            const cloneSource82:Vector.<TestAllTypesProto3MapInt32FloatEntry> = src.mapInt32Float;
-            const cloneTarget82:Vector.<TestAllTypesProto3MapInt32FloatEntry> = dst.mapInt32Float;
+                cloneTarget81[cloneIndex81] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry.clone(cloneSource81[cloneIndex81]);
+            const cloneSource82:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32FloatEntry> = src.mapInt32Float;
+            const cloneTarget82:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32FloatEntry> = dst.mapInt32Float;
             cloneTarget82.length = cloneSource82.length;
             for (var cloneIndex82:uint = 0; cloneIndex82 < cloneSource82.length; cloneIndex82++)
-                cloneTarget82[cloneIndex82] = TestAllTypesProto3MapInt32FloatEntry.clone(cloneSource82[cloneIndex82]);
-            const cloneSource83:Vector.<TestAllTypesProto3MapInt32DoubleEntry> = src.mapInt32Double;
-            const cloneTarget83:Vector.<TestAllTypesProto3MapInt32DoubleEntry> = dst.mapInt32Double;
+                cloneTarget82[cloneIndex82] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32FloatEntry.clone(cloneSource82[cloneIndex82]);
+            const cloneSource83:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32DoubleEntry> = src.mapInt32Double;
+            const cloneTarget83:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32DoubleEntry> = dst.mapInt32Double;
             cloneTarget83.length = cloneSource83.length;
             for (var cloneIndex83:uint = 0; cloneIndex83 < cloneSource83.length; cloneIndex83++)
-                cloneTarget83[cloneIndex83] = TestAllTypesProto3MapInt32DoubleEntry.clone(cloneSource83[cloneIndex83]);
-            const cloneSource84:Vector.<TestAllTypesProto3MapBoolBoolEntry> = src.mapBoolBool;
-            const cloneTarget84:Vector.<TestAllTypesProto3MapBoolBoolEntry> = dst.mapBoolBool;
+                cloneTarget83[cloneIndex83] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32DoubleEntry.clone(cloneSource83[cloneIndex83]);
+            const cloneSource84:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapBoolBoolEntry> = src.mapBoolBool;
+            const cloneTarget84:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapBoolBoolEntry> = dst.mapBoolBool;
             cloneTarget84.length = cloneSource84.length;
             for (var cloneIndex84:uint = 0; cloneIndex84 < cloneSource84.length; cloneIndex84++)
-                cloneTarget84[cloneIndex84] = TestAllTypesProto3MapBoolBoolEntry.clone(cloneSource84[cloneIndex84]);
-            const cloneSource85:Vector.<TestAllTypesProto3MapStringStringEntry> = src.mapStringString;
-            const cloneTarget85:Vector.<TestAllTypesProto3MapStringStringEntry> = dst.mapStringString;
+                cloneTarget84[cloneIndex84] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapBoolBoolEntry.clone(cloneSource84[cloneIndex84]);
+            const cloneSource85:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringStringEntry> = src.mapStringString;
+            const cloneTarget85:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringStringEntry> = dst.mapStringString;
             cloneTarget85.length = cloneSource85.length;
             for (var cloneIndex85:uint = 0; cloneIndex85 < cloneSource85.length; cloneIndex85++)
-                cloneTarget85[cloneIndex85] = TestAllTypesProto3MapStringStringEntry.clone(cloneSource85[cloneIndex85]);
-            const cloneSource86:Vector.<TestAllTypesProto3MapStringBytesEntry> = src.mapStringBytes;
-            const cloneTarget86:Vector.<TestAllTypesProto3MapStringBytesEntry> = dst.mapStringBytes;
+                cloneTarget85[cloneIndex85] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringStringEntry.clone(cloneSource85[cloneIndex85]);
+            const cloneSource86:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry> = src.mapStringBytes;
+            const cloneTarget86:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry> = dst.mapStringBytes;
             cloneTarget86.length = cloneSource86.length;
             for (var cloneIndex86:uint = 0; cloneIndex86 < cloneSource86.length; cloneIndex86++)
-                cloneTarget86[cloneIndex86] = TestAllTypesProto3MapStringBytesEntry.clone(cloneSource86[cloneIndex86]);
-            const cloneSource87:Vector.<TestAllTypesProto3MapStringNestedMessageEntry> = src.mapStringNestedMessage;
-            const cloneTarget87:Vector.<TestAllTypesProto3MapStringNestedMessageEntry> = dst.mapStringNestedMessage;
+                cloneTarget86[cloneIndex86] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry.clone(cloneSource86[cloneIndex86]);
+            const cloneSource87:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry> = src.mapStringNestedMessage;
+            const cloneTarget87:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry> = dst.mapStringNestedMessage;
             cloneTarget87.length = cloneSource87.length;
             for (var cloneIndex87:uint = 0; cloneIndex87 < cloneSource87.length; cloneIndex87++)
-                cloneTarget87[cloneIndex87] = TestAllTypesProto3MapStringNestedMessageEntry.clone(cloneSource87[cloneIndex87]);
-            const cloneSource88:Vector.<TestAllTypesProto3MapStringForeignMessageEntry> = src.mapStringForeignMessage;
-            const cloneTarget88:Vector.<TestAllTypesProto3MapStringForeignMessageEntry> = dst.mapStringForeignMessage;
+                cloneTarget87[cloneIndex87] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry.clone(cloneSource87[cloneIndex87]);
+            const cloneSource88:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignMessageEntry> = src.mapStringForeignMessage;
+            const cloneTarget88:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignMessageEntry> = dst.mapStringForeignMessage;
             cloneTarget88.length = cloneSource88.length;
             for (var cloneIndex88:uint = 0; cloneIndex88 < cloneSource88.length; cloneIndex88++)
-                cloneTarget88[cloneIndex88] = TestAllTypesProto3MapStringForeignMessageEntry.clone(cloneSource88[cloneIndex88]);
-            const cloneSource89:Vector.<TestAllTypesProto3MapStringNestedEnumEntry> = src.mapStringNestedEnum;
-            const cloneTarget89:Vector.<TestAllTypesProto3MapStringNestedEnumEntry> = dst.mapStringNestedEnum;
+                cloneTarget88[cloneIndex88] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignMessageEntry.clone(cloneSource88[cloneIndex88]);
+            const cloneSource89:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedEnumEntry> = src.mapStringNestedEnum;
+            const cloneTarget89:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedEnumEntry> = dst.mapStringNestedEnum;
             cloneTarget89.length = cloneSource89.length;
             for (var cloneIndex89:uint = 0; cloneIndex89 < cloneSource89.length; cloneIndex89++)
-                cloneTarget89[cloneIndex89] = TestAllTypesProto3MapStringNestedEnumEntry.clone(cloneSource89[cloneIndex89]);
-            const cloneSource90:Vector.<TestAllTypesProto3MapStringForeignEnumEntry> = src.mapStringForeignEnum;
-            const cloneTarget90:Vector.<TestAllTypesProto3MapStringForeignEnumEntry> = dst.mapStringForeignEnum;
+                cloneTarget89[cloneIndex89] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedEnumEntry.clone(cloneSource89[cloneIndex89]);
+            const cloneSource90:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignEnumEntry> = src.mapStringForeignEnum;
+            const cloneTarget90:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignEnumEntry> = dst.mapStringForeignEnum;
             cloneTarget90.length = cloneSource90.length;
             for (var cloneIndex90:uint = 0; cloneIndex90 < cloneSource90.length; cloneIndex90++)
-                cloneTarget90[cloneIndex90] = TestAllTypesProto3MapStringForeignEnumEntry.clone(cloneSource90[cloneIndex90]);
+                cloneTarget90[cloneIndex90] = protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignEnumEntry.clone(cloneSource90[cloneIndex90]);
             dst.optionalBoolWrapper = google.protobuf.BoolValue.clone(src.optionalBoolWrapper);
             dst.optionalInt32Wrapper = google.protobuf.Int32Value.clone(src.optionalInt32Wrapper);
             dst.optionalInt64Wrapper = google.protobuf.Int64Value.clone(src.optionalInt64Wrapper);
@@ -653,7 +669,7 @@ package protobuf_test_messages.editions.proto3
             dst.optionalTimestamp = google.protobuf.Timestamp.clone(src.optionalTimestamp);
             dst.optionalFieldMask = google.protobuf.FieldMask.clone(src.optionalFieldMask);
             dst.optionalStruct = google.protobuf.Struct.clone(src.optionalStruct);
-            dst.optionalAny = Any.clone(src.optionalAny);
+            dst.optionalAny = google.protobuf.Any.clone(src.optionalAny);
             dst.optionalValue = google.protobuf.Value.clone(src.optionalValue);
             dst.optionalNullValue = src.optionalNullValue;
             dst.optionalEmpty = google.protobuf.Empty.clone(src.optionalEmpty);
@@ -677,11 +693,11 @@ package protobuf_test_messages.editions.proto3
             cloneTarget130.length = cloneSource130.length;
             for (var cloneIndex130:uint = 0; cloneIndex130 < cloneSource130.length; cloneIndex130++)
                 cloneTarget130[cloneIndex130] = google.protobuf.Struct.clone(cloneSource130[cloneIndex130]);
-            const cloneSource131:Vector.<Any> = src.repeatedAny;
-            const cloneTarget131:Vector.<Any> = dst.repeatedAny;
+            const cloneSource131:Vector.<google.protobuf.Any> = src.repeatedAny;
+            const cloneTarget131:Vector.<google.protobuf.Any> = dst.repeatedAny;
             cloneTarget131.length = cloneSource131.length;
             for (var cloneIndex131:uint = 0; cloneIndex131 < cloneSource131.length; cloneIndex131++)
-                cloneTarget131[cloneIndex131] = Any.clone(cloneSource131[cloneIndex131]);
+                cloneTarget131[cloneIndex131] = google.protobuf.Any.clone(cloneSource131[cloneIndex131]);
             const cloneSource132:Vector.<google.protobuf.Value> = src.repeatedValue;
             const cloneTarget132:Vector.<google.protobuf.Value> = dst.repeatedValue;
             cloneTarget132.length = cloneSource132.length;
@@ -726,7 +742,7 @@ package protobuf_test_messages.editions.proto3
                 }
                 case FIELD_ONEOF_NESTED_MESSAGE:
                 {
-                    dst.oneofNestedMessage = TestAllTypesProto3NestedMessage.clone(src.oneofNestedMessage);
+                    dst.oneofNestedMessage = protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.clone(src.oneofNestedMessage);
                     break;
                 }
                 case FIELD_ONEOF_STRING:
@@ -784,12 +800,12 @@ package protobuf_test_messages.editions.proto3
          * @param limit Optional end position; zero means the remaining bytes.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:TestAllTypesProto3 = null, limit:uint = 0, reset:Boolean = true):TestAllTypesProto3
+        public static function deserializeBytes(src:ByteArray, dst:protobuf_test_messages.editions.proto3.TestAllTypesProto3 = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.editions.proto3.TestAllTypesProto3
         {
             if (!dst)
-                dst = new TestAllTypesProto3();
+                dst = new protobuf_test_messages.editions.proto3.TestAllTypesProto3();
             else if (reset)
-                TestAllTypesProto3.reset(dst);
+                protobuf_test_messages.editions.proto3.TestAllTypesProto3.reset(dst);
 
             var messageLength:uint = 0;
 
@@ -883,13 +899,13 @@ package protobuf_test_messages.editions.proto3
                     case 146:
                     {
                         messageLength = Deserialize.readVarint32(src);
-                        dst.optionalNestedMessage = TestAllTypesProto3NestedMessage.deserializeBytes(src, dst.optionalNestedMessage, src.position + messageLength, false);
+                        dst.optionalNestedMessage = protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.deserializeBytes(src, dst.optionalNestedMessage, src.position + messageLength, false);
                         break;
                     }
                     case 154:
                     {
                         messageLength = Deserialize.readVarint32(src);
-                        dst.optionalForeignMessage = ForeignMessage.deserializeBytes(src, dst.optionalForeignMessage, src.position + messageLength, false);
+                        dst.optionalForeignMessage = protobuf_test_messages.editions.proto3.ForeignMessage.deserializeBytes(src, dst.optionalForeignMessage, src.position + messageLength, false);
                         break;
                     }
                     case 168:
@@ -920,7 +936,7 @@ package protobuf_test_messages.editions.proto3
                     case 218:
                     {
                         messageLength = Deserialize.readVarint32(src);
-                        dst.recursiveMessage = TestAllTypesProto3.deserializeBytes(src, dst.recursiveMessage, src.position + messageLength, false);
+                        dst.recursiveMessage = protobuf_test_messages.editions.proto3.TestAllTypesProto3.deserializeBytes(src, dst.recursiveMessage, src.position + messageLength, false);
                         break;
                     }
                     case 248:
@@ -1070,17 +1086,17 @@ package protobuf_test_messages.editions.proto3
                     }
                     case 386:
                     {
-                        const msgRepeatedNestedMessage:TestAllTypesProto3NestedMessage = new TestAllTypesProto3NestedMessage();
+                        const msgRepeatedNestedMessage:protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage = new protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3NestedMessage.deserializeBytes(src, msgRepeatedNestedMessage, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.deserializeBytes(src, msgRepeatedNestedMessage, src.position + messageLength);
                         dst.repeatedNestedMessage.push(msgRepeatedNestedMessage);
                         break;
                     }
                     case 394:
                     {
-                        const msgRepeatedForeignMessage:ForeignMessage = new ForeignMessage();
+                        const msgRepeatedForeignMessage:protobuf_test_messages.editions.proto3.ForeignMessage = new protobuf_test_messages.editions.proto3.ForeignMessage();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            ForeignMessage.deserializeBytes(src, msgRepeatedForeignMessage, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.ForeignMessage.deserializeBytes(src, msgRepeatedForeignMessage, src.position + messageLength);
                         dst.repeatedForeignMessage.push(msgRepeatedForeignMessage);
                         break;
                     }
@@ -1402,153 +1418,153 @@ package protobuf_test_messages.editions.proto3
                     }
                     case 450:
                     {
-                        const msgMapInt32Int32:TestAllTypesProto3MapInt32Int32Entry = new TestAllTypesProto3MapInt32Int32Entry();
+                        const msgMapInt32Int32:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32Int32Entry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32Int32Entry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapInt32Int32Entry.deserializeBytes(src, msgMapInt32Int32, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32Int32Entry.deserializeBytes(src, msgMapInt32Int32, src.position + messageLength);
                         dst.mapInt32Int32.push(msgMapInt32Int32);
                         break;
                     }
                     case 458:
                     {
-                        const msgMapInt64Int64:TestAllTypesProto3MapInt64Int64Entry = new TestAllTypesProto3MapInt64Int64Entry();
+                        const msgMapInt64Int64:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt64Int64Entry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt64Int64Entry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapInt64Int64Entry.deserializeBytes(src, msgMapInt64Int64, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt64Int64Entry.deserializeBytes(src, msgMapInt64Int64, src.position + messageLength);
                         dst.mapInt64Int64.push(msgMapInt64Int64);
                         break;
                     }
                     case 466:
                     {
-                        const msgMapUint32Uint32:TestAllTypesProto3MapUint32Uint32Entry = new TestAllTypesProto3MapUint32Uint32Entry();
+                        const msgMapUint32Uint32:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapUint32Uint32Entry.deserializeBytes(src, msgMapUint32Uint32, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry.deserializeBytes(src, msgMapUint32Uint32, src.position + messageLength);
                         dst.mapUint32Uint32.push(msgMapUint32Uint32);
                         break;
                     }
                     case 474:
                     {
-                        const msgMapUint64Uint64:TestAllTypesProto3MapUint64Uint64Entry = new TestAllTypesProto3MapUint64Uint64Entry();
+                        const msgMapUint64Uint64:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint64Uint64Entry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint64Uint64Entry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapUint64Uint64Entry.deserializeBytes(src, msgMapUint64Uint64, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint64Uint64Entry.deserializeBytes(src, msgMapUint64Uint64, src.position + messageLength);
                         dst.mapUint64Uint64.push(msgMapUint64Uint64);
                         break;
                     }
                     case 482:
                     {
-                        const msgMapSint32Sint32:TestAllTypesProto3MapSint32Sint32Entry = new TestAllTypesProto3MapSint32Sint32Entry();
+                        const msgMapSint32Sint32:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint32Sint32Entry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint32Sint32Entry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapSint32Sint32Entry.deserializeBytes(src, msgMapSint32Sint32, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint32Sint32Entry.deserializeBytes(src, msgMapSint32Sint32, src.position + messageLength);
                         dst.mapSint32Sint32.push(msgMapSint32Sint32);
                         break;
                     }
                     case 490:
                     {
-                        const msgMapSint64Sint64:TestAllTypesProto3MapSint64Sint64Entry = new TestAllTypesProto3MapSint64Sint64Entry();
+                        const msgMapSint64Sint64:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint64Sint64Entry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint64Sint64Entry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapSint64Sint64Entry.deserializeBytes(src, msgMapSint64Sint64, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint64Sint64Entry.deserializeBytes(src, msgMapSint64Sint64, src.position + messageLength);
                         dst.mapSint64Sint64.push(msgMapSint64Sint64);
                         break;
                     }
                     case 498:
                     {
-                        const msgMapFixed32Fixed32:TestAllTypesProto3MapFixed32Fixed32Entry = new TestAllTypesProto3MapFixed32Fixed32Entry();
+                        const msgMapFixed32Fixed32:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed32Fixed32Entry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed32Fixed32Entry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapFixed32Fixed32Entry.deserializeBytes(src, msgMapFixed32Fixed32, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed32Fixed32Entry.deserializeBytes(src, msgMapFixed32Fixed32, src.position + messageLength);
                         dst.mapFixed32Fixed32.push(msgMapFixed32Fixed32);
                         break;
                     }
                     case 506:
                     {
-                        const msgMapFixed64Fixed64:TestAllTypesProto3MapFixed64Fixed64Entry = new TestAllTypesProto3MapFixed64Fixed64Entry();
+                        const msgMapFixed64Fixed64:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed64Fixed64Entry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed64Fixed64Entry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapFixed64Fixed64Entry.deserializeBytes(src, msgMapFixed64Fixed64, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed64Fixed64Entry.deserializeBytes(src, msgMapFixed64Fixed64, src.position + messageLength);
                         dst.mapFixed64Fixed64.push(msgMapFixed64Fixed64);
                         break;
                     }
                     case 514:
                     {
-                        const msgMapSfixed32Sfixed32:TestAllTypesProto3MapSfixed32Sfixed32Entry = new TestAllTypesProto3MapSfixed32Sfixed32Entry();
+                        const msgMapSfixed32Sfixed32:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapSfixed32Sfixed32Entry.deserializeBytes(src, msgMapSfixed32Sfixed32, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry.deserializeBytes(src, msgMapSfixed32Sfixed32, src.position + messageLength);
                         dst.mapSfixed32Sfixed32.push(msgMapSfixed32Sfixed32);
                         break;
                     }
                     case 522:
                     {
-                        const msgMapSfixed64Sfixed64:TestAllTypesProto3MapSfixed64Sfixed64Entry = new TestAllTypesProto3MapSfixed64Sfixed64Entry();
+                        const msgMapSfixed64Sfixed64:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapSfixed64Sfixed64Entry.deserializeBytes(src, msgMapSfixed64Sfixed64, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry.deserializeBytes(src, msgMapSfixed64Sfixed64, src.position + messageLength);
                         dst.mapSfixed64Sfixed64.push(msgMapSfixed64Sfixed64);
                         break;
                     }
                     case 530:
                     {
-                        const msgMapInt32Float:TestAllTypesProto3MapInt32FloatEntry = new TestAllTypesProto3MapInt32FloatEntry();
+                        const msgMapInt32Float:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32FloatEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32FloatEntry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapInt32FloatEntry.deserializeBytes(src, msgMapInt32Float, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32FloatEntry.deserializeBytes(src, msgMapInt32Float, src.position + messageLength);
                         dst.mapInt32Float.push(msgMapInt32Float);
                         break;
                     }
                     case 538:
                     {
-                        const msgMapInt32Double:TestAllTypesProto3MapInt32DoubleEntry = new TestAllTypesProto3MapInt32DoubleEntry();
+                        const msgMapInt32Double:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32DoubleEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32DoubleEntry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapInt32DoubleEntry.deserializeBytes(src, msgMapInt32Double, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32DoubleEntry.deserializeBytes(src, msgMapInt32Double, src.position + messageLength);
                         dst.mapInt32Double.push(msgMapInt32Double);
                         break;
                     }
                     case 546:
                     {
-                        const msgMapBoolBool:TestAllTypesProto3MapBoolBoolEntry = new TestAllTypesProto3MapBoolBoolEntry();
+                        const msgMapBoolBool:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapBoolBoolEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapBoolBoolEntry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapBoolBoolEntry.deserializeBytes(src, msgMapBoolBool, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapBoolBoolEntry.deserializeBytes(src, msgMapBoolBool, src.position + messageLength);
                         dst.mapBoolBool.push(msgMapBoolBool);
                         break;
                     }
                     case 554:
                     {
-                        const msgMapStringString:TestAllTypesProto3MapStringStringEntry = new TestAllTypesProto3MapStringStringEntry();
+                        const msgMapStringString:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringStringEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringStringEntry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapStringStringEntry.deserializeBytes(src, msgMapStringString, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringStringEntry.deserializeBytes(src, msgMapStringString, src.position + messageLength);
                         dst.mapStringString.push(msgMapStringString);
                         break;
                     }
                     case 562:
                     {
-                        const msgMapStringBytes:TestAllTypesProto3MapStringBytesEntry = new TestAllTypesProto3MapStringBytesEntry();
+                        const msgMapStringBytes:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapStringBytesEntry.deserializeBytes(src, msgMapStringBytes, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry.deserializeBytes(src, msgMapStringBytes, src.position + messageLength);
                         dst.mapStringBytes.push(msgMapStringBytes);
                         break;
                     }
                     case 570:
                     {
-                        const msgMapStringNestedMessage:TestAllTypesProto3MapStringNestedMessageEntry = new TestAllTypesProto3MapStringNestedMessageEntry();
+                        const msgMapStringNestedMessage:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapStringNestedMessageEntry.deserializeBytes(src, msgMapStringNestedMessage, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry.deserializeBytes(src, msgMapStringNestedMessage, src.position + messageLength);
                         dst.mapStringNestedMessage.push(msgMapStringNestedMessage);
                         break;
                     }
                     case 578:
                     {
-                        const msgMapStringForeignMessage:TestAllTypesProto3MapStringForeignMessageEntry = new TestAllTypesProto3MapStringForeignMessageEntry();
+                        const msgMapStringForeignMessage:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignMessageEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignMessageEntry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapStringForeignMessageEntry.deserializeBytes(src, msgMapStringForeignMessage, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignMessageEntry.deserializeBytes(src, msgMapStringForeignMessage, src.position + messageLength);
                         dst.mapStringForeignMessage.push(msgMapStringForeignMessage);
                         break;
                     }
                     case 586:
                     {
-                        const msgMapStringNestedEnum:TestAllTypesProto3MapStringNestedEnumEntry = new TestAllTypesProto3MapStringNestedEnumEntry();
+                        const msgMapStringNestedEnum:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedEnumEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedEnumEntry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapStringNestedEnumEntry.deserializeBytes(src, msgMapStringNestedEnum, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedEnumEntry.deserializeBytes(src, msgMapStringNestedEnum, src.position + messageLength);
                         dst.mapStringNestedEnum.push(msgMapStringNestedEnum);
                         break;
                     }
                     case 594:
                     {
-                        const msgMapStringForeignEnum:TestAllTypesProto3MapStringForeignEnumEntry = new TestAllTypesProto3MapStringForeignEnumEntry();
+                        const msgMapStringForeignEnum:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignEnumEntry = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignEnumEntry();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            TestAllTypesProto3MapStringForeignEnumEntry.deserializeBytes(src, msgMapStringForeignEnum, src.position + messageLength);
+                            protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignEnumEntry.deserializeBytes(src, msgMapStringForeignEnum, src.position + messageLength);
                         dst.mapStringForeignEnum.push(msgMapStringForeignEnum);
                         break;
                     }
@@ -1561,7 +1577,7 @@ package protobuf_test_messages.editions.proto3
                     case 898:
                     {
                         messageLength = Deserialize.readVarint32(src);
-                        dst.oneofNestedMessage = TestAllTypesProto3NestedMessage.deserializeBytes(src, dst.oneofNestedMessage, src.position + messageLength, dst.oneofFieldCase != FIELD_ONEOF_NESTED_MESSAGE);
+                        dst.oneofNestedMessage = protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.deserializeBytes(src, dst.oneofNestedMessage, src.position + messageLength, dst.oneofFieldCase != FIELD_ONEOF_NESTED_MESSAGE);
                         dst.oneofFieldCase = FIELD_ONEOF_NESTED_MESSAGE;
                         break;
                     }
@@ -1766,7 +1782,7 @@ package protobuf_test_messages.editions.proto3
                     case 2442:
                     {
                         messageLength = Deserialize.readVarint32(src);
-                        dst.optionalAny = Any.deserializeBytes(src, dst.optionalAny, src.position + messageLength, false);
+                        dst.optionalAny = google.protobuf.Any.deserializeBytes(src, dst.optionalAny, src.position + messageLength, false);
                         break;
                     }
                     case 2450:
@@ -1820,9 +1836,9 @@ package protobuf_test_messages.editions.proto3
                     }
                     case 2522:
                     {
-                        const msgRepeatedAny:Any = new Any();
+                        const msgRepeatedAny:google.protobuf.Any = new google.protobuf.Any();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            Any.deserializeBytes(src, msgRepeatedAny, src.position + messageLength);
+                            google.protobuf.Any.deserializeBytes(src, msgRepeatedAny, src.position + messageLength);
                         dst.repeatedAny.push(msgRepeatedAny);
                         break;
                     }
@@ -1964,7 +1980,7 @@ package protobuf_test_messages.editions.proto3
          * @param src The message to serialize; null writes an empty payload.
          * @param dst The destination ByteArray.
          */
-        public static function serializeBytes(src:TestAllTypesProto3, dst:ByteArray):void
+        public static function serializeBytes(src:protobuf_test_messages.editions.proto3.TestAllTypesProto3, dst:ByteArray):void
         {
             if (!src)
                 return;
@@ -1989,14 +2005,14 @@ package protobuf_test_messages.editions.proto3
             const localOptionalBool:Boolean = src.optionalBool;
             const localOptionalString:String = src.optionalString;
             const localOptionalBytes:ByteArray = src.optionalBytes;
-            const localOptionalNestedMessage:TestAllTypesProto3NestedMessage = src.optionalNestedMessage;
-            const localOptionalForeignMessage:ForeignMessage = src.optionalForeignMessage;
+            const localOptionalNestedMessage:protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage = src.optionalNestedMessage;
+            const localOptionalForeignMessage:protobuf_test_messages.editions.proto3.ForeignMessage = src.optionalForeignMessage;
             const localOptionalNestedEnum:int = src.optionalNestedEnum;
             const localOptionalForeignEnum:int = src.optionalForeignEnum;
             const localOptionalAliasedEnum:int = src.optionalAliasedEnum;
             const localOptionalStringPiece:String = src.optionalStringPiece;
             const localOptionalCord:String = src.optionalCord;
-            const localRecursiveMessage:TestAllTypesProto3 = src.recursiveMessage;
+            const localRecursiveMessage:protobuf_test_messages.editions.proto3.TestAllTypesProto3 = src.recursiveMessage;
             const localRepeatedInt32:Vector.<int> = src.repeatedInt32;
             const localRepeatedInt64:Int64Vector = src.repeatedInt64;
             const localRepeatedUint32:Vector.<uint> = src.repeatedUint32;
@@ -2012,8 +2028,8 @@ package protobuf_test_messages.editions.proto3
             const localRepeatedBool:Vector.<Boolean> = src.repeatedBool;
             const localRepeatedString:Vector.<String> = src.repeatedString;
             const localRepeatedBytes:Vector.<ByteArray> = src.repeatedBytes;
-            const localRepeatedNestedMessage:Vector.<TestAllTypesProto3NestedMessage> = src.repeatedNestedMessage;
-            const localRepeatedForeignMessage:Vector.<ForeignMessage> = src.repeatedForeignMessage;
+            const localRepeatedNestedMessage:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage> = src.repeatedNestedMessage;
+            const localRepeatedForeignMessage:Vector.<protobuf_test_messages.editions.proto3.ForeignMessage> = src.repeatedForeignMessage;
             const localRepeatedNestedEnum:Vector.<int> = src.repeatedNestedEnum;
             const localRepeatedForeignEnum:Vector.<int> = src.repeatedForeignEnum;
             const localRepeatedStringPiece:Vector.<String> = src.repeatedStringPiece;
@@ -2046,27 +2062,27 @@ package protobuf_test_messages.editions.proto3
             const localUnpackedDouble:Vector.<Number> = src.unpackedDouble;
             const localUnpackedBool:Vector.<Boolean> = src.unpackedBool;
             const localUnpackedNestedEnum:Vector.<int> = src.unpackedNestedEnum;
-            const localMapInt32Int32:Vector.<TestAllTypesProto3MapInt32Int32Entry> = src.mapInt32Int32;
-            const localMapInt64Int64:Vector.<TestAllTypesProto3MapInt64Int64Entry> = src.mapInt64Int64;
-            const localMapUint32Uint32:Vector.<TestAllTypesProto3MapUint32Uint32Entry> = src.mapUint32Uint32;
-            const localMapUint64Uint64:Vector.<TestAllTypesProto3MapUint64Uint64Entry> = src.mapUint64Uint64;
-            const localMapSint32Sint32:Vector.<TestAllTypesProto3MapSint32Sint32Entry> = src.mapSint32Sint32;
-            const localMapSint64Sint64:Vector.<TestAllTypesProto3MapSint64Sint64Entry> = src.mapSint64Sint64;
-            const localMapFixed32Fixed32:Vector.<TestAllTypesProto3MapFixed32Fixed32Entry> = src.mapFixed32Fixed32;
-            const localMapFixed64Fixed64:Vector.<TestAllTypesProto3MapFixed64Fixed64Entry> = src.mapFixed64Fixed64;
-            const localMapSfixed32Sfixed32:Vector.<TestAllTypesProto3MapSfixed32Sfixed32Entry> = src.mapSfixed32Sfixed32;
-            const localMapSfixed64Sfixed64:Vector.<TestAllTypesProto3MapSfixed64Sfixed64Entry> = src.mapSfixed64Sfixed64;
-            const localMapInt32Float:Vector.<TestAllTypesProto3MapInt32FloatEntry> = src.mapInt32Float;
-            const localMapInt32Double:Vector.<TestAllTypesProto3MapInt32DoubleEntry> = src.mapInt32Double;
-            const localMapBoolBool:Vector.<TestAllTypesProto3MapBoolBoolEntry> = src.mapBoolBool;
-            const localMapStringString:Vector.<TestAllTypesProto3MapStringStringEntry> = src.mapStringString;
-            const localMapStringBytes:Vector.<TestAllTypesProto3MapStringBytesEntry> = src.mapStringBytes;
-            const localMapStringNestedMessage:Vector.<TestAllTypesProto3MapStringNestedMessageEntry> = src.mapStringNestedMessage;
-            const localMapStringForeignMessage:Vector.<TestAllTypesProto3MapStringForeignMessageEntry> = src.mapStringForeignMessage;
-            const localMapStringNestedEnum:Vector.<TestAllTypesProto3MapStringNestedEnumEntry> = src.mapStringNestedEnum;
-            const localMapStringForeignEnum:Vector.<TestAllTypesProto3MapStringForeignEnumEntry> = src.mapStringForeignEnum;
+            const localMapInt32Int32:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32Int32Entry> = src.mapInt32Int32;
+            const localMapInt64Int64:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt64Int64Entry> = src.mapInt64Int64;
+            const localMapUint32Uint32:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry> = src.mapUint32Uint32;
+            const localMapUint64Uint64:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint64Uint64Entry> = src.mapUint64Uint64;
+            const localMapSint32Sint32:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint32Sint32Entry> = src.mapSint32Sint32;
+            const localMapSint64Sint64:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint64Sint64Entry> = src.mapSint64Sint64;
+            const localMapFixed32Fixed32:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed32Fixed32Entry> = src.mapFixed32Fixed32;
+            const localMapFixed64Fixed64:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed64Fixed64Entry> = src.mapFixed64Fixed64;
+            const localMapSfixed32Sfixed32:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry> = src.mapSfixed32Sfixed32;
+            const localMapSfixed64Sfixed64:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry> = src.mapSfixed64Sfixed64;
+            const localMapInt32Float:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32FloatEntry> = src.mapInt32Float;
+            const localMapInt32Double:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32DoubleEntry> = src.mapInt32Double;
+            const localMapBoolBool:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapBoolBoolEntry> = src.mapBoolBool;
+            const localMapStringString:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringStringEntry> = src.mapStringString;
+            const localMapStringBytes:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry> = src.mapStringBytes;
+            const localMapStringNestedMessage:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry> = src.mapStringNestedMessage;
+            const localMapStringForeignMessage:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignMessageEntry> = src.mapStringForeignMessage;
+            const localMapStringNestedEnum:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedEnumEntry> = src.mapStringNestedEnum;
+            const localMapStringForeignEnum:Vector.<protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignEnumEntry> = src.mapStringForeignEnum;
             const localOneofUint32:uint = src.oneofUint32;
-            const localOneofNestedMessage:TestAllTypesProto3NestedMessage = src.oneofNestedMessage;
+            const localOneofNestedMessage:protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage = src.oneofNestedMessage;
             const localOneofString:String = src.oneofString;
             const localOneofBytes:ByteArray = src.oneofBytes;
             const localOneofBool:Boolean = src.oneofBool;
@@ -2097,7 +2113,7 @@ package protobuf_test_messages.editions.proto3
             const localOptionalTimestamp:google.protobuf.Timestamp = src.optionalTimestamp;
             const localOptionalFieldMask:google.protobuf.FieldMask = src.optionalFieldMask;
             const localOptionalStruct:google.protobuf.Struct = src.optionalStruct;
-            const localOptionalAny:Any = src.optionalAny;
+            const localOptionalAny:google.protobuf.Any = src.optionalAny;
             const localOptionalValue:google.protobuf.Value = src.optionalValue;
             const localOptionalNullValue:int = src.optionalNullValue;
             const localOptionalEmpty:google.protobuf.Empty = src.optionalEmpty;
@@ -2105,7 +2121,7 @@ package protobuf_test_messages.editions.proto3
             const localRepeatedTimestamp:Vector.<google.protobuf.Timestamp> = src.repeatedTimestamp;
             const localRepeatedFieldmask:Vector.<google.protobuf.FieldMask> = src.repeatedFieldmask;
             const localRepeatedStruct:Vector.<google.protobuf.Struct> = src.repeatedStruct;
-            const localRepeatedAny:Vector.<Any> = src.repeatedAny;
+            const localRepeatedAny:Vector.<google.protobuf.Any> = src.repeatedAny;
             const localRepeatedValue:Vector.<google.protobuf.Value> = src.repeatedValue;
             const localRepeatedListValue:Vector.<google.protobuf.ListValue> = src.repeatedListValue;
             const localRepeatedEmpty:Vector.<google.protobuf.Empty> = src.repeatedEmpty;
@@ -2211,7 +2227,7 @@ package protobuf_test_messages.editions.proto3
                 {
                     dst.writeShort(402);
                     messageReuseBuffer.length = 0;
-                    TestAllTypesProto3NestedMessage.serializeBytes(localOptionalNestedMessage, messageReuseBuffer);
+                    protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.serializeBytes(localOptionalNestedMessage, messageReuseBuffer);
                     Serialize.writeVarint32(dst, messageReuseBuffer.length);
                     dst.writeBytes(messageReuseBuffer);
                 }
@@ -2219,7 +2235,7 @@ package protobuf_test_messages.editions.proto3
                 {
                     dst.writeShort(410);
                     messageReuseBuffer.length = 0;
-                    ForeignMessage.serializeBytes(localOptionalForeignMessage, messageReuseBuffer);
+                    protobuf_test_messages.editions.proto3.ForeignMessage.serializeBytes(localOptionalForeignMessage, messageReuseBuffer);
                     Serialize.writeVarint32(dst, messageReuseBuffer.length);
                     dst.writeBytes(messageReuseBuffer);
                 }
@@ -2252,7 +2268,7 @@ package protobuf_test_messages.editions.proto3
                 {
                     dst.writeShort(474);
                     messageReuseBuffer.length = 0;
-                    TestAllTypesProto3.serializeBytes(localRecursiveMessage, messageReuseBuffer);
+                    protobuf_test_messages.editions.proto3.TestAllTypesProto3.serializeBytes(localRecursiveMessage, messageReuseBuffer);
                     Serialize.writeVarint32(dst, messageReuseBuffer.length);
                     dst.writeBytes(messageReuseBuffer);
                 }
@@ -2343,7 +2359,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(898);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3NestedMessage.serializeBytes(localRepeatedNestedMessage[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.serializeBytes(localRepeatedNestedMessage[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2354,7 +2370,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(906);
                         messageReuseBuffer.length = 0;
-                        ForeignMessage.serializeBytes(localRepeatedForeignMessage[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.ForeignMessage.serializeBytes(localRepeatedForeignMessage[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2575,7 +2591,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(962);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapInt32Int32Entry.serializeBytes(localMapInt32Int32[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32Int32Entry.serializeBytes(localMapInt32Int32[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2586,7 +2602,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(970);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapInt64Int64Entry.serializeBytes(localMapInt64Int64[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt64Int64Entry.serializeBytes(localMapInt64Int64[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2597,7 +2613,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(978);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapUint32Uint32Entry.serializeBytes(localMapUint32Uint32[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry.serializeBytes(localMapUint32Uint32[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2608,7 +2624,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(986);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapUint64Uint64Entry.serializeBytes(localMapUint64Uint64[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint64Uint64Entry.serializeBytes(localMapUint64Uint64[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2619,7 +2635,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(994);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapSint32Sint32Entry.serializeBytes(localMapSint32Sint32[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint32Sint32Entry.serializeBytes(localMapSint32Sint32[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2630,7 +2646,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1002);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapSint64Sint64Entry.serializeBytes(localMapSint64Sint64[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSint64Sint64Entry.serializeBytes(localMapSint64Sint64[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2641,7 +2657,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1010);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapFixed32Fixed32Entry.serializeBytes(localMapFixed32Fixed32[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed32Fixed32Entry.serializeBytes(localMapFixed32Fixed32[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2652,7 +2668,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1018);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapFixed64Fixed64Entry.serializeBytes(localMapFixed64Fixed64[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapFixed64Fixed64Entry.serializeBytes(localMapFixed64Fixed64[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2663,7 +2679,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1154);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapSfixed32Sfixed32Entry.serializeBytes(localMapSfixed32Sfixed32[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry.serializeBytes(localMapSfixed32Sfixed32[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2674,7 +2690,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1162);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapSfixed64Sfixed64Entry.serializeBytes(localMapSfixed64Sfixed64[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry.serializeBytes(localMapSfixed64Sfixed64[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2685,7 +2701,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1170);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapInt32FloatEntry.serializeBytes(localMapInt32Float[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32FloatEntry.serializeBytes(localMapInt32Float[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2696,7 +2712,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1178);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapInt32DoubleEntry.serializeBytes(localMapInt32Double[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapInt32DoubleEntry.serializeBytes(localMapInt32Double[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2707,7 +2723,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1186);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapBoolBoolEntry.serializeBytes(localMapBoolBool[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapBoolBoolEntry.serializeBytes(localMapBoolBool[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2718,7 +2734,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1194);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapStringStringEntry.serializeBytes(localMapStringString[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringStringEntry.serializeBytes(localMapStringString[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2729,7 +2745,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1202);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapStringBytesEntry.serializeBytes(localMapStringBytes[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringBytesEntry.serializeBytes(localMapStringBytes[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2740,7 +2756,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1210);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapStringNestedMessageEntry.serializeBytes(localMapStringNestedMessage[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedMessageEntry.serializeBytes(localMapStringNestedMessage[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2751,7 +2767,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1218);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapStringForeignMessageEntry.serializeBytes(localMapStringForeignMessage[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignMessageEntry.serializeBytes(localMapStringForeignMessage[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2762,7 +2778,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1226);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapStringNestedEnumEntry.serializeBytes(localMapStringNestedEnum[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringNestedEnumEntry.serializeBytes(localMapStringNestedEnum[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2773,7 +2789,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1234);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3MapStringForeignEnumEntry.serializeBytes(localMapStringForeignEnum[vecIndex], messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3MapStringForeignEnumEntry.serializeBytes(localMapStringForeignEnum[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -2985,7 +3001,7 @@ package protobuf_test_messages.editions.proto3
                 {
                     dst.writeShort(5002);
                     messageReuseBuffer.length = 0;
-                    Any.serializeBytes(localOptionalAny, messageReuseBuffer);
+                    google.protobuf.Any.serializeBytes(localOptionalAny, messageReuseBuffer);
                     Serialize.writeVarint32(dst, messageReuseBuffer.length);
                     dst.writeBytes(messageReuseBuffer);
                 }
@@ -3060,7 +3076,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(5082);
                         messageReuseBuffer.length = 0;
-                        Any.serializeBytes(localRepeatedAny[vecIndex], messageReuseBuffer);
+                        google.protobuf.Any.serializeBytes(localRepeatedAny[vecIndex], messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                     }
@@ -3201,7 +3217,7 @@ package protobuf_test_messages.editions.proto3
                     {
                         dst.writeShort(1922);
                         messageReuseBuffer.length = 0;
-                        TestAllTypesProto3NestedMessage.serializeBytes(localOneofNestedMessage, messageReuseBuffer);
+                        protobuf_test_messages.editions.proto3.TestAllTypesProto3NestedMessage.serializeBytes(localOneofNestedMessage, messageReuseBuffer);
                         Serialize.writeVarint32(dst, messageReuseBuffer.length);
                         dst.writeBytes(messageReuseBuffer);
                         break;
