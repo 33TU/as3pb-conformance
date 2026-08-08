@@ -22,7 +22,7 @@ default:
 test: build-shim build-testee
     ADL={{ ADL }} {{ RUNNER }} \
         --enforce_recommended \
-        --maximum_edition 2023 \
+        --maximum_edition 2024 \
         --failure_list expected_failures.txt \
         {{ BIN_DIR }}/testee-shim
 
