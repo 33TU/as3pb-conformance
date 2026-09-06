@@ -62,6 +62,7 @@ gen: build-generators
 build-testee:
     mkdir -p testee/bin
     {{ AMXMLC }} \
+        -define+=COMPILE::JS,false \
         -source-path testee/src \
         -source-path {{ GEN_DIR }} \
         -source-path as3pb/runtime/src \

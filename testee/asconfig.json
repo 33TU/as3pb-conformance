@@ -1,6 +1,12 @@
 {
   "config": "air",
   "compilerOptions": {
+    "define": [
+      {
+        "name": "COMPILE::JS",
+        "value": false
+      }
+    ],
     "source-path": ["src", "generated", "../as3pb/runtime/src"],
     "output": "bin/as3pb-conformance.swf"
   },
