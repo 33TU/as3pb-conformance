@@ -2,7 +2,7 @@
 
 Runs the official [protobuf conformance suite](https://github.com/protocolbuffers/protobuf/tree/main/conformance)
 against [as3pb](https://github.com/33TU/as3pb), the ActionScript 3
-Protocol Buffers library, executing inside the Adobe AIR runtime.
+Protocol Buffers library, executing inside Adobe AIR or Apache Royale/Node.
 
 ## How it works
 
@@ -22,9 +22,12 @@ Each launch uses a per-run copy of the app descriptor with a unique
 `<id>`, because AIR enforces a single instance per application id and
 the runner forks a fresh testee for every suite.
 
-`testee/src/Main.as` connects back to the shim, deserializes each
-request with the as3pb-generated classes, and round-trips
-`TestAllTypesProto3` through the as3pb runtime.
+`testee/src/Main.as` connects back to the shim and deserializes requests with
+the as3pb-generated classes. `testee/src/ConformanceCodec.as` handles requests
+and round-trips `TestAllTypesProto3` for both transports.
+
+The Royale entry point in `testee/royale/Main.as` reads and writes the same
+framed protocol directly using Node binary stdio, without the Go/TCP shim.
 
 The protobuf submodule pins the suite version; both the conformance
 protos fed to codegen and the runner build come from that checkout.
@@ -77,3 +80,46 @@ suite's graded scope here.
 CONFORMANCE SUITE PASSED: 1404 successes, 4217 skipped, 10 expected failures, 0 unexpected failures.
 CONFORMANCE SUITE PASSED: 0 successes, 909 skipped, 0 expected failures, 0 unexpected failures.
 ```
+
+## Apache Royale / Node
+
+Use the `royale` branch of both this repository and its as3pb submodule.
+Requires Node, Java, Bash, Python 3 (transport smoke tests), and Royale 0.9.12,
+plus the pinned protobuf runner and generated fixtures described above.
+
+```sh
+npm install --prefix "$HOME/.cache/as3pb-royale" @apache-royale/royale-js@0.9.12
+export ROYALE_SDK="$HOME/.cache/as3pb-royale/node_modules/@apache-royale/royale-js/royale-asjs"
+just test-royale
+```
+
+`just build-royale-testee` compiles only. To rerun the suite on that bundle:
+
+```sh
+tools/conformance_test_runner --enforce_recommended --maximum_edition 2024 \
+    --output_dir testee/bin/royale --failure_list expected_failures.txt \
+    testee/royale/run.sh
+```
+
+`RUNNER` overrides the runner executable for `just test-royale`. Compiler output
+and failure reports stay under ignored `testee/bin/royale`. The build uses the
+shared runtime, generated messages, and request handler directly; only the
+transport and Flash compatibility classes are Royale-specific.
+
+Verified on 2026-09-06 with Royale 0.9.12 and Node v24.13.1:
+
+| Target | Successes | Skipped | Expected failures | Unexpected failures |
+|---|---:|---:|---:|---:|
+| AIR | 1404 | 4217 | 10 | 0 |
+| Royale / Node | 1404 | 4217 | 10 | 0 |
+
+Both also skip all 909 text-format suite cases. These results cover the project's
+existing binary proto3 and editions-proto3 scope; they do not imply support for
+JSON, text format, or proto2. The existing invalid-UTF-8 expected failures apply
+to both targets, with no Royale-specific exclusions.
+
+The first Royale run exposed a signed result from compound bitwise assignment
+in `readVarint32`. Assigning the complete expression restores unsigned coercion
+and fixes 28 scalar/repeated uint32 failures. The same fix passes AIR conformance.
+The transport smoke tests cover multiple frames, fragmented reads, clean EOF,
+and truncated headers/payloads without contaminating stdout.

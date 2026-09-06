@@ -18,6 +18,19 @@ AS3_OPTIMIZE := env("AS3_OPTIMIZE", "true")
 default:
     @just --list
 
+build-royale-testee:
+    bash testee/royale/build.sh
+
+# Run the same binary protobuf suite through Royale/Node.
+test-royale: build-royale-testee
+    python3 testee/royale/test_transport.py
+    {{ RUNNER }} \
+        --enforce_recommended \
+        --maximum_edition 2024 \
+        --output_dir testee/bin/royale \
+        --failure_list expected_failures.txt \
+        testee/royale/run.sh
+
 # Run the conformance suite against the AIR testee
 test: build-shim build-testee
     ADL={{ ADL }} {{ RUNNER }} \
