@@ -72,8 +72,6 @@ package protobuf_test_messages.proto3
             else if (length > src.bytesAvailable)
                 throw new Error("Invalid protobuf message length");
 
-            var messageLength:uint = 0;
-
             const end:uint = src.position + length;
 
             while (src.position < end)
@@ -88,8 +86,7 @@ package protobuf_test_messages.proto3
                     }
                     case 18:
                     {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.value = protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage.deserializeBytes(src, dst.value, messageLength, false);
+                        dst.value = protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage.deserializeBytes(src, dst.value, Deserialize.readVarint32(src), false);
                         break;
                     }
                     default:

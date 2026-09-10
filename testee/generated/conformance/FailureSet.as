@@ -78,8 +78,6 @@ package conformance
             else if (length > src.bytesAvailable)
                 throw new Error("Invalid protobuf message length");
 
-            var messageLength:uint = 0;
-
             const end:uint = src.position + length;
 
             while (src.position < end)
@@ -89,10 +87,7 @@ package conformance
                 {
                     case 18:
                     {
-                        const msgTest:conformance.TestStatus = new conformance.TestStatus();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            conformance.TestStatus.deserializeBytes(src, msgTest, messageLength);
-                        dst.test.push(msgTest);
+                        dst.test.push(conformance.TestStatus.deserializeBytes(src, null, Deserialize.readVarint32(src)));
                         break;
                     }
                     default:

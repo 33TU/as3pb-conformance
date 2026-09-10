@@ -169,8 +169,6 @@ package conformance
             else if (length > src.bytesAvailable)
                 throw new Error("Invalid protobuf message length");
 
-            var messageLength:uint = 0;
-
             const end:uint = src.position + length;
 
             while (src.position < end)
@@ -219,8 +217,7 @@ package conformance
                     }
                     case 50:
                     {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.jspbEncodingOptions = conformance.JspbEncodingConfig.deserializeBytes(src, dst.jspbEncodingOptions, messageLength, false);
+                        dst.jspbEncodingOptions = conformance.JspbEncodingConfig.deserializeBytes(src, dst.jspbEncodingOptions, Deserialize.readVarint32(src), false);
                         break;
                     }
                     case 72:
