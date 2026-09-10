@@ -109,7 +109,7 @@ package
 
 			try
 			{
-				const request:ConformanceRequest = ConformanceRequest.deserializeBytes(inBuffer, null, end);
+				const request:ConformanceRequest = ConformanceRequest.deserializeBytes(inBuffer, null, end - inBuffer.position);
 				handleRequest(request, response);
 			}
 			catch (e:*)
@@ -157,7 +157,7 @@ package
 			try
 			{
 				request.protobufPayload.position = 0;
-				message = protobuf_test_messages.proto3.TestAllTypesProto3.deserializeBytes(request.protobufPayload);
+				message = protobuf_test_messages.proto3.TestAllTypesProto3.deserializeBytes(request.protobufPayload, null, request.protobufPayload.bytesAvailable);
 			}
 			catch (e:*)
 			{
@@ -185,7 +185,7 @@ package
 			try
 			{
 				request.protobufPayload.position = 0;
-				message = protobuf_test_messages.editions.proto3.TestAllTypesProto3.deserializeBytes(request.protobufPayload);
+				message = protobuf_test_messages.editions.proto3.TestAllTypesProto3.deserializeBytes(request.protobufPayload, null, request.protobufPayload.bytesAvailable);
 			}
 			catch (e:*)
 			{
