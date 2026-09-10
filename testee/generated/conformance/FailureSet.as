@@ -62,25 +62,25 @@ package conformance
         /**
          * Deserializes the message from protobuf wire format.
          * @param src The source ByteArray.
-         * @param dst Optional reusable destination message.
-         * @param limit Optional end position; zero means the remaining bytes.
+         * @param dst Reusable destination message, or null to allocate.
+         * @param length Number of bytes to decode from the current position; zero means an empty message.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:conformance.FailureSet = null, limit:uint = 0, reset:Boolean = true):conformance.FailureSet
+        public static function deserializeBytes(src:ByteArray, dst:conformance.FailureSet, length:uint, reset:Boolean = true):conformance.FailureSet
         {
             if (!dst)
                 dst = new conformance.FailureSet();
             else if (reset)
                 conformance.FailureSet.reset(dst);
 
+            if (!length)
+                return dst;
+            else if (length > src.bytesAvailable)
+                throw new Error("Invalid protobuf message length");
+
             var messageLength:uint = 0;
 
-            const end:uint = limit
-                ? limit
-                : src.position + src.bytesAvailable;
-
-            if (end < src.position || end > src.length)
-                throw new Error("Invalid protobuf message limit");
+            const end:uint = src.position + length;
 
             while (src.position < end)
             {
@@ -91,7 +91,7 @@ package conformance
                     {
                         const msgTest:conformance.TestStatus = new conformance.TestStatus();
                         if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            conformance.TestStatus.deserializeBytes(src, msgTest, src.position + messageLength);
+                            conformance.TestStatus.deserializeBytes(src, msgTest, messageLength);
                         dst.test.push(msgTest);
                         break;
                     }

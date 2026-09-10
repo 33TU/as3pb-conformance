@@ -59,23 +59,23 @@ package conformance
         /**
          * Deserializes the message from protobuf wire format.
          * @param src The source ByteArray.
-         * @param dst Optional reusable destination message.
-         * @param limit Optional end position; zero means the remaining bytes.
+         * @param dst Reusable destination message, or null to allocate.
+         * @param length Number of bytes to decode from the current position; zero means an empty message.
          * @param reset Whether to reset a reusable destination before decoding.
          */
-        public static function deserializeBytes(src:ByteArray, dst:conformance.JspbEncodingConfig = null, limit:uint = 0, reset:Boolean = true):conformance.JspbEncodingConfig
+        public static function deserializeBytes(src:ByteArray, dst:conformance.JspbEncodingConfig, length:uint, reset:Boolean = true):conformance.JspbEncodingConfig
         {
             if (!dst)
                 dst = new conformance.JspbEncodingConfig();
             else if (reset)
                 conformance.JspbEncodingConfig.reset(dst);
 
-            const end:uint = limit
-                ? limit
-                : src.position + src.bytesAvailable;
+            if (!length)
+                return dst;
+            else if (length > src.bytesAvailable)
+                throw new Error("Invalid protobuf message length");
 
-            if (end < src.position || end > src.length)
-                throw new Error("Invalid protobuf message limit");
+            const end:uint = src.position + length;
 
             while (src.position < end)
             {
