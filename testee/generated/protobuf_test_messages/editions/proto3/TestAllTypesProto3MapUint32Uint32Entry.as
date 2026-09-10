@@ -5,13 +5,16 @@
 package protobuf_test_messages.editions.proto3
 {
     import flash.utils.ByteArray;
-    import as3pb.proto.Deserialize;
+    import flash.errors.EOFError;
+    import as3pb.proto.Unpack;
+    import as3pb.proto.UnpackContext;
     import as3pb.proto.Serialize;
     import as3pb.proto.Buffers;
     import as3pb.wkt.AnyRegistry;
 
     public final class TestAllTypesProto3MapUint32Uint32Entry
     {
+        private static const UNPACK:UnpackContext = new UnpackContext();
         public static const TYPE_URL:String = "type.googleapis.com/protobuf_test_messages.editions.proto3.TestAllTypesProto3.MapUint32Uint32Entry";
 
         public var key:uint = 0;
@@ -62,6 +65,22 @@ package protobuf_test_messages.editions.proto3
          */
         public static function deserializeBytes(src:ByteArray, dst:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry
         {
+            const context:UnpackContext = UNPACK;
+            Unpack.begin(context, src, limit);
+            try
+            {
+                dst = deserializeMemory(context, dst, context.limit, reset);
+            }
+            finally
+            {
+                Unpack.end(context);
+            }
+            return dst;
+        }
+
+        /** Decode within an active memory binding; nested messages share the context. */
+        public static function deserializeMemory(src:UnpackContext, dst:protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry
+        {
             if (!dst)
                 dst = new protobuf_test_messages.editions.proto3.TestAllTypesProto3MapUint32Uint32Entry();
             else if (reset)
@@ -69,43 +88,52 @@ package protobuf_test_messages.editions.proto3
 
             const end:uint = limit
                 ? limit
-                : src.position + src.bytesAvailable;
+                : src.limit;
 
-            if (end < src.position || end > src.length)
+            if (end < src.position || end > src.limit)
                 throw new Error("Invalid protobuf message limit");
 
-            while (src.position < end)
+            const previousLimit:uint = src.limit;
+            src.limit = end;
+            try
             {
-                const tag:uint = Deserialize.readTag(src);
-                switch (tag)
+                while (src.position < end)
                 {
-                    case 8:
+                    const tag:uint = Unpack.readTag(src);
+                    switch (tag)
                     {
-                        dst.key = Deserialize.readVarint32(src);
-                        break;
-                    }
-                    case 16:
-                    {
-                        dst.value = Deserialize.readVarint32(src);
-                        break;
-                    }
-                    default:
-                    {
-                        if ((tag >>> 3) == 0)
-                            throw new Error("Invalid protobuf field number");
+                        case 8:
+                        {
+                            dst.key = Unpack.readVarint32(src);
+                            break;
+                        }
+                        case 16:
+                        {
+                            dst.value = Unpack.readVarint32(src);
+                            break;
+                        }
+                        default:
+                        {
+                            if ((tag >>> 3) == 0)
+                                throw new Error("Invalid protobuf field number");
 
-                        if (dst.unknownFields == null)
-                            dst.unknownFields = Buffers.newByteArray();
+                            if (dst.unknownFields == null)
+                                dst.unknownFields = Buffers.newByteArray();
 
-                        Deserialize.captureUnknownField(src, tag, dst.unknownFields);
-                        break;
+                            Unpack.captureUnknownField(src, tag, dst.unknownFields);
+                            break;
+                        }
                     }
                 }
+
+                if (src.position > end)
+                    throw new Error("Truncated protobuf message");
+
             }
-
-            if (src.position > end)
-                throw new Error("Truncated protobuf message");
-
+            finally
+            {
+                src.limit = previousLimit;
+            }
             return dst;
         }
 

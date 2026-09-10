@@ -5,7 +5,9 @@
 package protobuf_test_messages.proto3
 {
     import flash.utils.ByteArray;
-    import as3pb.proto.Deserialize;
+    import flash.errors.EOFError;
+    import as3pb.proto.Unpack;
+    import as3pb.proto.UnpackContext;
     import as3pb.proto.Serialize;
     import as3pb.proto.Buffers;
     import as3pb.types.Int64;
@@ -42,6 +44,7 @@ package protobuf_test_messages.proto3
      */
     public final class TestAllTypesProto3
     {
+        private static const UNPACK:UnpackContext = new UnpackContext();
         public static const TYPE_URL:String = "type.googleapis.com/protobuf_test_messages.proto3.TestAllTypesProto3";
         private static const TMP_UINT64:UInt64 = new UInt64();
         private static const TMP_INT64:Int64 = new Int64();
@@ -802,6 +805,22 @@ package protobuf_test_messages.proto3
          */
         public static function deserializeBytes(src:ByteArray, dst:protobuf_test_messages.proto3.TestAllTypesProto3 = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.proto3.TestAllTypesProto3
         {
+            const context:UnpackContext = UNPACK;
+            Unpack.begin(context, src, limit);
+            try
+            {
+                dst = deserializeMemory(context, dst, context.limit, reset);
+            }
+            finally
+            {
+                Unpack.end(context);
+            }
+            return dst;
+        }
+
+        /** Decode within an active memory binding; nested messages share the context. */
+        public static function deserializeMemory(src:UnpackContext, dst:protobuf_test_messages.proto3.TestAllTypesProto3 = null, limit:uint = 0, reset:Boolean = true):protobuf_test_messages.proto3.TestAllTypesProto3
+        {
             if (!dst)
                 dst = new protobuf_test_messages.proto3.TestAllTypesProto3();
             else if (reset)
@@ -811,1168 +830,1331 @@ package protobuf_test_messages.proto3
 
             const end:uint = limit
                 ? limit
-                : src.position + src.bytesAvailable;
+                : src.limit;
 
-            if (end < src.position || end > src.length)
+            if (end < src.position || end > src.limit)
                 throw new Error("Invalid protobuf message limit");
 
-            while (src.position < end)
+            const previousLimit:uint = src.limit;
+            src.limit = end;
+            try
             {
-                const tag:uint = Deserialize.readTag(src);
-                switch (tag)
+                while (src.position < end)
                 {
-                    case 8:
-                    {
-                        dst.optionalInt32 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 16:
-                    {
-                        Deserialize.readVarint64s(src, dst.optionalInt64);
-                        break;
-                    }
-                    case 24:
-                    {
-                        dst.optionalUint32 = Deserialize.readVarint32(src);
-                        break;
-                    }
-                    case 32:
-                    {
-                        Deserialize.readVarint64(src, dst.optionalUint64);
-                        break;
-                    }
-                    case 40:
-                    {
-                        dst.optionalSint32 = Deserialize.readSint32(src);
-                        break;
-                    }
-                    case 48:
-                    {
-                        Deserialize.readSint64(src, dst.optionalSint64);
-                        break;
-                    }
-                    case 61:
-                    {
-                        dst.optionalFixed32 = src.readUnsignedInt();
-                        break;
-                    }
-                    case 65:
-                    {
-                        Deserialize.readFixed64(src, dst.optionalFixed64);
-                        break;
-                    }
-                    case 77:
-                    {
-                        dst.optionalSfixed32 = src.readInt();
-                        break;
-                    }
-                    case 81:
-                    {
-                        Deserialize.readSfixed64(src, dst.optionalSfixed64);
-                        break;
-                    }
-                    case 93:
-                    {
-                        dst.optionalFloat = src.readFloat();
-                        break;
-                    }
-                    case 97:
-                    {
-                        dst.optionalDouble = src.readDouble();
-                        break;
-                    }
-                    case 104:
-                    {
-                        dst.optionalBool = Deserialize.readBool(src);
-                        break;
-                    }
-                    case 114:
-                    {
-                        dst.optionalString = src.readUTFBytes(Deserialize.readVarint32(src));
-                        break;
-                    }
-                    case 122:
-                    {
-                        Deserialize.readBytesInto(src, dst.optionalBytes);
-                        break;
-                    }
-                    case 146:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalNestedMessage = protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage.deserializeBytes(src, dst.optionalNestedMessage, src.position + messageLength, false);
-                        break;
-                    }
-                    case 154:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalForeignMessage = protobuf_test_messages.proto3.ForeignMessage.deserializeBytes(src, dst.optionalForeignMessage, src.position + messageLength, false);
-                        break;
-                    }
-                    case 168:
-                    {
-                        dst.optionalNestedEnum = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 176:
-                    {
-                        dst.optionalForeignEnum = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 184:
-                    {
-                        dst.optionalAliasedEnum = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 194:
-                    {
-                        dst.optionalStringPiece = src.readUTFBytes(Deserialize.readVarint32(src));
-                        break;
-                    }
-                    case 202:
-                    {
-                        dst.optionalCord = src.readUTFBytes(Deserialize.readVarint32(src));
-                        break;
-                    }
-                    case 218:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.recursiveMessage = protobuf_test_messages.proto3.TestAllTypesProto3.deserializeBytes(src, dst.recursiveMessage, src.position + messageLength, false);
-                        break;
-                    }
-                    case 248:
-                    {
-                        dst.repeatedInt32.push(Deserialize.readInt32(src));
-                        break;
-                    }
-                    case 250:
-                    {
-                        Deserialize.readInt32Vector(src, dst.repeatedInt32);
-                        break;
-                    }
-                    case 256:
-                    {
-                        Deserialize.readVarint64s(src, TMP_INT64);
-                        dst.repeatedInt64.push(TMP_INT64.low, TMP_INT64.high);
-                        break;
-                    }
-                    case 258:
-                    {
-                        Deserialize.readVarint64sVector(src, dst.repeatedInt64);
-                        break;
-                    }
-                    case 264:
-                    {
-                        dst.repeatedUint32.push(Deserialize.readVarint32(src));
-                        break;
-                    }
-                    case 266:
-                    {
-                        Deserialize.readVarint32Vector(src, dst.repeatedUint32);
-                        break;
-                    }
-                    case 272:
-                    {
-                        Deserialize.readVarint64(src, TMP_UINT64);
-                        dst.repeatedUint64.push(TMP_UINT64.low, TMP_UINT64.high);
-                        break;
-                    }
-                    case 274:
-                    {
-                        Deserialize.readVarint64Vector(src, dst.repeatedUint64);
-                        break;
-                    }
-                    case 280:
-                    {
-                        dst.repeatedSint32.push(Deserialize.readSint32(src));
-                        break;
-                    }
-                    case 282:
-                    {
-                        Deserialize.readSint32Vector(src, dst.repeatedSint32);
-                        break;
-                    }
-                    case 288:
-                    {
-                        Deserialize.readSint64(src, TMP_INT64);
-                        dst.repeatedSint64.push(TMP_INT64.low, TMP_INT64.high);
-                        break;
-                    }
-                    case 290:
-                    {
-                        Deserialize.readSint64Vector(src, dst.repeatedSint64);
-                        break;
-                    }
-                    case 301:
-                    {
-                        dst.repeatedFixed32.push(src.readUnsignedInt());
-                        break;
-                    }
-                    case 298:
-                    {
-                        Deserialize.readFixed32Vector(src, dst.repeatedFixed32);
-                        break;
-                    }
-                    case 305:
-                    {
-                        dst.repeatedFixed64.push(src.readUnsignedInt(), src.readUnsignedInt());
-                        break;
-                    }
-                    case 306:
-                    {
-                        Deserialize.readFixed64Vector(src, dst.repeatedFixed64);
-                        break;
-                    }
-                    case 317:
-                    {
-                        dst.repeatedSfixed32.push(src.readInt());
-                        break;
-                    }
-                    case 314:
-                    {
-                        Deserialize.readFixed32sVector(src, dst.repeatedSfixed32);
-                        break;
-                    }
-                    case 321:
-                    {
-                        dst.repeatedSfixed64.push(src.readUnsignedInt(), src.readInt());
-                        break;
-                    }
-                    case 322:
-                    {
-                        Deserialize.readFixed64sVector(src, dst.repeatedSfixed64);
-                        break;
-                    }
-                    case 333:
-                    {
-                        dst.repeatedFloat.push(src.readFloat());
-                        break;
-                    }
-                    case 330:
-                    {
-                        Deserialize.readFloatVector(src, dst.repeatedFloat);
-                        break;
-                    }
-                    case 337:
-                    {
-                        dst.repeatedDouble.push(src.readDouble());
-                        break;
-                    }
-                    case 338:
-                    {
-                        Deserialize.readDoubleVector(src, dst.repeatedDouble);
-                        break;
-                    }
-                    case 344:
-                    {
-                        dst.repeatedBool.push(Deserialize.readBool(src));
-                        break;
-                    }
-                    case 346:
-                    {
-                        Deserialize.readBoolVector(src, dst.repeatedBool);
-                        break;
-                    }
-                    case 354:
-                    {
-                        dst.repeatedString.push(src.readUTFBytes(Deserialize.readVarint32(src)));
-                        break;
-                    }
-                    case 362:
-                    {
-                        var tmp:ByteArray = Buffers.newByteArray();
-                        Deserialize.readBytesInto(src, tmp);
-                        dst.repeatedBytes.push(tmp);
-                        break;
-                    }
-                    case 386:
-                    {
-                        const msgRepeatedNestedMessage:protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage = new protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage.deserializeBytes(src, msgRepeatedNestedMessage, src.position + messageLength);
-                        dst.repeatedNestedMessage.push(msgRepeatedNestedMessage);
-                        break;
-                    }
-                    case 394:
-                    {
-                        const msgRepeatedForeignMessage:protobuf_test_messages.proto3.ForeignMessage = new protobuf_test_messages.proto3.ForeignMessage();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.ForeignMessage.deserializeBytes(src, msgRepeatedForeignMessage, src.position + messageLength);
-                        dst.repeatedForeignMessage.push(msgRepeatedForeignMessage);
-                        break;
-                    }
-                    case 408:
-                    {
-                        dst.repeatedNestedEnum.push(Deserialize.readInt32(src));
-                        break;
-                    }
-                    case 410:
-                    {
-                        Deserialize.readInt32Vector(src, dst.repeatedNestedEnum);
-                        break;
-                    }
-                    case 416:
-                    {
-                        dst.repeatedForeignEnum.push(Deserialize.readInt32(src));
-                        break;
-                    }
-                    case 418:
-                    {
-                        Deserialize.readInt32Vector(src, dst.repeatedForeignEnum);
-                        break;
-                    }
-                    case 434:
-                    {
-                        dst.repeatedStringPiece.push(src.readUTFBytes(Deserialize.readVarint32(src)));
-                        break;
-                    }
-                    case 442:
-                    {
-                        dst.repeatedCord.push(src.readUTFBytes(Deserialize.readVarint32(src)));
-                        break;
-                    }
-                    case 600:
-                    {
-                        dst.packedInt32.push(Deserialize.readInt32(src));
-                        break;
-                    }
-                    case 602:
-                    {
-                        Deserialize.readInt32Vector(src, dst.packedInt32);
-                        break;
-                    }
-                    case 608:
-                    {
-                        Deserialize.readVarint64s(src, TMP_INT64);
-                        dst.packedInt64.push(TMP_INT64.low, TMP_INT64.high);
-                        break;
-                    }
-                    case 610:
-                    {
-                        Deserialize.readVarint64sVector(src, dst.packedInt64);
-                        break;
-                    }
-                    case 616:
-                    {
-                        dst.packedUint32.push(Deserialize.readVarint32(src));
-                        break;
-                    }
-                    case 618:
-                    {
-                        Deserialize.readVarint32Vector(src, dst.packedUint32);
-                        break;
-                    }
-                    case 624:
-                    {
-                        Deserialize.readVarint64(src, TMP_UINT64);
-                        dst.packedUint64.push(TMP_UINT64.low, TMP_UINT64.high);
-                        break;
-                    }
-                    case 626:
-                    {
-                        Deserialize.readVarint64Vector(src, dst.packedUint64);
-                        break;
-                    }
-                    case 632:
-                    {
-                        dst.packedSint32.push(Deserialize.readSint32(src));
-                        break;
-                    }
-                    case 634:
-                    {
-                        Deserialize.readSint32Vector(src, dst.packedSint32);
-                        break;
-                    }
-                    case 640:
-                    {
-                        Deserialize.readSint64(src, TMP_INT64);
-                        dst.packedSint64.push(TMP_INT64.low, TMP_INT64.high);
-                        break;
-                    }
-                    case 642:
-                    {
-                        Deserialize.readSint64Vector(src, dst.packedSint64);
-                        break;
-                    }
-                    case 653:
-                    {
-                        dst.packedFixed32.push(src.readUnsignedInt());
-                        break;
-                    }
-                    case 650:
-                    {
-                        Deserialize.readFixed32Vector(src, dst.packedFixed32);
-                        break;
-                    }
-                    case 657:
-                    {
-                        dst.packedFixed64.push(src.readUnsignedInt(), src.readUnsignedInt());
-                        break;
-                    }
-                    case 658:
-                    {
-                        Deserialize.readFixed64Vector(src, dst.packedFixed64);
-                        break;
-                    }
-                    case 669:
-                    {
-                        dst.packedSfixed32.push(src.readInt());
-                        break;
-                    }
-                    case 666:
-                    {
-                        Deserialize.readFixed32sVector(src, dst.packedSfixed32);
-                        break;
-                    }
-                    case 673:
-                    {
-                        dst.packedSfixed64.push(src.readUnsignedInt(), src.readInt());
-                        break;
-                    }
-                    case 674:
-                    {
-                        Deserialize.readFixed64sVector(src, dst.packedSfixed64);
-                        break;
-                    }
-                    case 685:
-                    {
-                        dst.packedFloat.push(src.readFloat());
-                        break;
-                    }
-                    case 682:
-                    {
-                        Deserialize.readFloatVector(src, dst.packedFloat);
-                        break;
-                    }
-                    case 689:
-                    {
-                        dst.packedDouble.push(src.readDouble());
-                        break;
-                    }
-                    case 690:
-                    {
-                        Deserialize.readDoubleVector(src, dst.packedDouble);
-                        break;
-                    }
-                    case 696:
-                    {
-                        dst.packedBool.push(Deserialize.readBool(src));
-                        break;
-                    }
-                    case 698:
-                    {
-                        Deserialize.readBoolVector(src, dst.packedBool);
-                        break;
-                    }
-                    case 704:
-                    {
-                        dst.packedNestedEnum.push(Deserialize.readInt32(src));
-                        break;
-                    }
-                    case 706:
-                    {
-                        Deserialize.readInt32Vector(src, dst.packedNestedEnum);
-                        break;
-                    }
-                    case 712:
-                    {
-                        dst.unpackedInt32.push(Deserialize.readInt32(src));
-                        break;
-                    }
-                    case 714:
-                    {
-                        Deserialize.readInt32Vector(src, dst.unpackedInt32);
-                        break;
-                    }
-                    case 720:
-                    {
-                        Deserialize.readVarint64s(src, TMP_INT64);
-                        dst.unpackedInt64.push(TMP_INT64.low, TMP_INT64.high);
-                        break;
-                    }
-                    case 722:
-                    {
-                        Deserialize.readVarint64sVector(src, dst.unpackedInt64);
-                        break;
-                    }
-                    case 728:
-                    {
-                        dst.unpackedUint32.push(Deserialize.readVarint32(src));
-                        break;
-                    }
-                    case 730:
-                    {
-                        Deserialize.readVarint32Vector(src, dst.unpackedUint32);
-                        break;
-                    }
-                    case 736:
-                    {
-                        Deserialize.readVarint64(src, TMP_UINT64);
-                        dst.unpackedUint64.push(TMP_UINT64.low, TMP_UINT64.high);
-                        break;
-                    }
-                    case 738:
-                    {
-                        Deserialize.readVarint64Vector(src, dst.unpackedUint64);
-                        break;
-                    }
-                    case 744:
-                    {
-                        dst.unpackedSint32.push(Deserialize.readSint32(src));
-                        break;
-                    }
-                    case 746:
-                    {
-                        Deserialize.readSint32Vector(src, dst.unpackedSint32);
-                        break;
-                    }
-                    case 752:
-                    {
-                        Deserialize.readSint64(src, TMP_INT64);
-                        dst.unpackedSint64.push(TMP_INT64.low, TMP_INT64.high);
-                        break;
-                    }
-                    case 754:
-                    {
-                        Deserialize.readSint64Vector(src, dst.unpackedSint64);
-                        break;
-                    }
-                    case 765:
-                    {
-                        dst.unpackedFixed32.push(src.readUnsignedInt());
-                        break;
-                    }
-                    case 762:
-                    {
-                        Deserialize.readFixed32Vector(src, dst.unpackedFixed32);
-                        break;
-                    }
-                    case 769:
-                    {
-                        dst.unpackedFixed64.push(src.readUnsignedInt(), src.readUnsignedInt());
-                        break;
-                    }
-                    case 770:
-                    {
-                        Deserialize.readFixed64Vector(src, dst.unpackedFixed64);
-                        break;
-                    }
-                    case 781:
-                    {
-                        dst.unpackedSfixed32.push(src.readInt());
-                        break;
-                    }
-                    case 778:
-                    {
-                        Deserialize.readFixed32sVector(src, dst.unpackedSfixed32);
-                        break;
-                    }
-                    case 785:
-                    {
-                        dst.unpackedSfixed64.push(src.readUnsignedInt(), src.readInt());
-                        break;
-                    }
-                    case 786:
-                    {
-                        Deserialize.readFixed64sVector(src, dst.unpackedSfixed64);
-                        break;
-                    }
-                    case 797:
-                    {
-                        dst.unpackedFloat.push(src.readFloat());
-                        break;
-                    }
-                    case 794:
-                    {
-                        Deserialize.readFloatVector(src, dst.unpackedFloat);
-                        break;
-                    }
-                    case 801:
-                    {
-                        dst.unpackedDouble.push(src.readDouble());
-                        break;
-                    }
-                    case 802:
-                    {
-                        Deserialize.readDoubleVector(src, dst.unpackedDouble);
-                        break;
-                    }
-                    case 808:
-                    {
-                        dst.unpackedBool.push(Deserialize.readBool(src));
-                        break;
-                    }
-                    case 810:
-                    {
-                        Deserialize.readBoolVector(src, dst.unpackedBool);
-                        break;
-                    }
-                    case 816:
-                    {
-                        dst.unpackedNestedEnum.push(Deserialize.readInt32(src));
-                        break;
-                    }
-                    case 818:
-                    {
-                        Deserialize.readInt32Vector(src, dst.unpackedNestedEnum);
-                        break;
-                    }
-                    case 450:
-                    {
-                        const msgMapInt32Int32:protobuf_test_messages.proto3.TestAllTypesProto3MapInt32Int32Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapInt32Int32Entry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapInt32Int32Entry.deserializeBytes(src, msgMapInt32Int32, src.position + messageLength);
-                        dst.mapInt32Int32.push(msgMapInt32Int32);
-                        break;
-                    }
-                    case 458:
-                    {
-                        const msgMapInt64Int64:protobuf_test_messages.proto3.TestAllTypesProto3MapInt64Int64Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapInt64Int64Entry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapInt64Int64Entry.deserializeBytes(src, msgMapInt64Int64, src.position + messageLength);
-                        dst.mapInt64Int64.push(msgMapInt64Int64);
-                        break;
-                    }
-                    case 466:
-                    {
-                        const msgMapUint32Uint32:protobuf_test_messages.proto3.TestAllTypesProto3MapUint32Uint32Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapUint32Uint32Entry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapUint32Uint32Entry.deserializeBytes(src, msgMapUint32Uint32, src.position + messageLength);
-                        dst.mapUint32Uint32.push(msgMapUint32Uint32);
-                        break;
-                    }
-                    case 474:
-                    {
-                        const msgMapUint64Uint64:protobuf_test_messages.proto3.TestAllTypesProto3MapUint64Uint64Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapUint64Uint64Entry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapUint64Uint64Entry.deserializeBytes(src, msgMapUint64Uint64, src.position + messageLength);
-                        dst.mapUint64Uint64.push(msgMapUint64Uint64);
-                        break;
-                    }
-                    case 482:
-                    {
-                        const msgMapSint32Sint32:protobuf_test_messages.proto3.TestAllTypesProto3MapSint32Sint32Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapSint32Sint32Entry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapSint32Sint32Entry.deserializeBytes(src, msgMapSint32Sint32, src.position + messageLength);
-                        dst.mapSint32Sint32.push(msgMapSint32Sint32);
-                        break;
-                    }
-                    case 490:
-                    {
-                        const msgMapSint64Sint64:protobuf_test_messages.proto3.TestAllTypesProto3MapSint64Sint64Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapSint64Sint64Entry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapSint64Sint64Entry.deserializeBytes(src, msgMapSint64Sint64, src.position + messageLength);
-                        dst.mapSint64Sint64.push(msgMapSint64Sint64);
-                        break;
-                    }
-                    case 498:
-                    {
-                        const msgMapFixed32Fixed32:protobuf_test_messages.proto3.TestAllTypesProto3MapFixed32Fixed32Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapFixed32Fixed32Entry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapFixed32Fixed32Entry.deserializeBytes(src, msgMapFixed32Fixed32, src.position + messageLength);
-                        dst.mapFixed32Fixed32.push(msgMapFixed32Fixed32);
-                        break;
-                    }
-                    case 506:
-                    {
-                        const msgMapFixed64Fixed64:protobuf_test_messages.proto3.TestAllTypesProto3MapFixed64Fixed64Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapFixed64Fixed64Entry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapFixed64Fixed64Entry.deserializeBytes(src, msgMapFixed64Fixed64, src.position + messageLength);
-                        dst.mapFixed64Fixed64.push(msgMapFixed64Fixed64);
-                        break;
-                    }
-                    case 514:
-                    {
-                        const msgMapSfixed32Sfixed32:protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry.deserializeBytes(src, msgMapSfixed32Sfixed32, src.position + messageLength);
-                        dst.mapSfixed32Sfixed32.push(msgMapSfixed32Sfixed32);
-                        break;
-                    }
-                    case 522:
-                    {
-                        const msgMapSfixed64Sfixed64:protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry.deserializeBytes(src, msgMapSfixed64Sfixed64, src.position + messageLength);
-                        dst.mapSfixed64Sfixed64.push(msgMapSfixed64Sfixed64);
-                        break;
-                    }
-                    case 530:
-                    {
-                        const msgMapInt32Float:protobuf_test_messages.proto3.TestAllTypesProto3MapInt32FloatEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapInt32FloatEntry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapInt32FloatEntry.deserializeBytes(src, msgMapInt32Float, src.position + messageLength);
-                        dst.mapInt32Float.push(msgMapInt32Float);
-                        break;
-                    }
-                    case 538:
-                    {
-                        const msgMapInt32Double:protobuf_test_messages.proto3.TestAllTypesProto3MapInt32DoubleEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapInt32DoubleEntry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapInt32DoubleEntry.deserializeBytes(src, msgMapInt32Double, src.position + messageLength);
-                        dst.mapInt32Double.push(msgMapInt32Double);
-                        break;
-                    }
-                    case 546:
-                    {
-                        const msgMapBoolBool:protobuf_test_messages.proto3.TestAllTypesProto3MapBoolBoolEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapBoolBoolEntry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapBoolBoolEntry.deserializeBytes(src, msgMapBoolBool, src.position + messageLength);
-                        dst.mapBoolBool.push(msgMapBoolBool);
-                        break;
-                    }
-                    case 554:
-                    {
-                        const msgMapStringString:protobuf_test_messages.proto3.TestAllTypesProto3MapStringStringEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringStringEntry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapStringStringEntry.deserializeBytes(src, msgMapStringString, src.position + messageLength);
-                        dst.mapStringString.push(msgMapStringString);
-                        break;
-                    }
-                    case 562:
-                    {
-                        const msgMapStringBytes:protobuf_test_messages.proto3.TestAllTypesProto3MapStringBytesEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringBytesEntry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapStringBytesEntry.deserializeBytes(src, msgMapStringBytes, src.position + messageLength);
-                        dst.mapStringBytes.push(msgMapStringBytes);
-                        break;
-                    }
-                    case 570:
-                    {
-                        const msgMapStringNestedMessage:protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedMessageEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedMessageEntry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedMessageEntry.deserializeBytes(src, msgMapStringNestedMessage, src.position + messageLength);
-                        dst.mapStringNestedMessage.push(msgMapStringNestedMessage);
-                        break;
-                    }
-                    case 578:
-                    {
-                        const msgMapStringForeignMessage:protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry.deserializeBytes(src, msgMapStringForeignMessage, src.position + messageLength);
-                        dst.mapStringForeignMessage.push(msgMapStringForeignMessage);
-                        break;
-                    }
-                    case 586:
-                    {
-                        const msgMapStringNestedEnum:protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedEnumEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedEnumEntry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedEnumEntry.deserializeBytes(src, msgMapStringNestedEnum, src.position + messageLength);
-                        dst.mapStringNestedEnum.push(msgMapStringNestedEnum);
-                        break;
-                    }
-                    case 594:
-                    {
-                        const msgMapStringForeignEnum:protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignEnumEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignEnumEntry();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignEnumEntry.deserializeBytes(src, msgMapStringForeignEnum, src.position + messageLength);
-                        dst.mapStringForeignEnum.push(msgMapStringForeignEnum);
-                        break;
-                    }
-                    case 888:
-                    {
-                        dst.oneofUint32 = Deserialize.readVarint32(src);
-                        dst.oneofFieldCase = FIELD_ONEOF_UINT32;
-                        break;
-                    }
-                    case 898:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.oneofNestedMessage = protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage.deserializeBytes(src, dst.oneofNestedMessage, src.position + messageLength, dst.oneofFieldCase != FIELD_ONEOF_NESTED_MESSAGE);
-                        dst.oneofFieldCase = FIELD_ONEOF_NESTED_MESSAGE;
-                        break;
-                    }
-                    case 906:
-                    {
-                        dst.oneofString = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.oneofFieldCase = FIELD_ONEOF_STRING;
-                        break;
-                    }
-                    case 914:
-                    {
-                        Deserialize.readBytesInto(src, dst.oneofBytes);
-                        dst.oneofFieldCase = FIELD_ONEOF_BYTES;
-                        break;
-                    }
-                    case 920:
-                    {
-                        dst.oneofBool = Deserialize.readBool(src);
-                        dst.oneofFieldCase = FIELD_ONEOF_BOOL;
-                        break;
-                    }
-                    case 928:
-                    {
-                        Deserialize.readVarint64(src, dst.oneofUint64);
-                        dst.oneofFieldCase = FIELD_ONEOF_UINT64;
-                        break;
-                    }
-                    case 941:
-                    {
-                        dst.oneofFloat = src.readFloat();
-                        dst.oneofFieldCase = FIELD_ONEOF_FLOAT;
-                        break;
-                    }
-                    case 945:
-                    {
-                        dst.oneofDouble = src.readDouble();
-                        dst.oneofFieldCase = FIELD_ONEOF_DOUBLE;
-                        break;
-                    }
-                    case 952:
-                    {
-                        dst.oneofEnum = Deserialize.readInt32(src);
-                        dst.oneofFieldCase = FIELD_ONEOF_ENUM;
-                        break;
-                    }
-                    case 960:
-                    {
-                        dst.oneofNullValue = Deserialize.readInt32(src);
-                        dst.oneofFieldCase = FIELD_ONEOF_NULL_VALUE;
-                        break;
-                    }
-                    case 1610:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalBoolWrapper = google.protobuf.BoolValue.deserializeBytes(src, dst.optionalBoolWrapper, src.position + messageLength, false);
-                        break;
-                    }
-                    case 1618:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalInt32Wrapper = google.protobuf.Int32Value.deserializeBytes(src, dst.optionalInt32Wrapper, src.position + messageLength, false);
-                        break;
-                    }
-                    case 1626:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalInt64Wrapper = google.protobuf.Int64Value.deserializeBytes(src, dst.optionalInt64Wrapper, src.position + messageLength, false);
-                        break;
-                    }
-                    case 1634:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalUint32Wrapper = google.protobuf.UInt32Value.deserializeBytes(src, dst.optionalUint32Wrapper, src.position + messageLength, false);
-                        break;
-                    }
-                    case 1642:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalUint64Wrapper = google.protobuf.UInt64Value.deserializeBytes(src, dst.optionalUint64Wrapper, src.position + messageLength, false);
-                        break;
-                    }
-                    case 1650:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalFloatWrapper = google.protobuf.FloatValue.deserializeBytes(src, dst.optionalFloatWrapper, src.position + messageLength, false);
-                        break;
-                    }
-                    case 1658:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalDoubleWrapper = google.protobuf.DoubleValue.deserializeBytes(src, dst.optionalDoubleWrapper, src.position + messageLength, false);
-                        break;
-                    }
-                    case 1666:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalStringWrapper = google.protobuf.StringValue.deserializeBytes(src, dst.optionalStringWrapper, src.position + messageLength, false);
-                        break;
-                    }
-                    case 1674:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalBytesWrapper = google.protobuf.BytesValue.deserializeBytes(src, dst.optionalBytesWrapper, src.position + messageLength, false);
-                        break;
-                    }
-                    case 1690:
-                    {
-                        const msgRepeatedBoolWrapper:google.protobuf.BoolValue = new google.protobuf.BoolValue();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.BoolValue.deserializeBytes(src, msgRepeatedBoolWrapper, src.position + messageLength);
-                        dst.repeatedBoolWrapper.push(msgRepeatedBoolWrapper);
-                        break;
-                    }
-                    case 1698:
-                    {
-                        const msgRepeatedInt32Wrapper:google.protobuf.Int32Value = new google.protobuf.Int32Value();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.Int32Value.deserializeBytes(src, msgRepeatedInt32Wrapper, src.position + messageLength);
-                        dst.repeatedInt32Wrapper.push(msgRepeatedInt32Wrapper);
-                        break;
-                    }
-                    case 1706:
-                    {
-                        const msgRepeatedInt64Wrapper:google.protobuf.Int64Value = new google.protobuf.Int64Value();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.Int64Value.deserializeBytes(src, msgRepeatedInt64Wrapper, src.position + messageLength);
-                        dst.repeatedInt64Wrapper.push(msgRepeatedInt64Wrapper);
-                        break;
-                    }
-                    case 1714:
-                    {
-                        const msgRepeatedUint32Wrapper:google.protobuf.UInt32Value = new google.protobuf.UInt32Value();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.UInt32Value.deserializeBytes(src, msgRepeatedUint32Wrapper, src.position + messageLength);
-                        dst.repeatedUint32Wrapper.push(msgRepeatedUint32Wrapper);
-                        break;
-                    }
-                    case 1722:
-                    {
-                        const msgRepeatedUint64Wrapper:google.protobuf.UInt64Value = new google.protobuf.UInt64Value();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.UInt64Value.deserializeBytes(src, msgRepeatedUint64Wrapper, src.position + messageLength);
-                        dst.repeatedUint64Wrapper.push(msgRepeatedUint64Wrapper);
-                        break;
-                    }
-                    case 1730:
-                    {
-                        const msgRepeatedFloatWrapper:google.protobuf.FloatValue = new google.protobuf.FloatValue();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.FloatValue.deserializeBytes(src, msgRepeatedFloatWrapper, src.position + messageLength);
-                        dst.repeatedFloatWrapper.push(msgRepeatedFloatWrapper);
-                        break;
-                    }
-                    case 1738:
-                    {
-                        const msgRepeatedDoubleWrapper:google.protobuf.DoubleValue = new google.protobuf.DoubleValue();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.DoubleValue.deserializeBytes(src, msgRepeatedDoubleWrapper, src.position + messageLength);
-                        dst.repeatedDoubleWrapper.push(msgRepeatedDoubleWrapper);
-                        break;
-                    }
-                    case 1746:
-                    {
-                        const msgRepeatedStringWrapper:google.protobuf.StringValue = new google.protobuf.StringValue();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.StringValue.deserializeBytes(src, msgRepeatedStringWrapper, src.position + messageLength);
-                        dst.repeatedStringWrapper.push(msgRepeatedStringWrapper);
-                        break;
-                    }
-                    case 1754:
-                    {
-                        const msgRepeatedBytesWrapper:google.protobuf.BytesValue = new google.protobuf.BytesValue();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.BytesValue.deserializeBytes(src, msgRepeatedBytesWrapper, src.position + messageLength);
-                        dst.repeatedBytesWrapper.push(msgRepeatedBytesWrapper);
-                        break;
-                    }
-                    case 2410:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalDuration = google.protobuf.Duration.deserializeBytes(src, dst.optionalDuration, src.position + messageLength, false);
-                        break;
-                    }
-                    case 2418:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalTimestamp = google.protobuf.Timestamp.deserializeBytes(src, dst.optionalTimestamp, src.position + messageLength, false);
-                        break;
-                    }
-                    case 2426:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalFieldMask = google.protobuf.FieldMask.deserializeBytes(src, dst.optionalFieldMask, src.position + messageLength, false);
-                        break;
-                    }
-                    case 2434:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalStruct = google.protobuf.Struct.deserializeBytes(src, dst.optionalStruct, src.position + messageLength, false);
-                        break;
-                    }
-                    case 2442:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalAny = google.protobuf.Any.deserializeBytes(src, dst.optionalAny, src.position + messageLength, false);
-                        break;
-                    }
-                    case 2450:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalValue = google.protobuf.Value.deserializeBytes(src, dst.optionalValue, src.position + messageLength, false);
-                        break;
-                    }
-                    case 2456:
-                    {
-                        dst.optionalNullValue = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 2466:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.optionalEmpty = google.protobuf.Empty.deserializeBytes(src, dst.optionalEmpty, src.position + messageLength, false);
-                        break;
-                    }
-                    case 2490:
-                    {
-                        const msgRepeatedDuration:google.protobuf.Duration = new google.protobuf.Duration();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.Duration.deserializeBytes(src, msgRepeatedDuration, src.position + messageLength);
-                        dst.repeatedDuration.push(msgRepeatedDuration);
-                        break;
-                    }
-                    case 2498:
-                    {
-                        const msgRepeatedTimestamp:google.protobuf.Timestamp = new google.protobuf.Timestamp();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.Timestamp.deserializeBytes(src, msgRepeatedTimestamp, src.position + messageLength);
-                        dst.repeatedTimestamp.push(msgRepeatedTimestamp);
-                        break;
-                    }
-                    case 2506:
-                    {
-                        const msgRepeatedFieldmask:google.protobuf.FieldMask = new google.protobuf.FieldMask();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.FieldMask.deserializeBytes(src, msgRepeatedFieldmask, src.position + messageLength);
-                        dst.repeatedFieldmask.push(msgRepeatedFieldmask);
-                        break;
-                    }
-                    case 2594:
-                    {
-                        const msgRepeatedStruct:google.protobuf.Struct = new google.protobuf.Struct();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.Struct.deserializeBytes(src, msgRepeatedStruct, src.position + messageLength);
-                        dst.repeatedStruct.push(msgRepeatedStruct);
-                        break;
-                    }
-                    case 2522:
-                    {
-                        const msgRepeatedAny:google.protobuf.Any = new google.protobuf.Any();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.Any.deserializeBytes(src, msgRepeatedAny, src.position + messageLength);
-                        dst.repeatedAny.push(msgRepeatedAny);
-                        break;
-                    }
-                    case 2530:
-                    {
-                        const msgRepeatedValue:google.protobuf.Value = new google.protobuf.Value();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.Value.deserializeBytes(src, msgRepeatedValue, src.position + messageLength);
-                        dst.repeatedValue.push(msgRepeatedValue);
-                        break;
-                    }
-                    case 2538:
-                    {
-                        const msgRepeatedListValue:google.protobuf.ListValue = new google.protobuf.ListValue();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.ListValue.deserializeBytes(src, msgRepeatedListValue, src.position + messageLength);
-                        dst.repeatedListValue.push(msgRepeatedListValue);
-                        break;
-                    }
-                    case 2546:
-                    {
-                        const msgRepeatedEmpty:google.protobuf.Empty = new google.protobuf.Empty();
-                        if ((messageLength = Deserialize.readVarint32(src)) !== 0)
-                            google.protobuf.Empty.deserializeBytes(src, msgRepeatedEmpty, src.position + messageLength);
-                        dst.repeatedEmpty.push(msgRepeatedEmpty);
-                        break;
-                    }
-                    case 3208:
-                    {
-                        dst.fieldname1 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3216:
-                    {
-                        dst.fieldName2 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3224:
-                    {
-                        dst._fieldName3 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3232:
-                    {
-                        dst.field_Name4_ = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3240:
-                    {
-                        dst.field0name5 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3248:
-                    {
-                        dst.field0Name6 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3256:
-                    {
-                        dst.fieldName7 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3264:
-                    {
-                        dst.fieldName8 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3272:
-                    {
-                        dst.fieldName9 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3280:
-                    {
-                        dst.fieldName10 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3288:
-                    {
-                        dst.fIELDNAME11 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3296:
-                    {
-                        dst.fIELDName12 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3304:
-                    {
-                        dst.__fieldName13 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3312:
-                    {
-                        dst.__fieldName14 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3320:
-                    {
-                        dst.field_Name15 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3328:
-                    {
-                        dst.field_Name16 = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3336:
-                    {
-                        dst.fieldName17__ = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 3344:
-                    {
-                        dst.fieldName18__ = Deserialize.readInt32(src);
-                        break;
-                    }
-                    default:
-                    {
-                        if ((tag >>> 3) == 0)
-                            throw new Error("Invalid protobuf field number");
+                    const tag:uint = Unpack.readTag(src);
+                    switch (tag)
+                    {
+                        case 8:
+                        {
+                            dst.optionalInt32 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 16:
+                        {
+                            Unpack.readVarint64s(src, dst.optionalInt64);
+                            break;
+                        }
+                        case 24:
+                        {
+                            dst.optionalUint32 = Unpack.readVarint32(src);
+                            break;
+                        }
+                        case 32:
+                        {
+                            Unpack.readVarint64(src, dst.optionalUint64);
+                            break;
+                        }
+                        case 40:
+                        {
+                            dst.optionalSint32 = Unpack.readSint32(src);
+                            break;
+                        }
+                        case 48:
+                        {
+                            Unpack.readSint64(src, dst.optionalSint64);
+                            break;
+                        }
+                        case 61:
+                        {
+                            dst.optionalFixed32 = Unpack.readFixed32(src);
+                            break;
+                        }
+                        case 65:
+                        {
+                            Unpack.readFixed64(src, dst.optionalFixed64);
+                            break;
+                        }
+                        case 77:
+                        {
+                            dst.optionalSfixed32 = Unpack.readSfixed32(src);
+                            break;
+                        }
+                        case 81:
+                        {
+                            Unpack.readSfixed64(src, dst.optionalSfixed64);
+                            break;
+                        }
+                        case 93:
+                        {
+                            dst.optionalFloat = Unpack.readFloat(src);
+                            break;
+                        }
+                        case 97:
+                        {
+                            dst.optionalDouble = Unpack.readDouble(src);
+                            break;
+                        }
+                        case 104:
+                        {
+                            dst.optionalBool = Unpack.readBool(src);
+                            break;
+                        }
+                        case 114:
+                        {
+                            dst.optionalString = Unpack.readString(src);
+                            break;
+                        }
+                        case 122:
+                        {
+                            Unpack.readBytesInto(src, dst.optionalBytes);
+                            break;
+                        }
+                        case 146:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalNestedMessage = protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage.deserializeMemory(src, dst.optionalNestedMessage, src.position + messageLength, false);
+                            break;
+                        }
+                        case 154:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalForeignMessage = protobuf_test_messages.proto3.ForeignMessage.deserializeMemory(src, dst.optionalForeignMessage, src.position + messageLength, false);
+                            break;
+                        }
+                        case 168:
+                        {
+                            dst.optionalNestedEnum = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 176:
+                        {
+                            dst.optionalForeignEnum = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 184:
+                        {
+                            dst.optionalAliasedEnum = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 194:
+                        {
+                            dst.optionalStringPiece = Unpack.readString(src);
+                            break;
+                        }
+                        case 202:
+                        {
+                            dst.optionalCord = Unpack.readString(src);
+                            break;
+                        }
+                        case 218:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.recursiveMessage = protobuf_test_messages.proto3.TestAllTypesProto3.deserializeMemory(src, dst.recursiveMessage, src.position + messageLength, false);
+                            break;
+                        }
+                        case 248:
+                        {
+                            dst.repeatedInt32.push(Unpack.readInt32(src));
+                            break;
+                        }
+                        case 250:
+                        {
+                            Unpack.readInt32Vector(src, dst.repeatedInt32);
+                            break;
+                        }
+                        case 256:
+                        {
+                            Unpack.readVarint64s(src, TMP_INT64);
+                            dst.repeatedInt64.push(TMP_INT64.low, TMP_INT64.high);
+                            break;
+                        }
+                        case 258:
+                        {
+                            Unpack.readVarint64sVector(src, dst.repeatedInt64);
+                            break;
+                        }
+                        case 264:
+                        {
+                            dst.repeatedUint32.push(Unpack.readVarint32(src));
+                            break;
+                        }
+                        case 266:
+                        {
+                            Unpack.readVarint32Vector(src, dst.repeatedUint32);
+                            break;
+                        }
+                        case 272:
+                        {
+                            Unpack.readVarint64(src, TMP_UINT64);
+                            dst.repeatedUint64.push(TMP_UINT64.low, TMP_UINT64.high);
+                            break;
+                        }
+                        case 274:
+                        {
+                            Unpack.readVarint64Vector(src, dst.repeatedUint64);
+                            break;
+                        }
+                        case 280:
+                        {
+                            dst.repeatedSint32.push(Unpack.readSint32(src));
+                            break;
+                        }
+                        case 282:
+                        {
+                            Unpack.readSint32Vector(src, dst.repeatedSint32);
+                            break;
+                        }
+                        case 288:
+                        {
+                            Unpack.readSint64(src, TMP_INT64);
+                            dst.repeatedSint64.push(TMP_INT64.low, TMP_INT64.high);
+                            break;
+                        }
+                        case 290:
+                        {
+                            Unpack.readSint64Vector(src, dst.repeatedSint64);
+                            break;
+                        }
+                        case 301:
+                        {
+                            dst.repeatedFixed32.push(Unpack.readFixed32(src));
+                            break;
+                        }
+                        case 298:
+                        {
+                            Unpack.readFixed32Vector(src, dst.repeatedFixed32);
+                            break;
+                        }
+                        case 305:
+                        {
+                            dst.repeatedFixed64.push(Unpack.readFixed32(src), Unpack.readFixed32(src));
+                            break;
+                        }
+                        case 306:
+                        {
+                            Unpack.readFixed64Vector(src, dst.repeatedFixed64);
+                            break;
+                        }
+                        case 317:
+                        {
+                            dst.repeatedSfixed32.push(Unpack.readSfixed32(src));
+                            break;
+                        }
+                        case 314:
+                        {
+                            Unpack.readFixed32sVector(src, dst.repeatedSfixed32);
+                            break;
+                        }
+                        case 321:
+                        {
+                            dst.repeatedSfixed64.push(Unpack.readFixed32(src), Unpack.readSfixed32(src));
+                            break;
+                        }
+                        case 322:
+                        {
+                            Unpack.readFixed64sVector(src, dst.repeatedSfixed64);
+                            break;
+                        }
+                        case 333:
+                        {
+                            dst.repeatedFloat.push(Unpack.readFloat(src));
+                            break;
+                        }
+                        case 330:
+                        {
+                            Unpack.readFloatVector(src, dst.repeatedFloat);
+                            break;
+                        }
+                        case 337:
+                        {
+                            dst.repeatedDouble.push(Unpack.readDouble(src));
+                            break;
+                        }
+                        case 338:
+                        {
+                            Unpack.readDoubleVector(src, dst.repeatedDouble);
+                            break;
+                        }
+                        case 344:
+                        {
+                            dst.repeatedBool.push(Unpack.readBool(src));
+                            break;
+                        }
+                        case 346:
+                        {
+                            Unpack.readBoolVector(src, dst.repeatedBool);
+                            break;
+                        }
+                        case 354:
+                        {
+                            dst.repeatedString.push(Unpack.readString(src));
+                            break;
+                        }
+                        case 362:
+                        {
+                            var tmp:ByteArray = Buffers.newByteArray();
+                            Unpack.readBytesInto(src, tmp);
+                            dst.repeatedBytes.push(tmp);
+                            break;
+                        }
+                        case 386:
+                        {
+                            const msgRepeatedNestedMessage:protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage = new protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage.deserializeMemory(src, msgRepeatedNestedMessage, src.position + messageLength);
+                            dst.repeatedNestedMessage.push(msgRepeatedNestedMessage);
+                            break;
+                        }
+                        case 394:
+                        {
+                            const msgRepeatedForeignMessage:protobuf_test_messages.proto3.ForeignMessage = new protobuf_test_messages.proto3.ForeignMessage();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.ForeignMessage.deserializeMemory(src, msgRepeatedForeignMessage, src.position + messageLength);
+                            dst.repeatedForeignMessage.push(msgRepeatedForeignMessage);
+                            break;
+                        }
+                        case 408:
+                        {
+                            dst.repeatedNestedEnum.push(Unpack.readInt32(src));
+                            break;
+                        }
+                        case 410:
+                        {
+                            Unpack.readInt32Vector(src, dst.repeatedNestedEnum);
+                            break;
+                        }
+                        case 416:
+                        {
+                            dst.repeatedForeignEnum.push(Unpack.readInt32(src));
+                            break;
+                        }
+                        case 418:
+                        {
+                            Unpack.readInt32Vector(src, dst.repeatedForeignEnum);
+                            break;
+                        }
+                        case 434:
+                        {
+                            dst.repeatedStringPiece.push(Unpack.readString(src));
+                            break;
+                        }
+                        case 442:
+                        {
+                            dst.repeatedCord.push(Unpack.readString(src));
+                            break;
+                        }
+                        case 600:
+                        {
+                            dst.packedInt32.push(Unpack.readInt32(src));
+                            break;
+                        }
+                        case 602:
+                        {
+                            Unpack.readInt32Vector(src, dst.packedInt32);
+                            break;
+                        }
+                        case 608:
+                        {
+                            Unpack.readVarint64s(src, TMP_INT64);
+                            dst.packedInt64.push(TMP_INT64.low, TMP_INT64.high);
+                            break;
+                        }
+                        case 610:
+                        {
+                            Unpack.readVarint64sVector(src, dst.packedInt64);
+                            break;
+                        }
+                        case 616:
+                        {
+                            dst.packedUint32.push(Unpack.readVarint32(src));
+                            break;
+                        }
+                        case 618:
+                        {
+                            Unpack.readVarint32Vector(src, dst.packedUint32);
+                            break;
+                        }
+                        case 624:
+                        {
+                            Unpack.readVarint64(src, TMP_UINT64);
+                            dst.packedUint64.push(TMP_UINT64.low, TMP_UINT64.high);
+                            break;
+                        }
+                        case 626:
+                        {
+                            Unpack.readVarint64Vector(src, dst.packedUint64);
+                            break;
+                        }
+                        case 632:
+                        {
+                            dst.packedSint32.push(Unpack.readSint32(src));
+                            break;
+                        }
+                        case 634:
+                        {
+                            Unpack.readSint32Vector(src, dst.packedSint32);
+                            break;
+                        }
+                        case 640:
+                        {
+                            Unpack.readSint64(src, TMP_INT64);
+                            dst.packedSint64.push(TMP_INT64.low, TMP_INT64.high);
+                            break;
+                        }
+                        case 642:
+                        {
+                            Unpack.readSint64Vector(src, dst.packedSint64);
+                            break;
+                        }
+                        case 653:
+                        {
+                            dst.packedFixed32.push(Unpack.readFixed32(src));
+                            break;
+                        }
+                        case 650:
+                        {
+                            Unpack.readFixed32Vector(src, dst.packedFixed32);
+                            break;
+                        }
+                        case 657:
+                        {
+                            dst.packedFixed64.push(Unpack.readFixed32(src), Unpack.readFixed32(src));
+                            break;
+                        }
+                        case 658:
+                        {
+                            Unpack.readFixed64Vector(src, dst.packedFixed64);
+                            break;
+                        }
+                        case 669:
+                        {
+                            dst.packedSfixed32.push(Unpack.readSfixed32(src));
+                            break;
+                        }
+                        case 666:
+                        {
+                            Unpack.readFixed32sVector(src, dst.packedSfixed32);
+                            break;
+                        }
+                        case 673:
+                        {
+                            dst.packedSfixed64.push(Unpack.readFixed32(src), Unpack.readSfixed32(src));
+                            break;
+                        }
+                        case 674:
+                        {
+                            Unpack.readFixed64sVector(src, dst.packedSfixed64);
+                            break;
+                        }
+                        case 685:
+                        {
+                            dst.packedFloat.push(Unpack.readFloat(src));
+                            break;
+                        }
+                        case 682:
+                        {
+                            Unpack.readFloatVector(src, dst.packedFloat);
+                            break;
+                        }
+                        case 689:
+                        {
+                            dst.packedDouble.push(Unpack.readDouble(src));
+                            break;
+                        }
+                        case 690:
+                        {
+                            Unpack.readDoubleVector(src, dst.packedDouble);
+                            break;
+                        }
+                        case 696:
+                        {
+                            dst.packedBool.push(Unpack.readBool(src));
+                            break;
+                        }
+                        case 698:
+                        {
+                            Unpack.readBoolVector(src, dst.packedBool);
+                            break;
+                        }
+                        case 704:
+                        {
+                            dst.packedNestedEnum.push(Unpack.readInt32(src));
+                            break;
+                        }
+                        case 706:
+                        {
+                            Unpack.readInt32Vector(src, dst.packedNestedEnum);
+                            break;
+                        }
+                        case 712:
+                        {
+                            dst.unpackedInt32.push(Unpack.readInt32(src));
+                            break;
+                        }
+                        case 714:
+                        {
+                            Unpack.readInt32Vector(src, dst.unpackedInt32);
+                            break;
+                        }
+                        case 720:
+                        {
+                            Unpack.readVarint64s(src, TMP_INT64);
+                            dst.unpackedInt64.push(TMP_INT64.low, TMP_INT64.high);
+                            break;
+                        }
+                        case 722:
+                        {
+                            Unpack.readVarint64sVector(src, dst.unpackedInt64);
+                            break;
+                        }
+                        case 728:
+                        {
+                            dst.unpackedUint32.push(Unpack.readVarint32(src));
+                            break;
+                        }
+                        case 730:
+                        {
+                            Unpack.readVarint32Vector(src, dst.unpackedUint32);
+                            break;
+                        }
+                        case 736:
+                        {
+                            Unpack.readVarint64(src, TMP_UINT64);
+                            dst.unpackedUint64.push(TMP_UINT64.low, TMP_UINT64.high);
+                            break;
+                        }
+                        case 738:
+                        {
+                            Unpack.readVarint64Vector(src, dst.unpackedUint64);
+                            break;
+                        }
+                        case 744:
+                        {
+                            dst.unpackedSint32.push(Unpack.readSint32(src));
+                            break;
+                        }
+                        case 746:
+                        {
+                            Unpack.readSint32Vector(src, dst.unpackedSint32);
+                            break;
+                        }
+                        case 752:
+                        {
+                            Unpack.readSint64(src, TMP_INT64);
+                            dst.unpackedSint64.push(TMP_INT64.low, TMP_INT64.high);
+                            break;
+                        }
+                        case 754:
+                        {
+                            Unpack.readSint64Vector(src, dst.unpackedSint64);
+                            break;
+                        }
+                        case 765:
+                        {
+                            dst.unpackedFixed32.push(Unpack.readFixed32(src));
+                            break;
+                        }
+                        case 762:
+                        {
+                            Unpack.readFixed32Vector(src, dst.unpackedFixed32);
+                            break;
+                        }
+                        case 769:
+                        {
+                            dst.unpackedFixed64.push(Unpack.readFixed32(src), Unpack.readFixed32(src));
+                            break;
+                        }
+                        case 770:
+                        {
+                            Unpack.readFixed64Vector(src, dst.unpackedFixed64);
+                            break;
+                        }
+                        case 781:
+                        {
+                            dst.unpackedSfixed32.push(Unpack.readSfixed32(src));
+                            break;
+                        }
+                        case 778:
+                        {
+                            Unpack.readFixed32sVector(src, dst.unpackedSfixed32);
+                            break;
+                        }
+                        case 785:
+                        {
+                            dst.unpackedSfixed64.push(Unpack.readFixed32(src), Unpack.readSfixed32(src));
+                            break;
+                        }
+                        case 786:
+                        {
+                            Unpack.readFixed64sVector(src, dst.unpackedSfixed64);
+                            break;
+                        }
+                        case 797:
+                        {
+                            dst.unpackedFloat.push(Unpack.readFloat(src));
+                            break;
+                        }
+                        case 794:
+                        {
+                            Unpack.readFloatVector(src, dst.unpackedFloat);
+                            break;
+                        }
+                        case 801:
+                        {
+                            dst.unpackedDouble.push(Unpack.readDouble(src));
+                            break;
+                        }
+                        case 802:
+                        {
+                            Unpack.readDoubleVector(src, dst.unpackedDouble);
+                            break;
+                        }
+                        case 808:
+                        {
+                            dst.unpackedBool.push(Unpack.readBool(src));
+                            break;
+                        }
+                        case 810:
+                        {
+                            Unpack.readBoolVector(src, dst.unpackedBool);
+                            break;
+                        }
+                        case 816:
+                        {
+                            dst.unpackedNestedEnum.push(Unpack.readInt32(src));
+                            break;
+                        }
+                        case 818:
+                        {
+                            Unpack.readInt32Vector(src, dst.unpackedNestedEnum);
+                            break;
+                        }
+                        case 450:
+                        {
+                            const msgMapInt32Int32:protobuf_test_messages.proto3.TestAllTypesProto3MapInt32Int32Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapInt32Int32Entry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapInt32Int32Entry.deserializeMemory(src, msgMapInt32Int32, src.position + messageLength);
+                            dst.mapInt32Int32.push(msgMapInt32Int32);
+                            break;
+                        }
+                        case 458:
+                        {
+                            const msgMapInt64Int64:protobuf_test_messages.proto3.TestAllTypesProto3MapInt64Int64Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapInt64Int64Entry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapInt64Int64Entry.deserializeMemory(src, msgMapInt64Int64, src.position + messageLength);
+                            dst.mapInt64Int64.push(msgMapInt64Int64);
+                            break;
+                        }
+                        case 466:
+                        {
+                            const msgMapUint32Uint32:protobuf_test_messages.proto3.TestAllTypesProto3MapUint32Uint32Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapUint32Uint32Entry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapUint32Uint32Entry.deserializeMemory(src, msgMapUint32Uint32, src.position + messageLength);
+                            dst.mapUint32Uint32.push(msgMapUint32Uint32);
+                            break;
+                        }
+                        case 474:
+                        {
+                            const msgMapUint64Uint64:protobuf_test_messages.proto3.TestAllTypesProto3MapUint64Uint64Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapUint64Uint64Entry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapUint64Uint64Entry.deserializeMemory(src, msgMapUint64Uint64, src.position + messageLength);
+                            dst.mapUint64Uint64.push(msgMapUint64Uint64);
+                            break;
+                        }
+                        case 482:
+                        {
+                            const msgMapSint32Sint32:protobuf_test_messages.proto3.TestAllTypesProto3MapSint32Sint32Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapSint32Sint32Entry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapSint32Sint32Entry.deserializeMemory(src, msgMapSint32Sint32, src.position + messageLength);
+                            dst.mapSint32Sint32.push(msgMapSint32Sint32);
+                            break;
+                        }
+                        case 490:
+                        {
+                            const msgMapSint64Sint64:protobuf_test_messages.proto3.TestAllTypesProto3MapSint64Sint64Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapSint64Sint64Entry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapSint64Sint64Entry.deserializeMemory(src, msgMapSint64Sint64, src.position + messageLength);
+                            dst.mapSint64Sint64.push(msgMapSint64Sint64);
+                            break;
+                        }
+                        case 498:
+                        {
+                            const msgMapFixed32Fixed32:protobuf_test_messages.proto3.TestAllTypesProto3MapFixed32Fixed32Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapFixed32Fixed32Entry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapFixed32Fixed32Entry.deserializeMemory(src, msgMapFixed32Fixed32, src.position + messageLength);
+                            dst.mapFixed32Fixed32.push(msgMapFixed32Fixed32);
+                            break;
+                        }
+                        case 506:
+                        {
+                            const msgMapFixed64Fixed64:protobuf_test_messages.proto3.TestAllTypesProto3MapFixed64Fixed64Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapFixed64Fixed64Entry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapFixed64Fixed64Entry.deserializeMemory(src, msgMapFixed64Fixed64, src.position + messageLength);
+                            dst.mapFixed64Fixed64.push(msgMapFixed64Fixed64);
+                            break;
+                        }
+                        case 514:
+                        {
+                            const msgMapSfixed32Sfixed32:protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed32Sfixed32Entry.deserializeMemory(src, msgMapSfixed32Sfixed32, src.position + messageLength);
+                            dst.mapSfixed32Sfixed32.push(msgMapSfixed32Sfixed32);
+                            break;
+                        }
+                        case 522:
+                        {
+                            const msgMapSfixed64Sfixed64:protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry = new protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapSfixed64Sfixed64Entry.deserializeMemory(src, msgMapSfixed64Sfixed64, src.position + messageLength);
+                            dst.mapSfixed64Sfixed64.push(msgMapSfixed64Sfixed64);
+                            break;
+                        }
+                        case 530:
+                        {
+                            const msgMapInt32Float:protobuf_test_messages.proto3.TestAllTypesProto3MapInt32FloatEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapInt32FloatEntry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapInt32FloatEntry.deserializeMemory(src, msgMapInt32Float, src.position + messageLength);
+                            dst.mapInt32Float.push(msgMapInt32Float);
+                            break;
+                        }
+                        case 538:
+                        {
+                            const msgMapInt32Double:protobuf_test_messages.proto3.TestAllTypesProto3MapInt32DoubleEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapInt32DoubleEntry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapInt32DoubleEntry.deserializeMemory(src, msgMapInt32Double, src.position + messageLength);
+                            dst.mapInt32Double.push(msgMapInt32Double);
+                            break;
+                        }
+                        case 546:
+                        {
+                            const msgMapBoolBool:protobuf_test_messages.proto3.TestAllTypesProto3MapBoolBoolEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapBoolBoolEntry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapBoolBoolEntry.deserializeMemory(src, msgMapBoolBool, src.position + messageLength);
+                            dst.mapBoolBool.push(msgMapBoolBool);
+                            break;
+                        }
+                        case 554:
+                        {
+                            const msgMapStringString:protobuf_test_messages.proto3.TestAllTypesProto3MapStringStringEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringStringEntry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapStringStringEntry.deserializeMemory(src, msgMapStringString, src.position + messageLength);
+                            dst.mapStringString.push(msgMapStringString);
+                            break;
+                        }
+                        case 562:
+                        {
+                            const msgMapStringBytes:protobuf_test_messages.proto3.TestAllTypesProto3MapStringBytesEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringBytesEntry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapStringBytesEntry.deserializeMemory(src, msgMapStringBytes, src.position + messageLength);
+                            dst.mapStringBytes.push(msgMapStringBytes);
+                            break;
+                        }
+                        case 570:
+                        {
+                            const msgMapStringNestedMessage:protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedMessageEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedMessageEntry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedMessageEntry.deserializeMemory(src, msgMapStringNestedMessage, src.position + messageLength);
+                            dst.mapStringNestedMessage.push(msgMapStringNestedMessage);
+                            break;
+                        }
+                        case 578:
+                        {
+                            const msgMapStringForeignMessage:protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignMessageEntry.deserializeMemory(src, msgMapStringForeignMessage, src.position + messageLength);
+                            dst.mapStringForeignMessage.push(msgMapStringForeignMessage);
+                            break;
+                        }
+                        case 586:
+                        {
+                            const msgMapStringNestedEnum:protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedEnumEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedEnumEntry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapStringNestedEnumEntry.deserializeMemory(src, msgMapStringNestedEnum, src.position + messageLength);
+                            dst.mapStringNestedEnum.push(msgMapStringNestedEnum);
+                            break;
+                        }
+                        case 594:
+                        {
+                            const msgMapStringForeignEnum:protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignEnumEntry = new protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignEnumEntry();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                protobuf_test_messages.proto3.TestAllTypesProto3MapStringForeignEnumEntry.deserializeMemory(src, msgMapStringForeignEnum, src.position + messageLength);
+                            dst.mapStringForeignEnum.push(msgMapStringForeignEnum);
+                            break;
+                        }
+                        case 888:
+                        {
+                            dst.oneofUint32 = Unpack.readVarint32(src);
+                            dst.oneofFieldCase = FIELD_ONEOF_UINT32;
+                            break;
+                        }
+                        case 898:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.oneofNestedMessage = protobuf_test_messages.proto3.TestAllTypesProto3NestedMessage.deserializeMemory(src, dst.oneofNestedMessage, src.position + messageLength, dst.oneofFieldCase != FIELD_ONEOF_NESTED_MESSAGE);
+                            dst.oneofFieldCase = FIELD_ONEOF_NESTED_MESSAGE;
+                            break;
+                        }
+                        case 906:
+                        {
+                            dst.oneofString = Unpack.readString(src);
+                            dst.oneofFieldCase = FIELD_ONEOF_STRING;
+                            break;
+                        }
+                        case 914:
+                        {
+                            Unpack.readBytesInto(src, dst.oneofBytes);
+                            dst.oneofFieldCase = FIELD_ONEOF_BYTES;
+                            break;
+                        }
+                        case 920:
+                        {
+                            dst.oneofBool = Unpack.readBool(src);
+                            dst.oneofFieldCase = FIELD_ONEOF_BOOL;
+                            break;
+                        }
+                        case 928:
+                        {
+                            Unpack.readVarint64(src, dst.oneofUint64);
+                            dst.oneofFieldCase = FIELD_ONEOF_UINT64;
+                            break;
+                        }
+                        case 941:
+                        {
+                            dst.oneofFloat = Unpack.readFloat(src);
+                            dst.oneofFieldCase = FIELD_ONEOF_FLOAT;
+                            break;
+                        }
+                        case 945:
+                        {
+                            dst.oneofDouble = Unpack.readDouble(src);
+                            dst.oneofFieldCase = FIELD_ONEOF_DOUBLE;
+                            break;
+                        }
+                        case 952:
+                        {
+                            dst.oneofEnum = Unpack.readInt32(src);
+                            dst.oneofFieldCase = FIELD_ONEOF_ENUM;
+                            break;
+                        }
+                        case 960:
+                        {
+                            dst.oneofNullValue = Unpack.readInt32(src);
+                            dst.oneofFieldCase = FIELD_ONEOF_NULL_VALUE;
+                            break;
+                        }
+                        case 1610:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalBoolWrapper = google.protobuf.BoolValue.deserializeMemory(src, dst.optionalBoolWrapper, src.position + messageLength, false);
+                            break;
+                        }
+                        case 1618:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalInt32Wrapper = google.protobuf.Int32Value.deserializeMemory(src, dst.optionalInt32Wrapper, src.position + messageLength, false);
+                            break;
+                        }
+                        case 1626:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalInt64Wrapper = google.protobuf.Int64Value.deserializeMemory(src, dst.optionalInt64Wrapper, src.position + messageLength, false);
+                            break;
+                        }
+                        case 1634:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalUint32Wrapper = google.protobuf.UInt32Value.deserializeMemory(src, dst.optionalUint32Wrapper, src.position + messageLength, false);
+                            break;
+                        }
+                        case 1642:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalUint64Wrapper = google.protobuf.UInt64Value.deserializeMemory(src, dst.optionalUint64Wrapper, src.position + messageLength, false);
+                            break;
+                        }
+                        case 1650:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalFloatWrapper = google.protobuf.FloatValue.deserializeMemory(src, dst.optionalFloatWrapper, src.position + messageLength, false);
+                            break;
+                        }
+                        case 1658:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalDoubleWrapper = google.protobuf.DoubleValue.deserializeMemory(src, dst.optionalDoubleWrapper, src.position + messageLength, false);
+                            break;
+                        }
+                        case 1666:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalStringWrapper = google.protobuf.StringValue.deserializeMemory(src, dst.optionalStringWrapper, src.position + messageLength, false);
+                            break;
+                        }
+                        case 1674:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalBytesWrapper = google.protobuf.BytesValue.deserializeMemory(src, dst.optionalBytesWrapper, src.position + messageLength, false);
+                            break;
+                        }
+                        case 1690:
+                        {
+                            const msgRepeatedBoolWrapper:google.protobuf.BoolValue = new google.protobuf.BoolValue();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.BoolValue.deserializeMemory(src, msgRepeatedBoolWrapper, src.position + messageLength);
+                            dst.repeatedBoolWrapper.push(msgRepeatedBoolWrapper);
+                            break;
+                        }
+                        case 1698:
+                        {
+                            const msgRepeatedInt32Wrapper:google.protobuf.Int32Value = new google.protobuf.Int32Value();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.Int32Value.deserializeMemory(src, msgRepeatedInt32Wrapper, src.position + messageLength);
+                            dst.repeatedInt32Wrapper.push(msgRepeatedInt32Wrapper);
+                            break;
+                        }
+                        case 1706:
+                        {
+                            const msgRepeatedInt64Wrapper:google.protobuf.Int64Value = new google.protobuf.Int64Value();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.Int64Value.deserializeMemory(src, msgRepeatedInt64Wrapper, src.position + messageLength);
+                            dst.repeatedInt64Wrapper.push(msgRepeatedInt64Wrapper);
+                            break;
+                        }
+                        case 1714:
+                        {
+                            const msgRepeatedUint32Wrapper:google.protobuf.UInt32Value = new google.protobuf.UInt32Value();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.UInt32Value.deserializeMemory(src, msgRepeatedUint32Wrapper, src.position + messageLength);
+                            dst.repeatedUint32Wrapper.push(msgRepeatedUint32Wrapper);
+                            break;
+                        }
+                        case 1722:
+                        {
+                            const msgRepeatedUint64Wrapper:google.protobuf.UInt64Value = new google.protobuf.UInt64Value();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.UInt64Value.deserializeMemory(src, msgRepeatedUint64Wrapper, src.position + messageLength);
+                            dst.repeatedUint64Wrapper.push(msgRepeatedUint64Wrapper);
+                            break;
+                        }
+                        case 1730:
+                        {
+                            const msgRepeatedFloatWrapper:google.protobuf.FloatValue = new google.protobuf.FloatValue();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.FloatValue.deserializeMemory(src, msgRepeatedFloatWrapper, src.position + messageLength);
+                            dst.repeatedFloatWrapper.push(msgRepeatedFloatWrapper);
+                            break;
+                        }
+                        case 1738:
+                        {
+                            const msgRepeatedDoubleWrapper:google.protobuf.DoubleValue = new google.protobuf.DoubleValue();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.DoubleValue.deserializeMemory(src, msgRepeatedDoubleWrapper, src.position + messageLength);
+                            dst.repeatedDoubleWrapper.push(msgRepeatedDoubleWrapper);
+                            break;
+                        }
+                        case 1746:
+                        {
+                            const msgRepeatedStringWrapper:google.protobuf.StringValue = new google.protobuf.StringValue();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.StringValue.deserializeMemory(src, msgRepeatedStringWrapper, src.position + messageLength);
+                            dst.repeatedStringWrapper.push(msgRepeatedStringWrapper);
+                            break;
+                        }
+                        case 1754:
+                        {
+                            const msgRepeatedBytesWrapper:google.protobuf.BytesValue = new google.protobuf.BytesValue();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.BytesValue.deserializeMemory(src, msgRepeatedBytesWrapper, src.position + messageLength);
+                            dst.repeatedBytesWrapper.push(msgRepeatedBytesWrapper);
+                            break;
+                        }
+                        case 2410:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalDuration = google.protobuf.Duration.deserializeMemory(src, dst.optionalDuration, src.position + messageLength, false);
+                            break;
+                        }
+                        case 2418:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalTimestamp = google.protobuf.Timestamp.deserializeMemory(src, dst.optionalTimestamp, src.position + messageLength, false);
+                            break;
+                        }
+                        case 2426:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalFieldMask = google.protobuf.FieldMask.deserializeMemory(src, dst.optionalFieldMask, src.position + messageLength, false);
+                            break;
+                        }
+                        case 2434:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalStruct = google.protobuf.Struct.deserializeMemory(src, dst.optionalStruct, src.position + messageLength, false);
+                            break;
+                        }
+                        case 2442:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalAny = google.protobuf.Any.deserializeMemory(src, dst.optionalAny, src.position + messageLength, false);
+                            break;
+                        }
+                        case 2450:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalValue = google.protobuf.Value.deserializeMemory(src, dst.optionalValue, src.position + messageLength, false);
+                            break;
+                        }
+                        case 2456:
+                        {
+                            dst.optionalNullValue = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 2466:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.optionalEmpty = google.protobuf.Empty.deserializeMemory(src, dst.optionalEmpty, src.position + messageLength, false);
+                            break;
+                        }
+                        case 2490:
+                        {
+                            const msgRepeatedDuration:google.protobuf.Duration = new google.protobuf.Duration();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.Duration.deserializeMemory(src, msgRepeatedDuration, src.position + messageLength);
+                            dst.repeatedDuration.push(msgRepeatedDuration);
+                            break;
+                        }
+                        case 2498:
+                        {
+                            const msgRepeatedTimestamp:google.protobuf.Timestamp = new google.protobuf.Timestamp();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.Timestamp.deserializeMemory(src, msgRepeatedTimestamp, src.position + messageLength);
+                            dst.repeatedTimestamp.push(msgRepeatedTimestamp);
+                            break;
+                        }
+                        case 2506:
+                        {
+                            const msgRepeatedFieldmask:google.protobuf.FieldMask = new google.protobuf.FieldMask();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.FieldMask.deserializeMemory(src, msgRepeatedFieldmask, src.position + messageLength);
+                            dst.repeatedFieldmask.push(msgRepeatedFieldmask);
+                            break;
+                        }
+                        case 2594:
+                        {
+                            const msgRepeatedStruct:google.protobuf.Struct = new google.protobuf.Struct();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.Struct.deserializeMemory(src, msgRepeatedStruct, src.position + messageLength);
+                            dst.repeatedStruct.push(msgRepeatedStruct);
+                            break;
+                        }
+                        case 2522:
+                        {
+                            const msgRepeatedAny:google.protobuf.Any = new google.protobuf.Any();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.Any.deserializeMemory(src, msgRepeatedAny, src.position + messageLength);
+                            dst.repeatedAny.push(msgRepeatedAny);
+                            break;
+                        }
+                        case 2530:
+                        {
+                            const msgRepeatedValue:google.protobuf.Value = new google.protobuf.Value();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.Value.deserializeMemory(src, msgRepeatedValue, src.position + messageLength);
+                            dst.repeatedValue.push(msgRepeatedValue);
+                            break;
+                        }
+                        case 2538:
+                        {
+                            const msgRepeatedListValue:google.protobuf.ListValue = new google.protobuf.ListValue();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.ListValue.deserializeMemory(src, msgRepeatedListValue, src.position + messageLength);
+                            dst.repeatedListValue.push(msgRepeatedListValue);
+                            break;
+                        }
+                        case 2546:
+                        {
+                            const msgRepeatedEmpty:google.protobuf.Empty = new google.protobuf.Empty();
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            if (messageLength !== 0)
+                                google.protobuf.Empty.deserializeMemory(src, msgRepeatedEmpty, src.position + messageLength);
+                            dst.repeatedEmpty.push(msgRepeatedEmpty);
+                            break;
+                        }
+                        case 3208:
+                        {
+                            dst.fieldname1 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3216:
+                        {
+                            dst.fieldName2 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3224:
+                        {
+                            dst._fieldName3 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3232:
+                        {
+                            dst.field_Name4_ = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3240:
+                        {
+                            dst.field0name5 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3248:
+                        {
+                            dst.field0Name6 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3256:
+                        {
+                            dst.fieldName7 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3264:
+                        {
+                            dst.fieldName8 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3272:
+                        {
+                            dst.fieldName9 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3280:
+                        {
+                            dst.fieldName10 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3288:
+                        {
+                            dst.fIELDNAME11 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3296:
+                        {
+                            dst.fIELDName12 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3304:
+                        {
+                            dst.__fieldName13 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3312:
+                        {
+                            dst.__fieldName14 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3320:
+                        {
+                            dst.field_Name15 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3328:
+                        {
+                            dst.field_Name16 = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3336:
+                        {
+                            dst.fieldName17__ = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 3344:
+                        {
+                            dst.fieldName18__ = Unpack.readInt32(src);
+                            break;
+                        }
+                        default:
+                        {
+                            if ((tag >>> 3) == 0)
+                                throw new Error("Invalid protobuf field number");
 
-                        if (dst.unknownFields == null)
-                            dst.unknownFields = Buffers.newByteArray();
+                            if (dst.unknownFields == null)
+                                dst.unknownFields = Buffers.newByteArray();
 
-                        Deserialize.captureUnknownField(src, tag, dst.unknownFields);
-                        break;
+                            Unpack.captureUnknownField(src, tag, dst.unknownFields);
+                            break;
+                        }
                     }
                 }
+
+                if (src.position > end)
+                    throw new Error("Truncated protobuf message");
+
             }
-
-            if (src.position > end)
-                throw new Error("Truncated protobuf message");
-
+            finally
+            {
+                src.limit = previousLimit;
+            }
             return dst;
         }
 

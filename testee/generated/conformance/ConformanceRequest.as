@@ -5,7 +5,9 @@
 package conformance
 {
     import flash.utils.ByteArray;
-    import as3pb.proto.Deserialize;
+    import flash.errors.EOFError;
+    import as3pb.proto.Unpack;
+    import as3pb.proto.UnpackContext;
     import as3pb.proto.Serialize;
     import as3pb.proto.Buffers;
     import as3pb.wkt.AnyRegistry;
@@ -19,6 +21,7 @@ package conformance
      */
     public final class ConformanceRequest
     {
+        private static const UNPACK:UnpackContext = new UnpackContext();
         public static const TYPE_URL:String = "type.googleapis.com/conformance.ConformanceRequest";
 
         public static const FIELD_PROTOBUF_PAYLOAD:uint = 1;
@@ -159,6 +162,22 @@ package conformance
          */
         public static function deserializeBytes(src:ByteArray, dst:conformance.ConformanceRequest = null, limit:uint = 0, reset:Boolean = true):conformance.ConformanceRequest
         {
+            const context:UnpackContext = UNPACK;
+            Unpack.begin(context, src, limit);
+            try
+            {
+                dst = deserializeMemory(context, dst, context.limit, reset);
+            }
+            finally
+            {
+                Unpack.end(context);
+            }
+            return dst;
+        }
+
+        /** Decode within an active memory binding; nested messages share the context. */
+        public static function deserializeMemory(src:UnpackContext, dst:conformance.ConformanceRequest = null, limit:uint = 0, reset:Boolean = true):conformance.ConformanceRequest
+        {
             if (!dst)
                 dst = new conformance.ConformanceRequest();
             else if (reset)
@@ -168,83 +187,94 @@ package conformance
 
             const end:uint = limit
                 ? limit
-                : src.position + src.bytesAvailable;
+                : src.limit;
 
-            if (end < src.position || end > src.length)
+            if (end < src.position || end > src.limit)
                 throw new Error("Invalid protobuf message limit");
 
-            while (src.position < end)
+            const previousLimit:uint = src.limit;
+            src.limit = end;
+            try
             {
-                const tag:uint = Deserialize.readTag(src);
-                switch (tag)
+                while (src.position < end)
                 {
-                    case 10:
+                    const tag:uint = Unpack.readTag(src);
+                    switch (tag)
                     {
-                        Deserialize.readBytesInto(src, dst.protobufPayload);
-                        dst.payloadCase = FIELD_PROTOBUF_PAYLOAD;
-                        break;
-                    }
-                    case 18:
-                    {
-                        dst.jsonPayload = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.payloadCase = FIELD_JSON_PAYLOAD;
-                        break;
-                    }
-                    case 58:
-                    {
-                        dst.jspbPayload = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.payloadCase = FIELD_JSPB_PAYLOAD;
-                        break;
-                    }
-                    case 66:
-                    {
-                        dst.textPayload = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.payloadCase = FIELD_TEXT_PAYLOAD;
-                        break;
-                    }
-                    case 24:
-                    {
-                        dst.requestedOutputFormat = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 34:
-                    {
-                        dst.messageType = src.readUTFBytes(Deserialize.readVarint32(src));
-                        break;
-                    }
-                    case 40:
-                    {
-                        dst.testCategory = Deserialize.readInt32(src);
-                        break;
-                    }
-                    case 50:
-                    {
-                        messageLength = Deserialize.readVarint32(src);
-                        dst.jspbEncodingOptions = conformance.JspbEncodingConfig.deserializeBytes(src, dst.jspbEncodingOptions, src.position + messageLength, false);
-                        break;
-                    }
-                    case 72:
-                    {
-                        dst.printUnknownFields = Deserialize.readBool(src);
-                        break;
-                    }
-                    default:
-                    {
-                        if ((tag >>> 3) == 0)
-                            throw new Error("Invalid protobuf field number");
+                        case 10:
+                        {
+                            Unpack.readBytesInto(src, dst.protobufPayload);
+                            dst.payloadCase = FIELD_PROTOBUF_PAYLOAD;
+                            break;
+                        }
+                        case 18:
+                        {
+                            dst.jsonPayload = Unpack.readString(src);
+                            dst.payloadCase = FIELD_JSON_PAYLOAD;
+                            break;
+                        }
+                        case 58:
+                        {
+                            dst.jspbPayload = Unpack.readString(src);
+                            dst.payloadCase = FIELD_JSPB_PAYLOAD;
+                            break;
+                        }
+                        case 66:
+                        {
+                            dst.textPayload = Unpack.readString(src);
+                            dst.payloadCase = FIELD_TEXT_PAYLOAD;
+                            break;
+                        }
+                        case 24:
+                        {
+                            dst.requestedOutputFormat = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 34:
+                        {
+                            dst.messageType = Unpack.readString(src);
+                            break;
+                        }
+                        case 40:
+                        {
+                            dst.testCategory = Unpack.readInt32(src);
+                            break;
+                        }
+                        case 50:
+                        {
+                            messageLength = Unpack.readVarint32(src);
+                            if (src.position > src.limit || messageLength > src.limit - src.position)
+                                throw new EOFError("Truncated protobuf input");
+                            dst.jspbEncodingOptions = conformance.JspbEncodingConfig.deserializeMemory(src, dst.jspbEncodingOptions, src.position + messageLength, false);
+                            break;
+                        }
+                        case 72:
+                        {
+                            dst.printUnknownFields = Unpack.readBool(src);
+                            break;
+                        }
+                        default:
+                        {
+                            if ((tag >>> 3) == 0)
+                                throw new Error("Invalid protobuf field number");
 
-                        if (dst.unknownFields == null)
-                            dst.unknownFields = Buffers.newByteArray();
+                            if (dst.unknownFields == null)
+                                dst.unknownFields = Buffers.newByteArray();
 
-                        Deserialize.captureUnknownField(src, tag, dst.unknownFields);
-                        break;
+                            Unpack.captureUnknownField(src, tag, dst.unknownFields);
+                            break;
+                        }
                     }
                 }
+
+                if (src.position > end)
+                    throw new Error("Truncated protobuf message");
+
             }
-
-            if (src.position > end)
-                throw new Error("Truncated protobuf message");
-
+            finally
+            {
+                src.limit = previousLimit;
+            }
             return dst;
         }
 

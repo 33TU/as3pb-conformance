@@ -5,7 +5,9 @@
 package conformance
 {
     import flash.utils.ByteArray;
-    import as3pb.proto.Deserialize;
+    import flash.errors.EOFError;
+    import as3pb.proto.Unpack;
+    import as3pb.proto.UnpackContext;
     import as3pb.proto.Serialize;
     import as3pb.proto.Buffers;
     import as3pb.wkt.AnyRegistry;
@@ -15,6 +17,7 @@ package conformance
      */
     public final class ConformanceResponse
     {
+        private static const UNPACK:UnpackContext = new UnpackContext();
         public static const TYPE_URL:String = "type.googleapis.com/conformance.ConformanceResponse";
 
         public static const FIELD_PARSE_ERROR:uint = 1;
@@ -195,6 +198,22 @@ package conformance
          */
         public static function deserializeBytes(src:ByteArray, dst:conformance.ConformanceResponse = null, limit:uint = 0, reset:Boolean = true):conformance.ConformanceResponse
         {
+            const context:UnpackContext = UNPACK;
+            Unpack.begin(context, src, limit);
+            try
+            {
+                dst = deserializeMemory(context, dst, context.limit, reset);
+            }
+            finally
+            {
+                Unpack.end(context);
+            }
+            return dst;
+        }
+
+        /** Decode within an active memory binding; nested messages share the context. */
+        public static function deserializeMemory(src:UnpackContext, dst:conformance.ConformanceResponse = null, limit:uint = 0, reset:Boolean = true):conformance.ConformanceResponse
+        {
             if (!dst)
                 dst = new conformance.ConformanceResponse();
             else if (reset)
@@ -202,87 +221,96 @@ package conformance
 
             const end:uint = limit
                 ? limit
-                : src.position + src.bytesAvailable;
+                : src.limit;
 
-            if (end < src.position || end > src.length)
+            if (end < src.position || end > src.limit)
                 throw new Error("Invalid protobuf message limit");
 
-            while (src.position < end)
+            const previousLimit:uint = src.limit;
+            src.limit = end;
+            try
             {
-                const tag:uint = Deserialize.readTag(src);
-                switch (tag)
+                while (src.position < end)
                 {
-                    case 10:
+                    const tag:uint = Unpack.readTag(src);
+                    switch (tag)
                     {
-                        dst.parseError = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.resultCase = FIELD_PARSE_ERROR;
-                        break;
-                    }
-                    case 50:
-                    {
-                        dst.serializeError = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.resultCase = FIELD_SERIALIZE_ERROR;
-                        break;
-                    }
-                    case 74:
-                    {
-                        dst.timeoutError = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.resultCase = FIELD_TIMEOUT_ERROR;
-                        break;
-                    }
-                    case 18:
-                    {
-                        dst.runtimeError = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.resultCase = FIELD_RUNTIME_ERROR;
-                        break;
-                    }
-                    case 26:
-                    {
-                        Deserialize.readBytesInto(src, dst.protobufPayload);
-                        dst.resultCase = FIELD_PROTOBUF_PAYLOAD;
-                        break;
-                    }
-                    case 34:
-                    {
-                        dst.jsonPayload = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.resultCase = FIELD_JSON_PAYLOAD;
-                        break;
-                    }
-                    case 42:
-                    {
-                        dst.skipped = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.resultCase = FIELD_SKIPPED;
-                        break;
-                    }
-                    case 58:
-                    {
-                        dst.jspbPayload = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.resultCase = FIELD_JSPB_PAYLOAD;
-                        break;
-                    }
-                    case 66:
-                    {
-                        dst.textPayload = src.readUTFBytes(Deserialize.readVarint32(src));
-                        dst.resultCase = FIELD_TEXT_PAYLOAD;
-                        break;
-                    }
-                    default:
-                    {
-                        if ((tag >>> 3) == 0)
-                            throw new Error("Invalid protobuf field number");
+                        case 10:
+                        {
+                            dst.parseError = Unpack.readString(src);
+                            dst.resultCase = FIELD_PARSE_ERROR;
+                            break;
+                        }
+                        case 50:
+                        {
+                            dst.serializeError = Unpack.readString(src);
+                            dst.resultCase = FIELD_SERIALIZE_ERROR;
+                            break;
+                        }
+                        case 74:
+                        {
+                            dst.timeoutError = Unpack.readString(src);
+                            dst.resultCase = FIELD_TIMEOUT_ERROR;
+                            break;
+                        }
+                        case 18:
+                        {
+                            dst.runtimeError = Unpack.readString(src);
+                            dst.resultCase = FIELD_RUNTIME_ERROR;
+                            break;
+                        }
+                        case 26:
+                        {
+                            Unpack.readBytesInto(src, dst.protobufPayload);
+                            dst.resultCase = FIELD_PROTOBUF_PAYLOAD;
+                            break;
+                        }
+                        case 34:
+                        {
+                            dst.jsonPayload = Unpack.readString(src);
+                            dst.resultCase = FIELD_JSON_PAYLOAD;
+                            break;
+                        }
+                        case 42:
+                        {
+                            dst.skipped = Unpack.readString(src);
+                            dst.resultCase = FIELD_SKIPPED;
+                            break;
+                        }
+                        case 58:
+                        {
+                            dst.jspbPayload = Unpack.readString(src);
+                            dst.resultCase = FIELD_JSPB_PAYLOAD;
+                            break;
+                        }
+                        case 66:
+                        {
+                            dst.textPayload = Unpack.readString(src);
+                            dst.resultCase = FIELD_TEXT_PAYLOAD;
+                            break;
+                        }
+                        default:
+                        {
+                            if ((tag >>> 3) == 0)
+                                throw new Error("Invalid protobuf field number");
 
-                        if (dst.unknownFields == null)
-                            dst.unknownFields = Buffers.newByteArray();
+                            if (dst.unknownFields == null)
+                                dst.unknownFields = Buffers.newByteArray();
 
-                        Deserialize.captureUnknownField(src, tag, dst.unknownFields);
-                        break;
+                            Unpack.captureUnknownField(src, tag, dst.unknownFields);
+                            break;
+                        }
                     }
                 }
+
+                if (src.position > end)
+                    throw new Error("Truncated protobuf message");
+
             }
-
-            if (src.position > end)
-                throw new Error("Truncated protobuf message");
-
+            finally
+            {
+                src.limit = previousLimit;
+            }
             return dst;
         }
 
