@@ -82,3 +82,46 @@ build-runner:
         -Dprotobuf_BUILD_TESTS=OFF
     cmake --build {{ TOOLS_DIR }}/protobuf-build --target conformance_test_runner -j 8
     cp {{ TOOLS_DIR }}/protobuf-build/conformance_test_runner {{ TOOLS_DIR }}/
+
+# Run the same conformance cases through both opt-in memory methods.
+test-memory: build-shim build-memory-testee
+    ADL={{ ADL }} {{ RUNNER }} \
+        --enforce_recommended \
+        --maximum_edition 2024 \
+        --failure_list expected_failures.txt \
+        {{ BIN_DIR }}/testee-shim
+
+# Isolated generated wrappers preserve the conformance testee's ByteArray API.
+build-memory-testee: build-generators
+    rm -rf {{ BIN_DIR }}/memory-generated {{ BIN_DIR }}/memory-wrapped {{ BIN_DIR }}/memory-runtime
+    mkdir -p {{ BIN_DIR }}/memory-generated {{ BIN_DIR }}/memory-runtime testee/bin
+    cp -R as3pb/runtime/src/as3pb {{ BIN_DIR }}/memory-runtime/as3pb
+    {{ BIN_DIR }}/as3-protoc \
+        --protoc_bin={{ PROTOC }} \
+        --protoc_gen_as3_bin={{ BIN_DIR }}/protoc-gen-as3 \
+        --as3_out={{ BIN_DIR }}/memory-generated \
+        --as3_opt=generate_always=true,generate_serialize=true,generate_deserialize=true,generate_serialize_memory=true,generate_deserialize_memory=true \
+        -I {{ PROTOBUF_DIR }}/conformance \
+        -I {{ PROTOBUF_DIR }}/src \
+        -I {{ PROTOBUF_DIR }}/editions/golden \
+        {{ PROTOBUF_DIR }}/conformance/conformance.proto \
+        {{ PROTOBUF_DIR }}/src/google/protobuf/test_messages_proto3.proto \
+        {{ PROTOBUF_DIR }}/editions/golden/test_messages_proto3_editions.proto \
+        {{ PROTOBUF_DIR }}/src/google/protobuf/any.proto \
+        {{ PROTOBUF_DIR }}/src/google/protobuf/duration.proto \
+        {{ PROTOBUF_DIR }}/src/google/protobuf/empty.proto \
+        {{ PROTOBUF_DIR }}/src/google/protobuf/field_mask.proto \
+        {{ PROTOBUF_DIR }}/src/google/protobuf/struct.proto \
+        {{ PROTOBUF_DIR }}/src/google/protobuf/timestamp.proto \
+        {{ PROTOBUF_DIR }}/src/google/protobuf/wrappers.proto
+    python3 as3pb/runtime/test/memory/run.py --wrap {{ BIN_DIR }}/memory-generated {{ BIN_DIR }}/memory-wrapped
+    {{ AMXMLC }} \
+        -source-path testee/src \
+        -source-path {{ BIN_DIR }}/memory-wrapped \
+        -source-path {{ BIN_DIR }}/memory-runtime \
+        -output testee/bin/as3pb-conformance.swf \
+        -compiler.strict=true \
+        -compiler.inline={{ AS3_INLINE }} \
+        -optimize={{ AS3_OPTIMIZE }} \
+        -debug={{ AS3_DEBUG }} \
+        testee/src/Main.as

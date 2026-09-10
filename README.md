@@ -42,7 +42,8 @@ protos fed to codegen and the runner build come from that checkout.
 ```sh
 just build-runner        # one-time: build conformance_test_runner from the protobuf submodule
 just gen                 # regenerate AS3 from the conformance protos (after as3pb codegen changes)
-just test                # build the shim and testee, run the suite
+just test                # build the shim and ByteArray testee, run the suite
+just test-memory         # run the suite through opt-in AVM2 memory methods
 just update-submodules   # as3pb to latest main; protobuf stays at its pin
 ```
 
